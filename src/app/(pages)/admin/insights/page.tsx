@@ -17,10 +17,12 @@ import {
     AlertDialogFooter,
     AlertDialogHeader,
     AlertDialogTitle,
+    AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import {
     Table,
     TableBody,
+    TableCaption,
     TableCell,
     TableHead,
     TableHeader,
@@ -54,15 +56,9 @@ function fmtDate(value?: string) {
 
 export default function AdminInsightsPage() {
     const router = useRouter();
-
     const [items, setItems] = useState<Insight[]>([]);
     const [loading, setLoading] = useState(false);
-
-    // delete dialog control
-    const [confirmOpen, setConfirmOpen] = useState(false);
-    const [selected, setSelected] = useState<Insight | null>(null);
     const [deletingId, setDeletingId] = useState<string | null>(null);
-
     const [query, setQuery] = useState("");
     const [error, setError] = useState<string | null>(null);
 
@@ -104,24 +100,12 @@ export default function AdminInsightsPage() {
             });
     }, [items, query]);
 
-    function openDeleteDialog(it: Insight) {
-        setSelected(it);
-        setConfirmOpen(true);
-    }
-
-    async function confirmDelete() {
-        if (!selected?._id) return;
-
-        setDeletingId(selected._id);
+    async function onDelete(id: string) {
+        setDeletingId(id);
         setError(null);
-
         try {
-            await axios.delete(`/api/insights/${selected._id}`);
+            await axios.delete(`/api/insights/${id}`);
             await fetchAll();
-
-            // close dialog after success
-            setConfirmOpen(false);
-            setSelected(null);
         } catch (e: any) {
             setError(e?.response?.data?.message || e?.message || "Failed to delete insight.");
             // eslint-disable-next-line no-console
@@ -130,8 +114,6 @@ export default function AdminInsightsPage() {
             setDeletingId(null);
         }
     }
-
-    const isDeleting = !!deletingId;
 
     return (
         <Wrapper>
@@ -188,7 +170,7 @@ export default function AdminInsightsPage() {
                 </section>
 
                 {/* Table */}
-                <section className="relative overflow-hidden bg-gradient-to-br from-white via-slate-50 to-white py-16">
+                <section className="relative py-16 overflow-hidden bg-gradient-to-br from-white via-slate-50 to-white">
                     <div className="pointer-events-none absolute inset-0 -z-10">
                         <div className="absolute left-0 top-10 h-[520px] w-[520px] rounded-full bg-[#1d3658]/8 blur-3xl" />
                         <div className="absolute right-0 bottom-0 h-[560px] w-[560px] rounded-full bg-[#001030]/6 blur-3xl" />
@@ -214,7 +196,7 @@ export default function AdminInsightsPage() {
 
                         <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                             <div className="relative w-full sm:max-w-md">
-                                <Search className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+                                <Search className="absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
                                 <Input
                                     value={query}
                                     onChange={(e) => setQuery(e.target.value)}
@@ -223,13 +205,13 @@ export default function AdminInsightsPage() {
                                 />
                             </div>
 
-                            <div className="inline-flex shrink-0 items-center gap-2 rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm text-slate-600 shadow-sm">
+                            <div className="inline-flex items-center shrink-0 gap-2 rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm text-slate-600 shadow-sm">
                                 <span className="h-2 w-2 rounded-full bg-[#1d3658]" />
                                 {loading ? "Loading..." : `${filtered.length} insights`}
                             </div>
                         </div>
 
-                        <div className="overflow-hidden rounded-lg border-2 border-slate-200 bg-white p-4 shadow-2xl">
+                        <div className="overflow-hidden rounded-lg p-4 border-2 border-slate-200 bg-white shadow-2xl">
                             <Table>
                                 <TableHeader>
                                     <TableRow>
@@ -284,25 +266,38 @@ export default function AdminInsightsPage() {
                                                         <Pencil className="h-4 w-4" />
                                                     </Button>
 
-                                                    {/* DELETE ICON => opens dialog */}
-                                                    <Button
-                                                        variant="outline"
-                                                        size="icon"
-                                                        className="rounded-xl border-red-200 text-red-600 hover:bg-red-50"
-                                                        aria-label="Delete"
-                                                        onClick={() => {
-                                                            const ok = window.confirm(
-                                                                "Are you sure you want to delete this insight? This action cannot be undone."
-                                                            );
-                                                            if (ok) {
-                                                                onDelete(it._id);
-                                                            }
-                                                        }}
-                                                        disabled={deletingId === it._id}
-                                                    >
-                                                        <Trash2 className="h-4 w-4" />
-                                                    </Button>
-
+                                                    <AlertDialog>
+                                                        <AlertDialogTrigger asChild>
+                                                            <Button
+                                                                variant="outline"
+                                                                size="icon"
+                                                                className="rounded-xl border-red-200 text-red-600 hover:bg-red-50"
+                                                                aria-label="Delete"
+                                                            >
+                                                                <Trash2 className="h-4 w-4" />
+                                                            </Button>
+                                                        </AlertDialogTrigger>
+                                                        <AlertDialogContent>
+                                                            <AlertDialogHeader>
+                                                                <AlertDialogTitle>Delete this insight?</AlertDialogTitle>
+                                                                <AlertDialogDescription>
+                                                                    This will permanently remove the insight.
+                                                                </AlertDialogDescription>
+                                                            </AlertDialogHeader>
+                                                            <AlertDialogFooter>
+                                                                <AlertDialogCancel disabled={deletingId === it._id}>
+                                                                    Cancel
+                                                                </AlertDialogCancel>
+                                                                <AlertDialogAction
+                                                                    onClick={() => onDelete(it._id)}
+                                                                    disabled={deletingId === it._id}
+                                                                    className="bg-red-600 hover:bg-red-700"
+                                                                >
+                                                                    {deletingId === it._id ? "Deleting..." : "Delete"}
+                                                                </AlertDialogAction>
+                                                            </AlertDialogFooter>
+                                                        </AlertDialogContent>
+                                                    </AlertDialog>
                                                 </div>
                                             </TableCell>
                                         </TableRow>
@@ -311,9 +306,7 @@ export default function AdminInsightsPage() {
                                     {!loading && filtered.length === 0 && (
                                         <TableRow>
                                             <TableCell colSpan={5} className="py-12 text-center">
-                                                <div className="text-lg font-semibold text-[#001030]">
-                                                    No insights found
-                                                </div>
+                                                <div className="text-lg font-semibold text-[#001030]">No insights found</div>
                                                 <div className="mt-2 text-sm text-slate-600">
                                                     Try a different search or click “Add New”.
                                                 </div>
@@ -327,37 +320,6 @@ export default function AdminInsightsPage() {
 
                     <div className="absolute bottom-0 left-0 h-px w-full bg-[#1d3658]/15" />
                 </section>
-
-                {/* ONE GLOBAL CONFIRM DIALOG (shadcn) */}
-                <AlertDialog open={confirmOpen} onOpenChange={setConfirmOpen}>
-                    <AlertDialogContent>
-                        <AlertDialogHeader>
-                            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                            <AlertDialogDescription>
-                                This action cannot be undone. This will permanently delete{" "}
-                                <span className="font-semibold text-slate-900">
-                                    {selected?.title || "this insight"}
-                                </span>
-                                .
-                            </AlertDialogDescription>
-                        </AlertDialogHeader>
-                        <AlertDialogFooter>
-                            <AlertDialogCancel disabled={isDeleting}>Cancel</AlertDialogCancel>
-
-                            <AlertDialogAction
-                                className="bg-red-600 hover:bg-red-700"
-                                disabled={isDeleting || !selected?._id}
-                                onClick={(e) => {
-                                    // prevents dialog from closing immediately while async runs
-                                    e.preventDefault();
-                                    confirmDelete();
-                                }}
-                            >
-                                {isDeleting ? "Deleting..." : "Continue"}
-                            </AlertDialogAction>
-                        </AlertDialogFooter>
-                    </AlertDialogContent>
-                </AlertDialog>
             </main>
         </Wrapper>
     );
