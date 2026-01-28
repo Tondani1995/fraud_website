@@ -190,19 +190,23 @@ export default function Insights() {
                                     </div>
 
                                     <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-                                        <Button className="group rounded-xl bg-[#001030] px-8 py-6 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:scale-[1.02] hover:bg-[#0b1b44]">
-                                            <span className="flex items-center gap-2">
-                                                Read full report
-                                                <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
-                                            </span>
-                                        </Button>
-                                        <Button
-                                            variant="outline"
-                                            className="rounded-xl border-2 border-[#1d3658]/25 bg-white px-8 py-6 text-base font-semibold text-[#001030] transition-all duration-300 hover:border-[#1d3658]/45 hover:bg-[#1d3658]/5"
-                                        >
-                                            Download PDF
-                                            <ExternalLink className="ml-2 h-5 w-5" />
-                                        </Button>
+                                        <Link href={"/contact"}>
+                                            <Button className="group rounded-xl bg-[#001030] px-8 py-6 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:scale-[1.02] hover:bg-[#0b1b44]">
+                                                <span className="flex items-center gap-2">
+                                                    Read full report
+                                                    <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
+                                                </span>
+                                            </Button>
+                                        </Link>
+                                        <Link href={"/contact"}>
+                                            <Button
+                                                variant="outline"
+                                                className="rounded-xl border-2 border-[#1d3658]/25 bg-white px-8 py-6 text-base font-semibold text-[#001030] transition-all duration-300 hover:border-[#1d3658]/45 hover:bg-[#1d3658]/5"
+                                            >
+                                                Download PDF
+                                                <ExternalLink className="ml-2 h-5 w-5" />
+                                            </Button>
+                                        </Link>
                                     </div>
                                 </div>
 

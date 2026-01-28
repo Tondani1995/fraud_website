@@ -25,24 +25,27 @@ export default function ContactUs() {
     service: "",
     message: "",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [result, setResult] = useState("");
+
   const [focusedField, setFocusedField] = useState<string | null>(null);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitted(true);
-    setTimeout(() => {
-      setFormData({
-        name: "",
-        email: "",
-        company: "",
-        phone: "",
-        service: "",
-        message: "",
-      });
-      setIsSubmitted(false);
-    }, 5000);
-  };
+  // const handleSubmit = (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   setIsSubmitted(true);
+  //   setTimeout(() => {
+  //     setFormData({
+  //       name: "",
+  //       email: "",
+  //       company: "",
+  //       phone: "",
+  //       service: "",
+  //       message: "",
+  //     });
+  //     setIsSubmitted(false);
+  //   }, 5000);
+  // };
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -59,6 +62,70 @@ export default function ContactUs() {
     "No obligation quote",
     "Expert guidance",
   ];
+
+  // form
+
+  const WEB3FORMS_ACCESS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY!;
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    setIsSubmitting(true);
+    setResult("Sending...");
+    setIsSubmitted(false);
+
+    try {
+      const fd = new FormData();
+
+      // Required / common fields
+      fd.append("access_key", WEB3FORMS_ACCESS_KEY);
+      fd.append("name", formData.name);
+      fd.append("email", formData.email);
+      fd.append("message", formData.message);
+
+      // Your extra fields (still sent to email)
+      fd.append("company", formData.company || "");
+      fd.append("phone", formData.phone || "");
+      fd.append("service", formData.service || "");
+
+      // Optional but recommended (helps deliverability & inbox formatting)
+      fd.append("subject", `New Contact Form: ${formData.service || "General"} — ${formData.name}`);
+      fd.append("from_name", formData.name);
+
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: fd,
+      });
+
+      const data = await res.json();
+
+      if (data.success) {
+        setResult("Message sent successfully.");
+        setIsSubmitted(true);
+
+        // Clear inputs in your controlled form
+        setFormData({
+          name: "",
+          email: "",
+          company: "",
+          phone: "",
+          service: "",
+          message: "",
+        });
+      } else {
+        console.log("Web3Forms error:", data);
+        setResult(data.message || "Something went wrong. Please try again.");
+        setIsSubmitted(false);
+      }
+    } catch (err) {
+      console.error(err);
+      setResult("Network error. Please try again.");
+      setIsSubmitted(false);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
 
   return (
     <Wrapper>
@@ -269,13 +336,15 @@ export default function ContactUs() {
 
                       <Button
                         type="submit"
-                        className="group w-full rounded-xl bg-[#001030] py-6 text-lg font-semibold text-white shadow-lg transition-all duration-300 hover:scale-[1.02] hover:bg-[#0b1b44]"
+                        disabled={isSubmitting}
+                        className="group w-full rounded-xl bg-[#001030] py-6 text-lg font-semibold text-white shadow-lg transition-all duration-300 hover:scale-[1.02] hover:bg-[#0b1b44] disabled:opacity-60 disabled:hover:scale-100"
                       >
                         <span className="flex items-center justify-center gap-2">
-                          Send message
+                          {isSubmitting ? "Sending..." : "Send message"}
                           <Send className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
                         </span>
                       </Button>
+
 
                       <p className="flex items-center gap-2 text-sm text-slate-500">
                         <CheckCircle2 className="h-4 w-4 text-[#1d3658]" />
@@ -285,6 +354,11 @@ export default function ContactUs() {
                   )}
                 </div>
               </div>
+
+              {/* {result && !isSubmitted && (
+                <p className="text-sm text-red-600">{result}</p>
+              )} */}
+
 
               <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div className="overflow-hidden rounded-3xl border border-slate-200 bg-white p-6 shadow-lg">
