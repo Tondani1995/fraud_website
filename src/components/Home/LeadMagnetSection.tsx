@@ -5,47 +5,55 @@ import { Button } from "@/components/ui/button";
 import { CheckCircle2, Mail, User, Loader2, Shield } from "lucide-react";
 
 export default function LeadMagnetSection() {
-    const brand = useMemo(
+    useMemo(
         () => ({
-            primary: "#1d3658", // logo navy
+            primary: "#1d3658",
             deep: "#001030",
         }),
         []
     );
 
+    const WEB3FORMS_ACCESS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY!;
+
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
-    const [status, setStatus] = useState<
-        "idle" | "loading" | "success" | "error"
-    >("idle");
-    const [message, setMessage] = useState<string>("");
+    const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">(
+        "idle"
+    );
+    const [message, setMessage] = useState("");
 
-    async function onSubmit(e: React.FormEvent) {
+    async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         setStatus("loading");
         setMessage("");
 
         try {
-            const res = await fetch("/api/lead-magnet", {
+            const fd = new FormData();
+            fd.append("access_key", WEB3FORMS_ACCESS_KEY);
+            fd.append("name", name);
+            fd.append("email", email);
+            fd.append(
+                "message",
+                `Lead Magnet Request:\nName: ${name}\nEmail: ${email}\nRequested: Fraud Readiness Checklist`
+            );
+            fd.append("subject", `Lead Magnet: Fraud Readiness Checklist — ${name}`);
+            fd.append("from_name", name);
+
+            const res = await fetch("https://api.web3forms.com/submit", {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ name, email }),
+                body: fd,
             });
 
             const data = await res.json().catch(() => ({}));
 
-            if (!res.ok) {
+            if (!data?.success) {
                 setStatus("error");
-                setMessage(
-                    data?.message ||
-                    "Something went wrong. Please try again in a moment."
-                );
+                setMessage(data?.message || "Something went wrong. Please try again.");
                 return;
             }
 
             setStatus("success");
             setMessage(
-                data?.message ||
                 "Done! Check your inbox — we’ve sent the Fraud Readiness Checklist."
             );
             setName("");
@@ -62,7 +70,6 @@ export default function LeadMagnetSection() {
             className="relative overflow-hidden bg-gradient-to-br from-white via-slate-50 to-white"
             aria-labelledby="lead-magnet-title"
         >
-            {/* soft brand background */}
             <div className="pointer-events-none absolute inset-0 -z-10">
                 <div className="absolute left-0 top-0 h-[520px] w-[520px] rounded-full bg-[#1d3658]/10 blur-3xl" />
                 <div className="absolute right-0 bottom-0 h-[560px] w-[560px] rounded-full bg-[#001030]/8 blur-3xl" />
@@ -71,7 +78,6 @@ export default function LeadMagnetSection() {
 
             <div className="mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-28">
                 <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:items-center">
-                    {/* LEFT COPY */}
                     <div className="lg:col-span-6">
                         <div className="inline-flex items-center gap-2 rounded-full border border-[#1d3658]/20 bg-[#1d3658]/5 px-5 py-2.5 shadow-sm backdrop-blur">
                             <Shield className="h-4 w-4 text-[#1d3658]" />
@@ -89,8 +95,8 @@ export default function LeadMagnetSection() {
                         </h2>
 
                         <p className="mt-4 max-w-xl text-lg leading-relaxed text-slate-600">
-                            A practical checklist to help organisations identify common fraud gaps
-                            across people, process, and controls.
+                            A practical checklist to help organisations identify common fraud
+                            gaps across people, process, and controls.
                         </p>
 
                         <div className="mt-7 grid grid-cols-1 gap-3 sm:grid-cols-2">
@@ -114,7 +120,6 @@ export default function LeadMagnetSection() {
                         </p>
                     </div>
 
-                    {/* RIGHT FORM */}
                     <div className="lg:col-span-6">
                         <div className="overflow-hidden rounded-3xl border-2 border-slate-200 bg-white shadow-2xl">
                             <div className="border-b border-slate-200 bg-slate-50/60 px-7 py-6">
@@ -127,7 +132,6 @@ export default function LeadMagnetSection() {
                             </div>
 
                             <form onSubmit={onSubmit} className="space-y-5 px-7 py-7">
-                                {/* name */}
                                 <div className="space-y-2">
                                     <label
                                         htmlFor="lead-name"
@@ -148,7 +152,6 @@ export default function LeadMagnetSection() {
                                     </div>
                                 </div>
 
-                                {/* email */}
                                 <div className="space-y-2">
                                     <label
                                         htmlFor="lead-email"
@@ -171,7 +174,6 @@ export default function LeadMagnetSection() {
                                     </div>
                                 </div>
 
-                                {/* status */}
                                 {(status === "success" || status === "error") && (
                                     <div
                                         className={`rounded-2xl border p-4 text-sm ${status === "success"
@@ -201,12 +203,11 @@ export default function LeadMagnetSection() {
                                 </Button>
 
                                 <p className="text-xs leading-relaxed text-slate-500">
-                                    By submitting, you agree to receive the checklist by email. You can
-                                    opt out anytime.
+                                    By submitting, you agree to receive the checklist by email. You
+                                    can opt out anytime.
                                 </p>
                             </form>
 
-                            {/* subtle brand footer */}
                             <div className="border-t border-slate-200 bg-white px-7 py-5">
                                 <div className="flex items-center justify-between gap-3">
                                     <p className="text-xs text-slate-500">
