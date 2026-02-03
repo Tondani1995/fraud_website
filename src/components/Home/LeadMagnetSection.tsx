@@ -4,12 +4,6 @@ import { useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { CheckCircle2, Mail, User, Loader2, Shield } from "lucide-react";
 
-/**
- * Lead Magnet Section (Mandatory – Functional)
- * - Fields: name + email
- * - CTA: Send me the checklist
- * - Calls POST /api/lead-magnet (you will implement the email sending there)
- */
 export default function LeadMagnetSection() {
     const brand = useMemo(
         () => ({

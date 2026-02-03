@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     locale: "en_ZA",
     url: "https://mkfraud.com",
     siteName: "MK Fraud Insights",
-    title: "MK Fraud Insights | Detect. Disrupt. Defend.",
+    title: "MK Fraud Insights",
     description:
       "Helping organisations move beyond reactive fraud controls toward resilient, intelligence-led fraud programmes.",
   },
