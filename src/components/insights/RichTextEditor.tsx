@@ -1,8 +1,9 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import {
     Bold,
+    Eye,
     Heading2,
     Heading3,
     Highlighter,
@@ -15,6 +16,7 @@ import {
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import { renderInsightRichText } from "@/lib/insights/richText";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 
@@ -44,6 +46,7 @@ export default function RichTextEditor({
     minHeightClassName = "min-h-[280px]",
 }: RichTextEditorProps) {
     const textareaRef = useRef<HTMLTextAreaElement | null>(null);
+    const [previewMode, setPreviewMode] = useState<"split" | "preview">("split");
 
     function getSelectionState(): SelectionState | null {
         const textarea = textareaRef.current;
@@ -153,154 +156,200 @@ export default function RichTextEditor({
             </Label>
 
             <div className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
-                <div className="flex flex-wrap gap-2 border-b border-slate-200 bg-slate-50/80 px-4 py-3">
-                    <Button
-                        type="button"
-                        variant="outline"
-                        size="sm"
-                        className="h-9 rounded-xl border-slate-200 bg-white px-3 text-slate-700 hover:bg-slate-100"
-                        onClick={() => prefixSelectedLines("## ", "Heading")}
-                        aria-label="H2"
-                        title="H2"
-                    >
-                        <Heading2 className="h-4 w-4" />
-                        <span>H2</span>
-                    </Button>
+                <div className="border-b border-slate-200 bg-slate-50/80 px-4 py-3">
+                    <div className="flex flex-wrap items-center justify-between gap-3">
+                        <div className="flex flex-wrap gap-2">
+                            <Button
+                                type="button"
+                                variant="outline"
+                                size="sm"
+                                className="h-9 rounded-xl border-slate-200 bg-white px-3 text-slate-700 hover:bg-slate-100"
+                                onClick={() => prefixSelectedLines("## ", "Heading")}
+                                aria-label="H2"
+                                title="H2"
+                            >
+                                <Heading2 className="h-4 w-4" />
+                                <span>H2</span>
+                            </Button>
 
-                    <Button
-                        type="button"
-                        variant="outline"
-                        size="sm"
-                        className="h-9 rounded-xl border-slate-200 bg-white px-3 text-slate-700 hover:bg-slate-100"
-                        onClick={() => prefixSelectedLines("### ", "Subheading")}
-                        aria-label="H3"
-                        title="H3"
-                    >
-                        <Heading3 className="h-4 w-4" />
-                        <span>H3</span>
-                    </Button>
+                            <Button
+                                type="button"
+                                variant="outline"
+                                size="sm"
+                                className="h-9 rounded-xl border-slate-200 bg-white px-3 text-slate-700 hover:bg-slate-100"
+                                onClick={() => prefixSelectedLines("### ", "Subheading")}
+                                aria-label="H3"
+                                title="H3"
+                            >
+                                <Heading3 className="h-4 w-4" />
+                                <span>H3</span>
+                            </Button>
 
-                    <Button
-                        type="button"
-                        variant="outline"
-                        size="sm"
-                        className="h-9 rounded-xl border-slate-200 bg-white px-3 text-slate-700 hover:bg-slate-100"
-                        onClick={() => wrapSelection("**", "**", "Bold text")}
-                        aria-label="Bold"
-                        title="Bold"
-                    >
-                        <Bold className="h-4 w-4" />
-                        <span>Bold</span>
-                    </Button>
+                            <Button
+                                type="button"
+                                variant="outline"
+                                size="sm"
+                                className="h-9 rounded-xl border-slate-200 bg-white px-3 text-slate-700 hover:bg-slate-100"
+                                onClick={() => wrapSelection("**", "**", "Bold text")}
+                                aria-label="Bold"
+                                title="Bold"
+                            >
+                                <Bold className="h-4 w-4" />
+                                <span>Bold</span>
+                            </Button>
 
-                    <Button
-                        type="button"
-                        variant="outline"
-                        size="sm"
-                        className="h-9 rounded-xl border-slate-200 bg-white px-3 text-slate-700 hover:bg-slate-100"
-                        onClick={() => wrapSelection("*", "*", "Italic text")}
-                        aria-label="Italic"
-                        title="Italic"
-                    >
-                        <Italic className="h-4 w-4" />
-                        <span>Italic</span>
-                    </Button>
+                            <Button
+                                type="button"
+                                variant="outline"
+                                size="sm"
+                                className="h-9 rounded-xl border-slate-200 bg-white px-3 text-slate-700 hover:bg-slate-100"
+                                onClick={() => wrapSelection("*", "*", "Italic text")}
+                                aria-label="Italic"
+                                title="Italic"
+                            >
+                                <Italic className="h-4 w-4" />
+                                <span>Italic</span>
+                            </Button>
 
-                    <Button
-                        type="button"
-                        variant="outline"
-                        size="sm"
-                        className="h-9 rounded-xl border-slate-200 bg-white px-3 text-slate-700 hover:bg-slate-100"
-                        onClick={() => wrapSelection("==", "==", "Highlighted text")}
-                        aria-label="Highlight"
-                        title="Highlight"
-                    >
-                        <Highlighter className="h-4 w-4" />
-                        <span>Highlight</span>
-                    </Button>
+                            <Button
+                                type="button"
+                                variant="outline"
+                                size="sm"
+                                className="h-9 rounded-xl border-slate-200 bg-white px-3 text-slate-700 hover:bg-slate-100"
+                                onClick={() => wrapSelection("==", "==", "Highlighted text")}
+                                aria-label="Highlight"
+                                title="Highlight"
+                            >
+                                <Highlighter className="h-4 w-4" />
+                                <span>Highlight</span>
+                            </Button>
 
-                    <Button
-                        type="button"
-                        variant="outline"
-                        size="sm"
-                        className="h-9 rounded-xl border-slate-200 bg-white px-3 text-slate-700 hover:bg-slate-100"
-                        onClick={() => wrapSelection("<u>", "</u>", "Underlined text")}
-                        aria-label="Underline"
-                        title="Underline"
-                    >
-                        <Underline className="h-4 w-4" />
-                        <span>Underline</span>
-                    </Button>
+                            <Button
+                                type="button"
+                                variant="outline"
+                                size="sm"
+                                className="h-9 rounded-xl border-slate-200 bg-white px-3 text-slate-700 hover:bg-slate-100"
+                                onClick={() => wrapSelection("<u>", "</u>", "Underlined text")}
+                                aria-label="Underline"
+                                title="Underline"
+                            >
+                                <Underline className="h-4 w-4" />
+                                <span>Underline</span>
+                            </Button>
 
-                    <Button
-                        type="button"
-                        variant="outline"
-                        size="sm"
-                        className="h-9 rounded-xl border-slate-200 bg-white px-3 text-slate-700 hover:bg-slate-100"
-                        onClick={insertLink}
-                        aria-label="Link"
-                        title="Link"
-                    >
-                        <Link2 className="h-4 w-4" />
-                        <span>Link</span>
-                    </Button>
+                            <Button
+                                type="button"
+                                variant="outline"
+                                size="sm"
+                                className="h-9 rounded-xl border-slate-200 bg-white px-3 text-slate-700 hover:bg-slate-100"
+                                onClick={insertLink}
+                                aria-label="Link"
+                                title="Link"
+                            >
+                                <Link2 className="h-4 w-4" />
+                                <span>Link</span>
+                            </Button>
 
-                    <Button
-                        type="button"
-                        variant="outline"
-                        size="sm"
-                        className="h-9 rounded-xl border-slate-200 bg-white px-3 text-slate-700 hover:bg-slate-100"
-                        onClick={() => prefixSelectedLines("- ", "List item")}
-                        aria-label="Bullets"
-                        title="Bullets"
-                    >
-                        <List className="h-4 w-4" />
-                        <span>Bullets</span>
-                    </Button>
+                            <Button
+                                type="button"
+                                variant="outline"
+                                size="sm"
+                                className="h-9 rounded-xl border-slate-200 bg-white px-3 text-slate-700 hover:bg-slate-100"
+                                onClick={() => prefixSelectedLines("- ", "List item")}
+                                aria-label="Bullets"
+                                title="Bullets"
+                            >
+                                <List className="h-4 w-4" />
+                                <span>Bullets</span>
+                            </Button>
 
-                    <Button
-                        type="button"
-                        variant="outline"
-                        size="sm"
-                        className="h-9 rounded-xl border-slate-200 bg-white px-3 text-slate-700 hover:bg-slate-100"
-                        onClick={() => prefixSelectedNumberedLines("List item")}
-                        aria-label="Numbered list"
-                        title="Numbered list"
-                    >
-                        <ListOrdered className="h-4 w-4" />
-                        <span>Numbers</span>
-                    </Button>
+                            <Button
+                                type="button"
+                                variant="outline"
+                                size="sm"
+                                className="h-9 rounded-xl border-slate-200 bg-white px-3 text-slate-700 hover:bg-slate-100"
+                                onClick={() => prefixSelectedNumberedLines("List item")}
+                                aria-label="Numbered list"
+                                title="Numbered list"
+                            >
+                                <ListOrdered className="h-4 w-4" />
+                                <span>Numbers</span>
+                            </Button>
 
-                    <Button
-                        type="button"
-                        variant="outline"
-                        size="sm"
-                        className="h-9 rounded-xl border-slate-200 bg-white px-3 text-slate-700 hover:bg-slate-100"
-                        onClick={() => prefixSelectedLines("> ", "Quoted text")}
-                        aria-label="Quote"
-                        title="Quote"
-                    >
-                        <Quote className="h-4 w-4" />
-                        <span>Quote</span>
-                    </Button>
+                            <Button
+                                type="button"
+                                variant="outline"
+                                size="sm"
+                                className="h-9 rounded-xl border-slate-200 bg-white px-3 text-slate-700 hover:bg-slate-100"
+                                onClick={() => prefixSelectedLines("> ", "Quoted text")}
+                                aria-label="Quote"
+                                title="Quote"
+                            >
+                                <Quote className="h-4 w-4" />
+                                <span>Quote</span>
+                            </Button>
+                        </div>
+
+                        <div className="inline-flex items-center rounded-xl border border-slate-200 bg-white p-1 shadow-sm">
+                            <Button
+                                type="button"
+                                variant="ghost"
+                                size="sm"
+                                className={`h-8 rounded-lg px-3 text-xs ${previewMode === "split" ? "bg-slate-100 text-[#001030]" : "text-slate-600 hover:text-[#001030]"}`}
+                                onClick={() => setPreviewMode("split")}
+                            >
+                                Editor + Preview
+                            </Button>
+                            <Button
+                                type="button"
+                                variant="ghost"
+                                size="sm"
+                                className={`h-8 rounded-lg px-3 text-xs ${previewMode === "preview" ? "bg-slate-100 text-[#001030]" : "text-slate-600 hover:text-[#001030]"}`}
+                                onClick={() => setPreviewMode("preview")}
+                            >
+                                <Eye className="mr-1.5 h-3.5 w-3.5" />
+                                Preview only
+                            </Button>
+                        </div>
+                    </div>
+
+                    <p className="mt-3 text-xs text-slate-500">
+                        The editor still uses formatting shortcuts like `##`, `-`, and `**`, but the live preview below shows exactly how the insight will look on the website.
+                    </p>
                 </div>
 
-                <Textarea
-                    ref={textareaRef}
-                    id={id}
-                    rows={rows}
-                    value={value}
-                    onChange={(e) => onChange(e.target.value)}
-                    placeholder={placeholder}
-                    className={`rounded-none border-0 px-4 py-4 shadow-none focus-visible:ring-0 ${minHeightClassName}`}
-                />
-            </div>
+                <div className={`grid gap-0 ${previewMode === "split" ? "lg:grid-cols-2" : "grid-cols-1"}`}>
+                    {previewMode === "split" ? (
+                        <Textarea
+                            ref={textareaRef}
+                            id={id}
+                            rows={rows}
+                            value={value}
+                            onChange={(e) => onChange(e.target.value)}
+                            placeholder={placeholder}
+                            className={`rounded-none border-0 px-4 py-4 shadow-none focus-visible:ring-0 lg:border-r lg:border-slate-200 ${minHeightClassName}`}
+                        />
+                    ) : null}
 
-            <p className="text-xs text-slate-500">
-                Use the toolbar to add headings, bold, italic, highlight, underline, links,
-                bullet lists, numbered lists, and quotes. Formatting is saved in a lightweight
-                article format and renders on the public insight page.
-            </p>
+                    <div className={`${previewMode === "preview" ? "block" : "border-t border-slate-200 lg:border-t-0"} bg-white`}>
+                        <div className="flex items-center gap-2 border-b border-slate-200 bg-slate-50/50 px-4 py-3 text-sm font-semibold text-[#001030]">
+                            <Eye className="h-4 w-4 text-[#1d3658]" />
+                            Live Preview
+                        </div>
+                        <div className={`px-5 py-5 ${minHeightClassName}`}>
+                            <div className="prose prose-slate max-w-none">
+                                {value.trim() ? (
+                                    renderInsightRichText(value)
+                                ) : (
+                                    <p className="text-sm leading-relaxed text-slate-500">
+                                        Start writing to see a formatted preview here.
+                                    </p>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }

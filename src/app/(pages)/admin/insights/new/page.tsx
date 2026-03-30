@@ -272,7 +272,7 @@ export default function NewInsightPage() {
                                                 className="h-12 rounded-2xl"
                                                 placeholder="e.g. Readiness, Controls, Operations"
                                             />
-                                            <p className="text-xs text-slate-500">Comma-separated.</p>
+                                            <p className="text-xs text-slate-500">Comma separated.</p>
                                         </div>
                                     </CardContent>
                                 </Card>

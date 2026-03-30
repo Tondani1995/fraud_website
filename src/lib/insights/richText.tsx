@@ -141,6 +141,31 @@ function renderHeading(level: number, text: string, key: string) {
     );
 }
 
+function getHeadingMatch(line: string) {
+    return line.match(/^(#{1,3})\s+(.+)$/);
+}
+
+function isBulletLine(line: string) {
+    return /^(-|\*|\u2022)\s+/.test(line);
+}
+
+function isOrderedListLine(line: string) {
+    return /^\d+\.\s+/.test(line);
+}
+
+function isQuoteLine(line: string) {
+    return /^>\s+/.test(line);
+}
+
+function isStructuredLine(line: string) {
+    return Boolean(
+        getHeadingMatch(line) ||
+        isBulletLine(line) ||
+        isOrderedListLine(line) ||
+        isQuoteLine(line)
+    );
+}
+
 export function stripInsightFormatting(text: string) {
     return normalizeText(text)
         .replace(/\[([^\]]+)\]\(([^)]+)\)/g, "$1")
@@ -158,32 +183,40 @@ export function renderInsightRichText(text: string) {
     const normalized = normalizeText(text);
     if (!normalized) return null;
 
-    const blocks = normalized
-        .split(/\n{2,}/)
-        .map((block) => block.trim())
-        .filter(Boolean);
+    const lines = normalized.split("\n");
+    const nodes: ReactNode[] = [];
+    let index = 0;
+    let blockIndex = 0;
 
-    return blocks.map((block, blockIndex) => {
-        const lines = block
-            .split("\n")
-            .map((line) => line.trim())
-            .filter(Boolean);
-        const key = `block-${blockIndex}`;
+    while (index < lines.length) {
+        const currentLine = lines[index]?.trim() || "";
 
-        if (!lines.length) return null;
-
-        if (lines.length === 1) {
-            const headingMatch = lines[0].match(/^(#{1,3})\s+(.+)$/);
-            if (headingMatch) {
-                return renderHeading(headingMatch[1].length, headingMatch[2].trim(), key);
-            }
+        if (!currentLine) {
+            index += 1;
+            continue;
         }
 
-        const isBullets = lines.every((line) => /^(-|\*|\u2022)\s+/.test(line));
-        if (isBullets) {
-            return (
+        const key = `block-${blockIndex}`;
+        const headingMatch = getHeadingMatch(currentLine);
+
+        if (headingMatch) {
+            nodes.push(renderHeading(headingMatch[1].length, headingMatch[2].trim(), key));
+            index += 1;
+            blockIndex += 1;
+            continue;
+        }
+
+        if (isBulletLine(currentLine)) {
+            const bulletLines: string[] = [];
+
+            while (index < lines.length && isBulletLine(lines[index].trim())) {
+                bulletLines.push(lines[index].trim());
+                index += 1;
+            }
+
+            nodes.push(
                 <ul key={key} className="mt-5 space-y-3">
-                    {lines.map((line, lineIndex) => {
+                    {bulletLines.map((line, lineIndex) => {
                         const item = line.replace(/^(-|\*|\u2022)\s+/, "");
                         return (
                             <li key={`${key}-li-${lineIndex}`} className="flex items-start gap-3">
@@ -198,16 +231,24 @@ export function renderInsightRichText(text: string) {
                     })}
                 </ul>
             );
+            blockIndex += 1;
+            continue;
         }
 
-        const isOrderedList = lines.every((line) => /^\d+\.\s+/.test(line));
-        if (isOrderedList) {
-            return (
+        if (isOrderedListLine(currentLine)) {
+            const orderedLines: string[] = [];
+
+            while (index < lines.length && isOrderedListLine(lines[index].trim())) {
+                orderedLines.push(lines[index].trim());
+                index += 1;
+            }
+
+            nodes.push(
                 <ol
                     key={key}
                     className="mt-5 list-decimal space-y-3 pl-6 marker:font-semibold marker:text-[#1d3658]"
                 >
-                    {lines.map((line, lineIndex) => {
+                    {orderedLines.map((line, lineIndex) => {
                         const item = line.replace(/^\d+\.\s+/, "");
                         return (
                             <li key={`${key}-ol-${lineIndex}`} className="pl-1 text-slate-700">
@@ -217,13 +258,19 @@ export function renderInsightRichText(text: string) {
                     })}
                 </ol>
             );
+            blockIndex += 1;
+            continue;
         }
 
-        const isQuote = lines.every((line) => /^>\s+/.test(line));
-        if (isQuote) {
-            const quoteLines = lines.map((line) => line.replace(/^>\s+/, ""));
+        if (isQuoteLine(currentLine)) {
+            const quoteLines: string[] = [];
 
-            return (
+            while (index < lines.length && isQuoteLine(lines[index].trim())) {
+                quoteLines.push(lines[index].trim().replace(/^>\s+/, ""));
+                index += 1;
+            }
+
+            nodes.push(
                 <blockquote
                     key={key}
                     className="mt-6 rounded-2xl border-l-4 border-[#1d3658] bg-[#1d3658]/6 px-5 py-4 text-slate-700 shadow-sm"
@@ -233,25 +280,51 @@ export function renderInsightRichText(text: string) {
                     </div>
                 </blockquote>
             );
+            blockIndex += 1;
+            continue;
         }
 
+        const paragraphLines: string[] = [];
+
+        while (index < lines.length) {
+            const line = lines[index]?.trim() || "";
+
+            if (!line) {
+                index += 1;
+                break;
+            }
+
+            if (paragraphLines.length > 0 && isStructuredLine(line)) {
+                break;
+            }
+
+            paragraphLines.push(line);
+            index += 1;
+        }
+
+        const block = paragraphLines.join("\n");
         const maybeLegacyHeading =
-            lines.length === 1 &&
+            paragraphLines.length === 1 &&
             block.length <= 70 &&
             block.split(" ").length <= 8;
 
         if (maybeLegacyHeading) {
-            return (
+            nodes.push(
                 <h3 key={key} className="mt-10 text-2xl font-semibold tracking-tight text-[#001030]">
                     {renderInline(block, `${key}-legacy-heading`)}
                 </h3>
             );
+            blockIndex += 1;
+            continue;
         }
 
-        return (
+        nodes.push(
             <p key={key} className="mt-5 leading-relaxed text-slate-700">
-                {renderLines(lines, key)}
+                {renderLines(paragraphLines, key)}
             </p>
         );
-    });
+        blockIndex += 1;
+    }
+
+    return nodes;
 }

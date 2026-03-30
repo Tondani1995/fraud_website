@@ -15,6 +15,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import Wrapper from "@/app/Wrapper";
 import Link from "next/link";
+import { trackEvent } from "@/lib/gtag";
 
 export default function ContactUs() {
   const [formData, setFormData] = useState({
@@ -98,6 +99,12 @@ export default function ContactUs() {
       const data = await res.json();
 
       if (data.success) {
+        trackEvent("generate_lead", {
+          form_name: "contact_form",
+          service_interest: formData.service || "not_specified",
+          page_location: "/contact",
+        });
+
         setIsSubmitted(true);
 
         // Clear inputs in your controlled form
@@ -359,6 +366,12 @@ export default function ContactUs() {
                   <p className="text-sm font-semibold text-slate-500">Email</p>
                   <a
                     href="mailto:hello@mkfraud.co.za"
+                    onClick={() =>
+                      trackEvent("contact_click", {
+                        contact_type: "email",
+                        placement: "contact_card",
+                      })
+                    }
                     className="mt-1 block font-bold text-[#001030] hover:text-[#1d3658]"
                   >
                     hello@mkfraud.co.za
@@ -452,6 +465,12 @@ export default function ContactUs() {
                     <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
                       <a
                         href="tel:+27823014351"
+                        onClick={() =>
+                          trackEvent("contact_click", {
+                            contact_type: "phone",
+                            placement: "contact_card",
+                          })
+                        }
                         className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-white p-4 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md"
                       >
                         <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#001030]">

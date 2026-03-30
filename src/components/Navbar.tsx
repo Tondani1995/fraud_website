@@ -18,6 +18,7 @@ import {
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { trackEvent } from "@/lib/gtag";
 
 type NavLink =
     | { name: string; href: string; dropdown?: undefined }
@@ -171,13 +172,27 @@ export default function Navbar() {
                     <div className="hidden items-center gap-3 lg:flex">
                         <Link
                             href="mailto:hello@mkfraud.co.za"
+                            onClick={() =>
+                                trackEvent("contact_click", {
+                                    contact_type: "email",
+                                    placement: "navbar_desktop",
+                                })
+                            }
                             className="flex items-center gap-2 text-sm font-semibold text-slate-600 transition-colors hover:text-[#001030]"
                         >
                             <Mail className="h-4 w-4" />
                             <span className="hidden xl:inline">hello@mkfraud.co.za</span>
                         </Link>
 
-                        <Link href="/contact">
+                        <Link
+                            href="/contact"
+                            onClick={() =>
+                                trackEvent("cta_click", {
+                                    cta_name: "book_a_call",
+                                    placement: "navbar_desktop",
+                                })
+                            }
+                        >
                             <Button
                                 className="group relative overflow-hidden px-8 py-6  shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl bg-[#04123b]"
                             // style={{
@@ -285,15 +300,30 @@ export default function Navbar() {
                                     <div className="mt-5 space-y-3 border-t border-slate-200 pt-5">
                                         <Link
                                             href="mailto:hello@mkfraud.co.za"
+                                            onClick={() => {
+                                                trackEvent("contact_click", {
+                                                    contact_type: "email",
+                                                    placement: "navbar_mobile",
+                                                });
+                                                setIsSheetOpen(false);
+                                            }}
                                             className="flex items-center gap-3 rounded-xl border-2 bg-white p-4 font-semibold transition-all duration-300 hover:bg-slate-50"
                                             style={{ borderColor: "rgb(226 232 240)", color: BRAND.navy }}
-                                            onClick={() => setIsSheetOpen(false)}
                                         >
                                             <Mail className="h-5 w-5" style={{ color: BRAND.navy }} />
                                             hello@mkfraud.co.za
                                         </Link>
 
-                                        <Link href="/contact" onClick={() => setIsSheetOpen(false)}>
+                                        <Link
+                                            href="/contact"
+                                            onClick={() => {
+                                                trackEvent("cta_click", {
+                                                    cta_name: "book_a_call",
+                                                    placement: "navbar_mobile",
+                                                });
+                                                setIsSheetOpen(false);
+                                            }}
+                                        >
                                             <Button
                                                 className="w-full rounded-xl py-6 shadow-lg bg-[#04123b]"
                                             >

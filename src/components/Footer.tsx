@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { trackEvent } from "@/lib/gtag";
 
 export default function Footer() {
   const [hoveredLink, setHoveredLink] = useState<string | null>(null);
@@ -56,6 +57,12 @@ export default function Footer() {
               </Link>
               <Link
                 href="mailto:hello@mkfraud.co.za"
+                onClick={() =>
+                  trackEvent("contact_click", {
+                    contact_type: "email",
+                    placement: "footer_social",
+                  })
+                }
                 className="group flex h-10 w-10 items-center justify-center rounded-xl border border-white/15 bg-white/5 backdrop-blur-sm transition-all duration-300 hover:scale-110 hover:bg-white/10"
                 aria-label="Email"
               >
@@ -125,6 +132,12 @@ export default function Footer() {
             <div className="space-y-4">
               <Link
                 href="mailto:hello@mkfraud.co.za"
+                onClick={() =>
+                  trackEvent("contact_click", {
+                    contact_type: "email",
+                    placement: "footer_contact_card",
+                  })
+                }
                 className="group flex items-center gap-3 rounded-xl border border-white/15 bg-white/5 p-3 backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:bg-white/10"
               >
                 <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-white/10">
@@ -176,7 +189,15 @@ export default function Footer() {
                 </p>
               </div>
 
-              <Link href="/contact">
+              <Link
+                href="/contact"
+                onClick={() =>
+                  trackEvent("cta_click", {
+                    cta_name: "get_started_today",
+                    placement: "footer_cta",
+                  })
+                }
+              >
                 <Button className="group rounded-xl bg-white px-8 py-6 text-[#001030] shadow-2xl transition-all duration-300 hover:scale-105 hover:bg-white/90">
                   <span className="flex items-center gap-2">
                     Get Started Today
