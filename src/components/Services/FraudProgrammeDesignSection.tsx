@@ -65,12 +65,12 @@ export default function FraudProgrammeDesignSection() {
                     <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#1d3658]/15 bg-[#1d3658]/5 px-5 py-2.5 shadow-sm">
                         <Layers className="h-4 w-4 text-[#1d3658]" />
                         <span className="text-sm font-bold uppercase tracking-wide text-[#1d3658]">
-                            Service Two
+                            Service Three
                         </span>
                         <Sparkles className="h-4 w-4 text-[#1d3658]" />
                     </div>
 
-                    <h2 className="text-4xl font-black leading-tight tracking-tight text-[#1d3658] sm:text-5xl">
+                    <h2 className="text-3xl font-bold leading-tight tracking-tight text-[#1d3658] sm:text-4xl lg:text-5xl">
                         Fraud Programme{" "}
                         <span className="relative inline-block">
                             <span className="relative z-10 text-[#1d3658]">Design</span>
@@ -78,7 +78,7 @@ export default function FraudProgrammeDesignSection() {
                         </span>
                     </h2>
 
-                    <p className="mt-4 text-lg leading-relaxed text-slate-600 sm:text-xl">
+                    <p className="mt-4 leading-relaxed text-slate-600">
                         Design or refresh your fraud strategy, governance model, and operating framework to
                         match your risk exposure and organisational maturity.
                     </p>
@@ -89,7 +89,7 @@ export default function FraudProgrammeDesignSection() {
                     <div className="lg:col-span-7">
                         <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
                             <div>
-                                <h3 className="text-2xl font-bold text-[#1d3658] sm:text-3xl">Outputs</h3>
+                                <h3 className="text-2xl font-bold leading-tight text-[#1d3658] sm:text-3xl">Outputs</h3>
                                 <p className="mt-2 text-sm leading-relaxed text-slate-600 sm:text-base">
                                     A practical programme blueprint — designed to work inside real workflows.
                                 </p>
@@ -116,7 +116,7 @@ export default function FraudProgrammeDesignSection() {
                                                 <Icon className="h-6 w-6 text-[#1d3658]" strokeWidth={2.5} />
                                             </div>
                                             <div className="min-w-0">
-                                                <h4 className="text-base font-bold text-[#1d3658]">{item.title}</h4>
+                                                <h4 className="text-base font-bold leading-tight text-[#1d3658]">{item.title}</h4>
                                                 <p className="mt-1 text-sm leading-relaxed text-slate-600">
                                                     {item.description}
                                                 </p>
@@ -165,7 +165,7 @@ export default function FraudProgrammeDesignSection() {
                                     <p className="text-sm font-bold uppercase tracking-wide text-slate-600">
                                         Programme benefits
                                     </p>
-                                    <h3 className="mt-1 text-2xl font-bold text-[#1d3658]">
+                                    <h3 className="mt-1 text-2xl font-bold leading-tight text-[#1d3658]">
                                         Make fraud ownership real
                                     </h3>
                                 </div>
@@ -234,7 +234,7 @@ export default function FraudProgrammeDesignSection() {
                                         </div>
 
                                         <div className="mt-4">
-                                            <Button className="w-full rounded-xl bg-[#1d3658] py-6 text-base font-bold text-white shadow-lg transition-all duration-300 hover:scale-[1.02] hover:bg-[#152a44]">
+                                            <Button className="w-full rounded-xl bg-[#1d3658] py-6 text-base text-white shadow-lg transition-all duration-300 hover:scale-[1.02] hover:bg-[#152a44]">
                                                 <span className="flex items-center justify-center gap-2">
                                                     Design Your Programme
                                                     <ArrowRight className="h-5 w-5" />

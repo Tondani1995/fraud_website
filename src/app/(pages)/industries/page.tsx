@@ -153,7 +153,7 @@ export default function Industries() {
                                 </span>
                             </div>
 
-                            <h1 className="mt-6 text-4xl font-bold leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-6xl">
+                            <h1 className="mt-6 text-3xl font-bold leading-tight tracking-tight text-white sm:text-4xl lg:text-5xl">
                                 Fraud risk does not follow{" "}
                                 <span className="relative inline-block">
                                     <span className="relative z-10 text-[#c8d6ff]">industry labels</span>
@@ -161,7 +161,7 @@ export default function Industries() {
                                 </span>
                             </h1>
 
-                            <p className="mt-5 text-lg leading-relaxed text-slate-200">
+                            <p className="mt-5 leading-relaxed text-slate-200">
                                 It follows operational patterns, incentives, and control weaknesses. We focus on how
                                 fraud manifests in real operating environments.
                             </p>
@@ -197,10 +197,10 @@ export default function Industries() {
 
                     <div className="relative mx-auto max-w-7xl px-6 py-16 lg:px-8 lg:py-24">
                         <div className="mx-auto mb-10 max-w-3xl text-center">
-                            <h2 className="text-3xl font-bold tracking-tight text-[#001030] sm:text-4xl">
+                            <h2 className="text-2xl font-bold leading-tight tracking-tight text-[#001030] sm:text-3xl">
                                 Choose your operating environment
                             </h2>
-                            <p className="mt-3 text-lg leading-relaxed text-slate-600">
+                            <p className="mt-3 leading-relaxed text-slate-600">
                                 On mobile, tap an industry to expand details in-place (no jumping to the bottom).
                             </p>
                         </div>
@@ -356,7 +356,7 @@ export default function Industries() {
                                                             <Icon className="h-7 w-7 text-white" strokeWidth={2.5} />
                                                         </div>
                                                         <div>
-                                                            <h3 className="text-2xl font-bold text-[#001030]">{industry.title}</h3>
+                                                            <h3 className="text-2xl font-bold leading-tight text-[#001030]">{industry.title}</h3>
                                                             <p className="mt-2 max-w-2xl text-sm leading-relaxed text-slate-600">
                                                                 {industry.summary}
                                                             </p>
@@ -432,10 +432,10 @@ export default function Industries() {
                     <div className="relative mx-auto max-w-7xl px-6 py-16 lg:px-8 lg:py-20">
                         <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12">
                             <div className="lg:col-span-7">
-                                <h2 className="text-3xl font-bold leading-tight text-white sm:text-4xl">
+                                <h2 className="text-2xl font-bold leading-tight text-white sm:text-3xl">
                                     Ready to address fraud risk in your industry?
                                 </h2>
-                                <p className="mt-3 text-lg leading-relaxed text-slate-200">
+                                <p className="mt-3 leading-relaxed text-slate-200">
                                     Book a call to discuss how fraud manifests in your operating environment and how
                                     we can help you build effective defences.
                                 </p>

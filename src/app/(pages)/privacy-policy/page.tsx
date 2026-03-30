@@ -41,7 +41,7 @@ export default function PrivacyPolicy() {
                 },
                 {
                     subtitle: "Communication Records",
-                    text: "We maintain records of communications between you and MK Fraud Insights, including emails, form submissions, and consultation notes, to provide effective service and maintain accurate records of our engagement.",
+                    text: "We maintain records of communications between you and Mk Fraud Website, including emails, form submissions, and consultation notes, to provide effective service and maintain accurate records of our engagement.",
                 },
             ],
         },
@@ -71,7 +71,7 @@ export default function PrivacyPolicy() {
             content: [
                 {
                     subtitle: "No Sale of Personal Information",
-                    text: "MK Fraud Insights does not sell, rent, or trade your personal information to third parties for marketing purposes.",
+                    text: "Mk Fraud Website does not sell, rent, or trade your personal information to third parties for marketing purposes.",
                 },
                 {
                     subtitle: "Service Providers",
@@ -178,7 +178,7 @@ export default function PrivacyPolicy() {
                                 </span>
                             </div>
 
-                            <h1 className="mb-6 text-5xl font-bold leading-tight tracking-tight text-white sm:text-6xl lg:text-7xl">
+                            <h1 className="mb-6 text-4xl font-bold leading-tight tracking-tight text-white sm:text-5xl lg:text-5xl">
                                 Privacy{" "}
                                 <span className="relative inline-block">
                                     <span className="relative z-10 bg-gradient-to-r from-white via-white to-white bg-clip-text text-transparent">
@@ -188,8 +188,8 @@ export default function PrivacyPolicy() {
                                 </span>
                             </h1>
 
-                            <p className="mx-auto max-w-3xl text-lg leading-relaxed text-white/80 sm:text-xl">
-                                MK Fraud Insights is committed to protecting your privacy and handling
+                            <p className="mx-auto max-w-3xl leading-relaxed text-white/80">
+                                Mk Fraud Website is committed to protecting your privacy and handling
                                 your personal information responsibly in accordance with the Protection
                                 of Personal Information Act (POPIA).
                             </p>
@@ -223,11 +223,11 @@ export default function PrivacyPolicy() {
                                         <Lock className="h-6 w-6 text-white" />
                                     </div>
                                     <div>
-                                        <h2 className="mb-2 text-xl font-bold text-[#001030]">
+                                        <h2 className="mb-2 text-xl font-bold leading-tight text-[#001030]">
                                             Our Commitment to Your Privacy
                                         </h2>
                                         <p className="leading-relaxed text-slate-700">
-                                            This privacy policy explains how MK Fraud Insights collects, uses,
+                                            This privacy policy explains how Mk Fraud Website collects, uses,
                                             protects, and manages your personal information when you interact
                                             with our website or engage our services. We handle all personal
                                             information in accordance with POPIA and applicable data protection
@@ -275,7 +275,7 @@ export default function PrivacyPolicy() {
                                                     <div className="space-y-6">
                                                         {section.content.map((item, idx) => (
                                                             <div key={idx}>
-                                                                <h4 className="mb-2 text-base font-bold text-[#001030]">
+                                                                <h4 className="mb-2 text-base font-bold leading-tight text-[#001030]">
                                                                     {item.subtitle}
                                                                 </h4>
                                                                 <p className="leading-relaxed text-slate-700">
@@ -295,7 +295,7 @@ export default function PrivacyPolicy() {
                         {/* changes + contact */}
                         <div className="mt-10 overflow-hidden rounded-3xl border-2 border-slate-200 bg-white p-8 shadow-xl lg:p-12">
                             <div className="mb-8">
-                                <h2 className="mb-3 text-3xl font-bold text-[#001030]">
+                                <h2 className="mb-3 text-2xl font-bold leading-tight text-[#001030]">
                                     Changes to This Privacy Policy
                                 </h2>
                                 <p className="leading-relaxed text-slate-700">

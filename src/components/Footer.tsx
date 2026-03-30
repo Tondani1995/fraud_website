@@ -17,6 +17,7 @@ export default function Footer() {
   ];
 
   const serviceLinks = [
+    { name: "Threat Intelligence for Fraud", href: "/services#threat-intelligence" },
     { name: "Fraud Health Check", href: "/services#health-check" },
     { name: "Programme Design", href: "/services#programme-design" },
     { name: "Awareness & Resilience", href: "/services#awareness" },
@@ -34,14 +35,15 @@ export default function Footer() {
           <div className="lg:col-span-1">
             <div className="mb-6 inline-flex items-center gap-3">
               <div className="flex h-20 w-20 items-center justify-center rounded-xl border border-white/15 bg-white/95 shadow-lg">
-                <Image src="/logoicon.png" width={60} height={60} alt="MK Fraud Insights" />
+                <Image src="/logoicon.png" width={60} height={60} alt="Mk Fraud Website" />
               </div>
-              {/* <h3 className="text-xl font-black text-white">MK Fraud Insights</h3> */}
+              {/* <h3 className="text-xl font-black text-white">Mk Fraud Website</h3> */}
             </div>
 
             <p className="mb-6 text-sm leading-relaxed text-white/75">
-              Specialist fraud risk and strategy consultancy helping organisations move beyond
-              reactive controls toward resilient, intelligence-led fraud programmes.
+              Specialist fraud risk and strategy consultancy combining fraud programme design with
+              threat intelligence &mdash; helping organisations stay ahead of the threats that drive
+              real losses.
             </p>
 
             <div className="flex gap-3">
@@ -63,7 +65,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="mb-6 flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-white">
+            <h4 className="mb-6 flex items-center gap-2 text-sm font-bold leading-tight uppercase tracking-wider text-white">
               <div className="h-1 w-8 rounded-full bg-white/25" />
               Company
             </h4>
@@ -89,7 +91,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="mb-6 flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-white">
+            <h4 className="mb-6 flex items-center gap-2 text-sm font-bold leading-tight uppercase tracking-wider text-white">
               <div className="h-1 w-8 rounded-full bg-white/25" />
               Services
             </h4>
@@ -115,7 +117,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="mb-6 flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-white">
+            <h4 className="mb-6 flex items-center gap-2 text-sm font-bold leading-tight uppercase tracking-wider text-white">
               <div className="h-1 w-8 rounded-full bg-white/25" />
               Contact
             </h4>
@@ -166,7 +168,7 @@ export default function Footer() {
           <div className="relative overflow-hidden rounded-3xl border border-white/15 bg-white/5 p-8 backdrop-blur-xl lg:p-12">
             <div className="relative flex flex-col items-center gap-6 text-center lg:flex-row lg:justify-between lg:text-left">
               <div className="max-w-xl">
-                <h3 className="mb-2 text-2xl font-bold text-white lg:text-3xl">
+                <h3 className="mb-2 text-2xl font-bold leading-tight text-white lg:text-3xl">
                   Ready to strengthen your fraud defences?
                 </h3>
                 <p className="text-white/75">
@@ -175,7 +177,7 @@ export default function Footer() {
               </div>
 
               <Link href="/contact">
-                <Button className="group rounded-xl bg-white px-8 py-6 font-bold text-[#001030] shadow-2xl transition-all duration-300 hover:scale-105 hover:bg-white/90">
+                <Button className="group rounded-xl bg-white px-8 py-6 text-[#001030] shadow-2xl transition-all duration-300 hover:scale-105 hover:bg-white/90">
                   <span className="flex items-center gap-2">
                     Get Started Today
                     <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
@@ -188,7 +190,7 @@ export default function Footer() {
 
         <div className="mt-12 border-t border-white/10 pt-8">
           <div className="flex flex-col items-center justify-center gap-4 text-center text-sm text-white/60 lg:flex-row lg:justify-between lg:text-left">
-            <p>© {new Date().getFullYear()} MK Fraud Insights. All rights reserved.</p>
+            <p>Copyright {new Date().getFullYear()} Mk Fraud Website. All rights reserved.</p>
             <div className="flex flex-wrap gap-6">
               <Link href="/privacy-policy" className="transition-colors hover:text-white">
                 Privacy Policy

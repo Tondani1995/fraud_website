@@ -26,7 +26,6 @@ export default function ContactUs() {
     message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [result, setResult] = useState("");
 
   const [focusedField, setFocusedField] = useState<string | null>(null);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -71,7 +70,6 @@ export default function ContactUs() {
     e.preventDefault();
 
     setIsSubmitting(true);
-    setResult("Sending...");
     setIsSubmitted(false);
 
     try {
@@ -100,7 +98,6 @@ export default function ContactUs() {
       const data = await res.json();
 
       if (data.success) {
-        setResult("Message sent successfully.");
         setIsSubmitted(true);
 
         // Clear inputs in your controlled form
@@ -114,12 +111,10 @@ export default function ContactUs() {
         });
       } else {
         console.log("Web3Forms error:", data);
-        setResult(data.message || "Something went wrong. Please try again.");
         setIsSubmitted(false);
       }
     } catch (err) {
       console.error(err);
-      setResult("Network error. Please try again.");
       setIsSubmitted(false);
     } finally {
       setIsSubmitting(false);
@@ -145,7 +140,7 @@ export default function ContactUs() {
               </span>
             </div>
 
-            <h1 className="mt-6 text-5xl font-bold leading-[1.05] tracking-tight text-[#001030] sm:text-6xl lg:text-7xl">
+            <h1 className="mt-6 text-4xl font-bold leading-tight tracking-tight text-[#001030] sm:text-5xl lg:text-5xl">
               Let&apos;s discuss your{" "}
               <span className="relative inline-block">
                 <span className="relative z-10 text-[#1d3658]">fraud strategy</span>
@@ -153,7 +148,7 @@ export default function ContactUs() {
               </span>
             </h1>
 
-            <p className="mt-6 text-lg leading-relaxed text-slate-600 sm:text-xl">
+            <p className="mt-6 leading-relaxed text-slate-600">
               Book a free consultation to explore how we can strengthen your fraud defences and
               build resilience across your organisation.
             </p>
@@ -163,7 +158,7 @@ export default function ContactUs() {
             <div className="lg:col-span-7">
               <div className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-2xl">
                 <div className="border-b border-slate-200 bg-white px-8 py-7 lg:px-10">
-                  <h2 className="text-3xl font-bold text-[#001030]">Send us a message</h2>
+                  <h2 className="text-3xl font-bold leading-tight text-[#001030]">Send us a message</h2>
                   <p className="mt-2 text-slate-600">
                     Fill out the form and we&apos;ll get back to you within 24 hours.
                   </p>
@@ -175,7 +170,7 @@ export default function ContactUs() {
                       <div className="mx-auto mb-4 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-[#001030]">
                         <CheckCircle2 className="h-7 w-7 text-white" strokeWidth={3} />
                       </div>
-                      <h3 className="text-2xl font-bold text-[#001030]">Message sent</h3>
+                      <h3 className="text-2xl font-bold leading-tight text-[#001030]">Message sent</h3>
                       <p className="mt-2 text-slate-600">
                         Thanks — we&apos;ll review your message and reply within 24 hours during business
                         days.
@@ -303,6 +298,7 @@ export default function ContactUs() {
                         >
                           <option value="">Select a service</option>
                           <option value="fraud-health-check">Fraud Health Check</option>
+                          <option value="threat-intelligence">Threat Intelligence for Fraud</option>
                           <option value="programme-design">Fraud Programme Design</option>
                           <option value="awareness">Awareness & Resilience</option>
                           <option value="controls">Internal Fraud Controls</option>
@@ -355,11 +351,6 @@ export default function ContactUs() {
                 </div>
               </div>
 
-              {/* {result && !isSubmitted && (
-                <p className="text-sm text-red-600">{result}</p>
-              )} */}
-
-
               <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div className="overflow-hidden rounded-3xl border border-slate-200 bg-white p-6 shadow-lg">
                   <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#001030]">
@@ -380,7 +371,7 @@ export default function ContactUs() {
                   </div>
                   <p className="text-sm font-semibold text-slate-500">LinkedIn</p>
                   <a href="#" className="mt-1 block font-bold text-[#001030] hover:text-[#1d3658]">
-                    MK Fraud Insights
+                    Mk Fraud Website
                   </a>
                 </div>
 
@@ -405,7 +396,7 @@ export default function ContactUs() {
                 <div className="border-b border-slate-200 bg-white px-8 py-7">
                   <div className="flex items-start justify-between gap-6">
                     <div>
-                      <h3 className="text-2xl font-bold text-[#001030]">Book a consultation</h3>
+                      <h3 className="text-2xl font-bold leading-tight text-[#001030]">Book a consultation</h3>
                       <p className="mt-2 text-slate-600">Schedule a time that works for you.</p>
                     </div>
                     <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#001030]">
@@ -432,7 +423,7 @@ export default function ContactUs() {
               <div className="mt-8 overflow-hidden rounded-3xl border border-slate-200 bg-white p-8 shadow-xl">
                 <div className="flex items-start gap-4">
                   <div className="flex-1">
-                    <h3 className="text-2xl font-bold text-[#001030]">What to expect</h3>
+                    <h3 className="text-2xl font-bold leading-tight text-[#001030]">What to expect</h3>
                     <div className="mt-5 grid grid-cols-1 gap-3">
                       {benefits.map((b) => (
                         <div key={b} className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-white p-4">
@@ -493,42 +484,5 @@ export default function ContactUs() {
         </div>
       </section>
     </Wrapper>
-  );
-}
-
-function CalendarIcon() {
-  return (
-    <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-[#001030]">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path
-          d="M8 2V5"
-          stroke="white"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M16 2V5"
-          stroke="white"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M3 9H21"
-          stroke="white"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M6 4H18C19.1046 4 20 4.89543 20 6V19C20 20.1046 19.1046 21 18 21H6C4.89543 21 4 20.1046 4 19V6C4 4.89543 4.89543 4 6 4Z"
-          stroke="white"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-    </div>
   );
 }

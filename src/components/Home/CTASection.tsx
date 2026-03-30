@@ -55,7 +55,7 @@ export default function CTASection() {
                 </span>
               </div>
 
-              <h2 className="mt-6 text-4xl font-bold leading-[1.08] tracking-tight text-[#001030] sm:text-5xl">
+              <h2 className="mt-6 text-3xl font-bold leading-tight tracking-tight text-[#001030] sm:text-4xl">
                 Want a clear fraud plan in{" "}
                 <span className="relative inline-block">
                   <span className="relative z-10 text-[#1d3658]">30 days</span>
@@ -64,7 +64,7 @@ export default function CTASection() {
                 ?
               </h2>
 
-              <p className="mt-5 max-w-2xl text-lg leading-relaxed text-slate-600 sm:text-xl">
+              <p className="mt-5 max-w-2xl leading-relaxed text-slate-600">
                 Book a call and we&apos;ll recommend the quickest, highest-impact path based on your
                 organisation&apos;s environment.
               </p>
@@ -134,7 +134,7 @@ export default function CTASection() {
 
                 <div className="relative">
                   <div className="mb-6 flex items-center justify-between">
-                    <h3 className="text-2xl font-bold text-[#001030]">What you&apos;ll get</h3>
+                    <h3 className="text-2xl font-bold leading-tight text-[#001030]">What you&apos;ll get</h3>
                     <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white shadow-sm ring-1 ring-[#1d3658]/15">
                       <Shield className="h-6 w-6 text-[#1d3658]" />
                     </div>

@@ -121,7 +121,7 @@ export default function Insights() {
                                 </span>
                             </div>
 
-                            <h1 className="mt-6 text-5xl font-bold leading-[1.05] tracking-tight text-white sm:text-6xl lg:text-7xl">
+                            <h1 className="mt-6 text-4xl font-bold leading-tight tracking-tight text-white sm:text-5xl lg:text-5xl">
                                 Fraud Risk{" "}
                                 <span className="relative inline-block">
                                     <span className="relative z-10 text-[#c8d6ff]">Insights</span>
@@ -129,7 +129,7 @@ export default function Insights() {
                                 </span>
                             </h1>
 
-                            <p className="mt-6 text-lg leading-relaxed text-slate-200 sm:text-xl">
+                            <p className="mt-6 leading-relaxed text-slate-200">
                                 Practical guidance, fraud trends, and real-world strategies for organisations
                                 managing fraud risk in non-financial sectors.
                             </p>
@@ -170,11 +170,11 @@ export default function Insights() {
                                         </span>
                                     </div>
 
-                                    <h2 className="mt-5 text-3xl font-bold leading-tight text-[#001030] lg:text-4xl">
+                                    <h2 className="mt-5 text-2xl font-bold leading-tight text-[#001030] lg:text-3xl">
                                         {featuredInsight.title}
                                     </h2>
 
-                                    <p className="mt-4 text-lg leading-relaxed text-slate-600">
+                                    <p className="mt-4 leading-relaxed text-slate-600">
                                         {featuredInsight.excerpt}
                                     </p>
 
@@ -286,11 +286,11 @@ export default function Insights() {
                                     </span>
                                 </div>
 
-                                <h2 className="mt-6 text-4xl font-bold leading-tight text-white sm:text-5xl">
+                                <h2 className="mt-6 text-3xl font-bold leading-tight text-white sm:text-4xl">
                                     Follow us on LinkedIn for the latest insights
                                 </h2>
 
-                                <p className="mt-5 text-lg leading-relaxed text-slate-200">
+                                <p className="mt-5 leading-relaxed text-slate-200">
                                     Get fraud risk updates and practical guidance delivered directly to your feed.
                                 </p>
 
@@ -340,10 +340,10 @@ export default function Insights() {
                                     <p className="text-sm font-bold uppercase tracking-wide text-slate-200">
                                         Ready to get started?
                                     </p>
-                                    <h3 className="mt-3 text-3xl font-bold leading-tight text-white lg:text-4xl">
+                                    <h3 className="mt-3 text-2xl font-bold leading-tight text-white lg:text-3xl">
                                         Experience the difference of practitioner-led fraud prevention
                                     </h3>
-                                    <p className="mt-3 text-lg text-slate-200">
+                                    <p className="mt-3 text-slate-200">
                                         See how our real-world approach transforms fraud risk management into a strategic
                                         advantage.
                                     </p>

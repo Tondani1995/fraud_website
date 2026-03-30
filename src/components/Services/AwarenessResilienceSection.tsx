@@ -84,11 +84,11 @@ export default function FraudAwarenessTrainingSection() {
                     <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#1d3658]/20 bg-[#1d3658]/5 px-5 py-2.5 shadow-sm backdrop-blur">
                         <Lightbulb className="h-4 w-4 text-[#1d3658]" />
                         <span className="text-sm font-bold uppercase tracking-wide text-[#1d3658]">
-                            Service Three
+                            Service Four
                         </span>
                     </div>
 
-                    <h2 className="mb-5 text-4xl font-black leading-tight tracking-tight text-[#001030] sm:text-5xl lg:text-6xl">
+                    <h2 className="mb-5 text-3xl font-bold leading-tight tracking-tight text-[#001030] sm:text-4xl lg:text-5xl">
                         Fraud Awareness &{" "}
                         <span className="relative inline-block">
                             <span className="relative z-10 text-[#1d3658]">Training</span>
@@ -96,7 +96,7 @@ export default function FraudAwarenessTrainingSection() {
                         </span>
                     </h2>
 
-                    <p className="text-lg leading-relaxed text-slate-600 sm:text-xl">
+                    <p className="leading-relaxed text-slate-600">
                         Practical training that helps staff recognise fraud risks relevant to their roles and
                         environments.
                     </p>
@@ -104,7 +104,7 @@ export default function FraudAwarenessTrainingSection() {
 
                 {/* Focus areas */}
                 <div className="mb-12">
-                    <h3 className="mb-6 text-center text-xl font-bold text-[#1d3658] sm:text-2xl">
+                    <h3 className="mb-6 text-center text-xl font-bold leading-tight text-[#1d3658] sm:text-2xl">
                         Focus areas
                     </h3>
 
@@ -153,7 +153,7 @@ export default function FraudAwarenessTrainingSection() {
                                             <Icon className="h-8 w-8 text-white" strokeWidth={2.5} />
                                         </div>
 
-                                        <h4 className="mb-3 text-2xl font-bold text-[#001030]">{area.title}</h4>
+                                        <h4 className="mb-3 text-2xl font-bold leading-tight text-[#001030]">{area.title}</h4>
                                         <p className="leading-relaxed text-slate-600">{area.description}</p>
                                     </div>
                                     <div className="absolute bottom-0 left-0 h-1 w-full bg-[#1d3658]/15" />
@@ -172,8 +172,8 @@ export default function FraudAwarenessTrainingSection() {
                             <div className="relative">
                                 <div className="mb-8 flex items-start justify-between gap-4">
                                     <div>
-                                        <h3 className="text-3xl font-bold text-[#001030]">Training approach</h3>
-                                        <p className="mt-3 text-lg leading-relaxed text-slate-600">
+                                        <h3 className="text-3xl font-bold leading-tight text-[#001030]">Training approach</h3>
+                                        <p className="mt-3 leading-relaxed text-slate-600">
                                             Role-based training designed for how fraud actually presents in your operating
                                             environment.
                                         </p>
@@ -219,8 +219,8 @@ export default function FraudAwarenessTrainingSection() {
                             <div className="absolute -left-24 -bottom-24 h-80 w-80 rounded-full bg-white/10 blur-3xl" />
                             <div className="relative">
                                 <div className="mb-7">
-                                    <h3 className="text-3xl font-bold text-white">Service benefits</h3>
-                                    <p className="mt-3 text-lg text-white/80">
+                                    <h3 className="text-3xl font-bold leading-tight text-white">Service benefits</h3>
+                                    <p className="mt-3 text-white/80">
                                         Staff who can recognise fraud risks and respond appropriately, reducing
                                         successful fraud attempts.
                                     </p>
@@ -256,7 +256,7 @@ export default function FraudAwarenessTrainingSection() {
                                     </div>
                                 </div>
 
-                                <Button className="mt-6 w-full rounded-2xl bg-white px-6 py-6 text-base font-bold text-[#001030] shadow-xl transition-all duration-300 hover:scale-[1.02] hover:bg-slate-100">
+                                <Button className="mt-6 w-full rounded-2xl bg-white px-6 py-6 text-base text-[#001030] shadow-xl transition-all duration-300 hover:scale-[1.02] hover:bg-slate-100">
                                     <span className="flex items-center justify-center gap-2">
                                         Start training programme
                                         <ArrowRight className="h-5 w-5" />

@@ -4,7 +4,7 @@ import Wrapper from "@/app/Wrapper";
 import axios from "axios";
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Plus, Search, Pencil, Trash2, RefreshCw, X } from "lucide-react";
+import { BarChart3, Plus, Search, Pencil, Trash2, RefreshCw, X } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -22,7 +22,6 @@ import {
 import {
     Table,
     TableBody,
-    TableCaption,
     TableCell,
     TableHead,
     TableHeader,
@@ -68,10 +67,12 @@ export default function AdminInsightsPage() {
         try {
             const res = await axios.get<ApiListResponse>("/api/insights");
             setItems(res.data.data || []);
-        } catch (e: any) {
+        } catch (e: unknown) {
             setItems([]);
-            setError(e?.response?.data?.message || e?.message || "Failed to load insights.");
-            // eslint-disable-next-line no-console
+            const message = axios.isAxiosError(e)
+                ? e.response?.data?.message || e.message || "Failed to load insights."
+                : "Failed to load insights.";
+            setError(message);
             console.error(e);
         } finally {
             setLoading(false);
@@ -106,9 +107,11 @@ export default function AdminInsightsPage() {
         try {
             await axios.delete(`/api/insights/${id}`);
             await fetchAll();
-        } catch (e: any) {
-            setError(e?.response?.data?.message || e?.message || "Failed to delete insight.");
-            // eslint-disable-next-line no-console
+        } catch (e: unknown) {
+            const message = axios.isAxiosError(e)
+                ? e.response?.data?.message || e.message || "Failed to delete insight."
+                : "Failed to delete insight.";
+            setError(message);
             console.error(e);
         } finally {
             setDeletingId(null);
@@ -132,7 +135,7 @@ export default function AdminInsightsPage() {
                                 <p className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-white/90">
                                     Admin
                                 </p>
-                                <h1 className="mt-4 text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+                                <h1 className="mt-4 text-3xl font-semibold leading-tight tracking-tight text-white sm:text-4xl">
                                     Insights Dashboard
                                 </h1>
                                 <p className="mt-2 max-w-2xl text-base leading-relaxed text-white/80">
@@ -141,6 +144,17 @@ export default function AdminInsightsPage() {
                             </div>
 
                             <div className="flex flex-col gap-3 sm:flex-row">
+                                <Button
+                                    onClick={() => router.push("/admin/analytics")}
+                                    variant="outline"
+                                    className="h-12 rounded-lg border-white/25 bg-white/10 px-5 text-white hover:bg-white/15"
+                                >
+                                    <span className="flex items-center gap-2">
+                                        <BarChart3 className="h-4 w-4" />
+                                        Analytics Preview
+                                    </span>
+                                </Button>
+
                                 <Button
                                     onClick={fetchAll}
                                     variant="outline"

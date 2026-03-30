@@ -60,7 +60,7 @@ export default function ProofSection() {
             <Star className="h-4 w-4 fill-white text-white" />
           </div>
 
-          <h2 className="mb-6 text-4xl font-bold leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl">
+          <h2 className="mb-6 text-3xl font-bold leading-tight tracking-tight text-white sm:text-4xl lg:text-5xl">
             Built for{" "}
             <span className="relative inline-block">
               <span className="relative z-10 text-white">real-world</span>
@@ -69,7 +69,7 @@ export default function ProofSection() {
             fraud risk
           </h2>
 
-          <p className="text-lg leading-relaxed text-white/75 sm:text-xl">
+          <p className="leading-relaxed text-white/75">
             Grounded in operational reality — focused on outcomes, not theory, tools, or tick-box
             compliance.
           </p>
@@ -140,7 +140,7 @@ export default function ProofSection() {
                       />
                     </div>
 
-                    <h3 className="mb-3 text-2xl font-bold text-white">{point.title}</h3>
+                    <h3 className="mb-3 text-2xl font-bold leading-tight text-white">{point.title}</h3>
 
                     <p className="mb-6 leading-relaxed text-white/75">{point.description}</p>
 

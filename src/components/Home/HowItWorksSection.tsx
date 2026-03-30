@@ -13,22 +13,19 @@ export default function HowItWorksSection() {
       icon: GraduationCap,
       title: "Train & Sensitise",
       description:
-        "Targeted fraud awareness for employees, customers, and suppliers — focused on recognition, response, and escalation.",
-      timeline: "Weeks 1–2",
-      outcomes: [
-        "Role-based training",
-        "Fraud signals & escalation",
-        "Simple playbooks",
-      ],
+        "Targeted fraud awareness for employees, customers, and suppliers - focused on recognition, response, and escalation.",
+      timeline: "Weeks 1-2",
+      outcomes: ["Role-based training", "Fraud signals & escalation", "Simple playbooks"],
     },
     {
       icon: Map,
       title: "Assess & Map",
       description:
-        "Review controls, behaviours, and incident patterns to understand how fraud actually enters your organisation.",
-      timeline: "Weeks 3–4",
+        "Review controls, behaviours, incident patterns, and external threat signals to understand how fraud actually enters your organisation.",
+      timeline: "Weeks 3-4",
       outcomes: [
         "Process & control mapping",
+        "Threat-to-fraud signals",
         "Exposure hotspots",
         "Prioritised fixes",
       ],
@@ -37,13 +34,9 @@ export default function HowItWorksSection() {
       icon: Layers,
       title: "Build & Embed",
       description:
-        "Translate insight into practical controls, playbooks, and ongoing enablement that support everyday decision-making.",
-      timeline: "Month 2–3",
-      outcomes: [
-        "Controls that fit ops",
-        "Ownership & accountability",
-        "Ongoing resilience",
-      ],
+        "Translate insight and threat intelligence into practical controls, playbooks, and ongoing enablement that support everyday decision-making.",
+      timeline: "Month 2-3",
+      outcomes: ["Controls that fit ops", "Ownership & accountability", "Ongoing resilience"],
     },
   ];
 
@@ -64,17 +57,17 @@ export default function HowItWorksSection() {
             </span>
           </div>
 
-          <h2 className="text-4xl font-bold tracking-tight text-[#001030] sm:text-5xl lg:text-6xl">
-            From awareness to sustained{" "}
+          <h2 className="text-3xl font-bold leading-tight tracking-tight text-[#001030] sm:text-4xl lg:text-5xl">
+            From awareness to intelligence-led{" "}
             <span className="relative inline-block">
               <span className="relative z-10 text-[#1d3658]">fraud resilience</span>
               <span className="absolute -bottom-2 left-0 h-3 w-full bg-[#1d3658]/15 blur-sm" />
             </span>
           </h2>
 
-          <p className="mt-6 text-lg leading-relaxed text-slate-600 sm:text-xl">
-            A clear, practical path that turns insight into action and embeds fraud resilience into
-            daily operations.
+          <p className="mt-6 leading-relaxed text-slate-600">
+            A clear, practical path that turns awareness, insight, and threat intelligence into
+            action and embeds fraud resilience into daily operations.
           </p>
 
           <div className="mt-9 flex flex-col gap-4 sm:flex-row sm:justify-center">
@@ -121,12 +114,10 @@ export default function HowItWorksSection() {
                   <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-10">
                     <div className={isLeft ? "md:pr-12" : "md:pr-12 md:opacity-0 md:pointer-events-none"}>
                       <div
-                        className={`relative overflow-hidden rounded-3xl border bg-white p-7 shadow-lg transition-all duration-500 md:p-8 ${isHovered ? "-translate-y-1 border-[#1d3658]/20 shadow-2xl" : "border-slate-200"
-                          }`}
+                        className={`relative overflow-hidden rounded-3xl border bg-white p-7 shadow-lg transition-all duration-500 md:p-8 ${isHovered ? "-translate-y-1 border-[#1d3658]/20 shadow-2xl" : "border-slate-200"}`}
                       >
                         <div
-                          className={`absolute inset-0 opacity-0 transition-opacity duration-500 ${isHovered ? "opacity-100" : ""
-                            }`}
+                          className={`absolute inset-0 opacity-0 transition-opacity duration-500 ${isHovered ? "opacity-100" : ""}`}
                           style={{
                             background:
                               "linear-gradient(135deg, rgba(29,54,88,0.06) 0%, rgba(0,16,48,0.04) 55%, rgba(64,80,80,0.04) 100%)",
@@ -142,7 +133,7 @@ export default function HowItWorksSection() {
                                 </span>
                                 <span className="whitespace-nowrap">{step.timeline}</span>
                               </div>
-                              <h3 className="mt-4 text-2xl font-bold text-[#001030]">{step.title}</h3>
+                              <h3 className="mt-4 text-2xl font-bold leading-tight text-[#001030]">{step.title}</h3>
                             </div>
                             <div className="hidden items-center gap-2 text-sm font-semibold text-[#1d3658] sm:flex">
                               <Clock3 className="h-4 w-4" />
@@ -162,8 +153,7 @@ export default function HowItWorksSection() {
                           </ul>
 
                           <div
-                            className={`mt-6 flex items-center gap-2 text-sm font-semibold text-[#1d3658] transition-transform duration-300 ${isHovered ? "translate-x-1" : ""
-                              }`}
+                            className={`mt-6 flex items-center gap-2 text-sm font-semibold text-[#1d3658] transition-transform duration-300 ${isHovered ? "translate-x-1" : ""}`}
                           >
                             <span>Next</span>
                             <ArrowRight className="h-4 w-4" />
@@ -171,20 +161,17 @@ export default function HowItWorksSection() {
                         </div>
 
                         <div
-                          className={`absolute bottom-0 left-0 h-[3px] w-full bg-[#1d3658] transition-opacity duration-500 ${isHovered ? "opacity-100" : "opacity-0"
-                            }`}
+                          className={`absolute bottom-0 left-0 h-[3px] w-full bg-[#1d3658] transition-opacity duration-500 ${isHovered ? "opacity-100" : "opacity-0"}`}
                         />
                       </div>
                     </div>
 
                     <div className={isLeft ? "md:pl-12 md:opacity-0 md:pointer-events-none" : "md:pl-12"}>
                       <div
-                        className={`relative overflow-hidden rounded-3xl border bg-white p-7 shadow-lg transition-all duration-500 md:p-8 ${isHovered ? "-translate-y-1 border-[#1d3658]/20 shadow-2xl" : "border-slate-200"
-                          }`}
+                        className={`relative overflow-hidden rounded-3xl border bg-white p-7 shadow-lg transition-all duration-500 md:p-8 ${isHovered ? "-translate-y-1 border-[#1d3658]/20 shadow-2xl" : "border-slate-200"}`}
                       >
                         <div
-                          className={`absolute inset-0 opacity-0 transition-opacity duration-500 ${isHovered ? "opacity-100" : ""
-                            }`}
+                          className={`absolute inset-0 opacity-0 transition-opacity duration-500 ${isHovered ? "opacity-100" : ""}`}
                           style={{
                             background:
                               "linear-gradient(135deg, rgba(29,54,88,0.06) 0%, rgba(0,16,48,0.04) 55%, rgba(64,80,80,0.04) 100%)",
@@ -200,7 +187,7 @@ export default function HowItWorksSection() {
                                 </span>
                                 <span className="whitespace-nowrap">{step.timeline}</span>
                               </div>
-                              <h3 className="mt-4 text-2xl font-bold text-[#001030]">{step.title}</h3>
+                              <h3 className="mt-4 text-2xl font-bold leading-tight text-[#001030]">{step.title}</h3>
                             </div>
                             <div className="hidden items-center gap-2 text-sm font-semibold text-[#1d3658] sm:flex">
                               <Clock3 className="h-4 w-4" />
@@ -220,8 +207,7 @@ export default function HowItWorksSection() {
                           </ul>
 
                           <div
-                            className={`mt-6 flex items-center gap-2 text-sm font-semibold text-[#1d3658] transition-transform duration-300 ${isHovered ? "translate-x-1" : ""
-                              }`}
+                            className={`mt-6 flex items-center gap-2 text-sm font-semibold text-[#1d3658] transition-transform duration-300 ${isHovered ? "translate-x-1" : ""}`}
                           >
                             <span>Next</span>
                             <ArrowRight className="h-4 w-4" />
@@ -229,8 +215,7 @@ export default function HowItWorksSection() {
                         </div>
 
                         <div
-                          className={`absolute bottom-0 left-0 h-[3px] w-full bg-[#1d3658] transition-opacity duration-500 ${isHovered ? "opacity-100" : "opacity-0"
-                            }`}
+                          className={`absolute bottom-0 left-0 h-[3px] w-full bg-[#1d3658] transition-opacity duration-500 ${isHovered ? "opacity-100" : "opacity-0"}`}
                         />
                       </div>
                     </div>
@@ -246,10 +231,12 @@ export default function HowItWorksSection() {
             })}
           </div>
 
-          <div className="mt-12 flex flex-col items-center justify-center gap-4 rounded-3xl relative z-10 border border-slate-200 bg-white p-8 text-center shadow-sm sm:flex-row sm:justify-between sm:text-left">
+          <div className="relative z-10 mt-12 flex flex-col items-center justify-center gap-4 rounded-3xl border border-slate-200 bg-white p-8 text-center shadow-sm sm:flex-row sm:justify-between sm:text-left">
             <div>
               <p className="text-sm font-semibold text-[#1d3658]">Ready to get started?</p>
-              <p className="mt-1 text-lg font-bold text-[#001030]">Let’s map your fraud exposure and prioritise fixes.</p>
+              <p className="mt-1 text-lg font-bold text-[#001030]">
+                Let&apos;s map your fraud exposure and prioritise fixes.
+              </p>
             </div>
             <Link href="/contact" className="w-full sm:w-auto">
               <Button className="w-full rounded-xl bg-[#001030] px-8 py-6 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:scale-[1.03] hover:bg-[#0b1b44]">

@@ -55,13 +55,13 @@ export default function HeroSection() {
             <div className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/5 px-5 py-2 backdrop-blur-sm">
               <span className="flex h-2 w-2 rounded-full bg-white/90" />
               <span className="text-sm font-semibold text-white/90">
-                Fraud Strategy • Risk • Awareness
+                {"Fraud Strategy \u2022 Threat Intelligence \u2022 Awareness"}
               </span>
               <Sparkles className="h-4 w-4 text-white/90" />
             </div>
 
             <div className="space-y-4">
-              <h1 className="text-5xl font-bold leading-[1.08] tracking-tight text-white sm:text-6xl lg:text-7xl">
+              <h1 className="text-4xl font-bold leading-tight tracking-tight text-white sm:text-5xl lg:text-5xl">
                 Fraud is not only a{" "}
                 <span className="relative inline-block">
                   <span className="relative z-10 text-white">banking</span>
@@ -70,7 +70,7 @@ export default function HeroSection() {
                 problem.
               </h1>
 
-              <p className="max-w-xl text-lg leading-relaxed text-white/75 sm:text-xl">
+              <p className="max-w-xl leading-relaxed text-white/75">
                 We help non-financial organisations identify, understand, and reduce fraud risk
                 across operations, digital channels, and frontline environments.
               </p>
@@ -102,16 +102,20 @@ export default function HeroSection() {
             </div>
 
             <div className="flex flex-wrap gap-3 pt-2">
-              {["Strategy", "Fraud Health Checks", "Awareness & Resilience", "Internal Controls"].map(
-                (tag) => (
-                  <span
-                    key={tag}
-                    className="rounded-full border border-white/12 bg-white/5 px-4 py-2 text-sm font-medium text-white/85 transition-all duration-300 hover:scale-105 hover:bg-white/8"
-                  >
-                    {tag}
-                  </span>
-                )
-              )}
+              {[
+                "Threat Intelligence",
+                "Strategy",
+                "Fraud Health Checks",
+                "Awareness & Resilience",
+                "Internal Controls",
+              ].map((tag) => (
+                <span
+                  key={tag}
+                  className="rounded-full border border-white/12 bg-white/5 px-4 py-2 text-sm font-medium text-white/85 transition-all duration-300 hover:scale-105 hover:bg-white/8"
+                >
+                  {tag}
+                </span>
+              ))}
             </div>
           </div>
 
@@ -120,7 +124,7 @@ export default function HeroSection() {
 
             <div className="relative overflow-hidden rounded-3xl border border-white/12 bg-white/5 p-7 shadow-2xl backdrop-blur-xl lg:p-9">
               <div className="mb-7 flex items-start justify-between gap-6">
-                <h3 className="max-w-sm text-xl font-bold text-white lg:text-2xl">
+                <h3 className="max-w-sm text-xl font-bold leading-tight text-white lg:text-2xl">
                   Where fraud hides in real organisations
                 </h3>
                 <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/10">
@@ -141,8 +145,7 @@ export default function HeroSection() {
                       onMouseLeave={() => setHoveredCard(null)}
                     >
                       <div
-                        className={`absolute inset-0 opacity-0 transition-opacity duration-300 ${isHovered ? "opacity-100" : ""
-                          }`}
+                        className={`absolute inset-0 opacity-0 transition-opacity duration-300 ${isHovered ? "opacity-100" : ""}`}
                         style={{
                           background:
                             "linear-gradient(135deg, rgba(255,255,255,0.07) 0%, rgba(29,54,88,0.10) 55%, rgba(255,255,255,0.06) 100%)",
@@ -151,8 +154,7 @@ export default function HeroSection() {
 
                       <div className="relative flex items-start gap-4">
                         <div
-                          className={`flex h-12 w-12 items-center justify-center rounded-xl border border-white/12 bg-white/8 shadow-sm transition-transform duration-300 ${isHovered ? "rotate-3 scale-[1.06]" : ""
-                            }`}
+                          className={`flex h-12 w-12 items-center justify-center rounded-xl border border-white/12 bg-white/8 shadow-sm transition-transform duration-300 ${isHovered ? "rotate-3 scale-[1.06]" : ""}`}
                         >
                           <Icon className="h-5 w-5 text-white" strokeWidth={2.5} />
                         </div>
@@ -164,8 +166,7 @@ export default function HeroSection() {
                       </div>
 
                       <div
-                        className={`absolute bottom-0 left-0 h-[3px] w-full transition-opacity duration-300 ${isHovered ? "opacity-100" : "opacity-0"
-                          }`}
+                        className={`absolute bottom-0 left-0 h-[3px] w-full transition-opacity duration-300 ${isHovered ? "opacity-100" : "opacity-0"}`}
                         style={{ backgroundColor: "rgba(255,255,255,0.55)" }}
                       />
                     </div>

@@ -18,7 +18,6 @@ import {
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
 
 type NavLink =
     | { name: string; href: string; dropdown?: undefined }
@@ -30,12 +29,10 @@ type NavLink =
 
 const BRAND = {
     navy: "#001030",
-    navy2: "#1d3658",
     gray: "#405050",
 };
 
 export default function Navbar() {
-    const pathname = usePathname();
     const [isScrolled, setIsScrolled] = useState(false);
     const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
     const [isSheetOpen, setIsSheetOpen] = useState(false);
@@ -48,6 +45,7 @@ export default function Navbar() {
                 name: "Services",
                 href: "/services",
                 dropdown: [
+                    { name: "Threat Intelligence for Fraud", href: "/services#threat-intelligence" },
                     { name: "Fraud Health Check", href: "/services#health-check" },
                     { name: "Programme Design", href: "/services#programme-design" },
                     { name: "Awareness & Resilience", href: "/services#awareness" },
@@ -68,11 +66,6 @@ export default function Navbar() {
         window.addEventListener("scroll", handleScroll, { passive: true });
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
-
-    useEffect(() => {
-        setActiveDropdown(null);
-        setIsSheetOpen(false);
-    }, [pathname]);
 
     useEffect(() => {
         const onClickOutside = (e: MouseEvent) => {
@@ -96,7 +89,7 @@ export default function Navbar() {
                 <div className="flex h-20 items-center justify-between md:h-24">
                     <div className="flex items-center gap-3">
                         <Link href="/" className="flex items-center">
-                            <Image src="/logo.png" width={170} height={44} alt="MK Fraud Insights" priority />
+                            <Image src="/logo.png" width={170} height={44} alt="Mk Fraud Website" priority />
                         </Link>
                     </div>
 
@@ -107,8 +100,7 @@ export default function Navbar() {
                                     <Link
                                         key={link.name}
                                         href={link.href}
-                                        className="flex items-center gap-1 py-3 font-semibold text-slate-700 transition-colors hover:text-[var(--brand-navy)]"
-                                        style={{ ["--brand-navy" as any]: BRAND.navy }}
+                                        className="flex items-center gap-1 py-3 font-medium text-slate-700 transition-colors hover:text-[#001030]"
                                     >
                                         {link.name}
                                     </Link>
@@ -122,8 +114,7 @@ export default function Navbar() {
                                         onClick={() =>
                                             setActiveDropdown((v) => (v === link.name ? null : link.name))
                                         }
-                                        className="group flex items-center gap-1 py-3 font-semibold text-slate-700 transition-colors hover:text-[var(--brand-navy)]"
-                                        style={{ ["--brand-navy" as any]: BRAND.navy }}
+                                        className="group flex items-center gap-1 py-3 font-medium text-slate-700 transition-colors hover:text-[#001030]"
                                         aria-haspopup="menu"
                                         aria-expanded={isServicesOpen}
                                     >
@@ -144,7 +135,7 @@ export default function Navbar() {
                                                     <Link
                                                         key={item.name}
                                                         href={item.href}
-                                                        className="group flex items-center gap-3 rounded-xl p-3 transition-all duration-300 hover:bg-gradient-to-r hover:from-slate-50 hover:to-slate-100"
+                                                        className="group text-sm flex items-center gap-3 rounded-xl p-3 transition-all duration-300 hover:bg-gradient-to-r hover:from-slate-50 hover:to-slate-100"
                                                         onClick={() => setActiveDropdown(null)}
                                                     >
                                                         <div
@@ -154,8 +145,7 @@ export default function Navbar() {
                                                             }}
                                                         />
                                                         <span
-                                                            className="font-semibold text-slate-700 transition-colors group-hover:text-[var(--brand-navy)]"
-                                                            style={{ ["--brand-navy" as any]: BRAND.navy }}
+                                                            className="font-medium text-slate-700 transition-colors group-hover:text-[#001030]"
                                                         >
                                                             {item.name}
                                                         </span>
@@ -165,8 +155,7 @@ export default function Navbar() {
                                             <div className="border-t border-slate-200 p-3">
                                                 <Link
                                                     href="/services"
-                                                    className="block rounded-xl px-3 py-2 text-sm font-semibold text-slate-600 transition-colors hover:text-[var(--brand-navy)]"
-                                                    style={{ ["--brand-navy" as any]: BRAND.navy }}
+                                                    className="block rounded-xl px-3 py-2 text-sm font-medium text-slate-600 transition-colors hover:text-[#001030]"
                                                     onClick={() => setActiveDropdown(null)}
                                                 >
                                                     View all services
@@ -182,8 +171,7 @@ export default function Navbar() {
                     <div className="hidden items-center gap-3 lg:flex">
                         <Link
                             href="mailto:hello@mkfraud.co.za"
-                            className="flex items-center gap-2 text-sm font-semibold text-slate-600 transition-colors hover:text-[var(--brand-navy)]"
-                            style={{ ["--brand-navy" as any]: BRAND.navy }}
+                            className="flex items-center gap-2 text-sm font-semibold text-slate-600 transition-colors hover:text-[#001030]"
                         >
                             <Mail className="h-4 w-4" />
                             <span className="hidden xl:inline">hello@mkfraud.co.za</span>
@@ -191,7 +179,7 @@ export default function Navbar() {
 
                         <Link href="/contact">
                             <Button
-                                className="group relative overflow-hidden px-8 py-6 font-bold shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl bg-[#04123b]"
+                                className="group relative overflow-hidden px-8 py-6  shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl bg-[#04123b]"
                             // style={{
                             //   backgroundImage: `linear-gradient(to right, ${BRAND.navy}, ${BRAND.navy2}, ${BRAND.gray})`,
                             //   boxShadow: "0 10px 30px rgba(0,16,48,0.18)",
@@ -225,7 +213,7 @@ export default function Navbar() {
 
                                 <div className="flex items-sta justify-between border-b border-slate-200 px-4 py-4">
                                     <Link href="/" className="flex items-center" onClick={() => setIsSheetOpen(false)}>
-                                        <Image src="/logo.png" width={160} height={42} alt="MK Fraud Insights" />
+                                        <Image src="/logo.png" width={160} height={42} alt="Mk Fraud Website" />
                                     </Link>
                                     <button
                                         onClick={() => setIsSheetOpen(false)}
@@ -246,7 +234,7 @@ export default function Navbar() {
                                                         key={link.name}
                                                         href={link.href}
                                                         onClick={() => setIsSheetOpen(false)}
-                                                        className="flex items-center justify-between rounded-xl border bg-white px-4 py-4 font-semibold text-slate-700 transition-all duration-300 hover:bg-slate-50"
+                                                        className="flex items-center justify-between rounded-xl border bg-white px-4 py-4 font-medium text-slate-700 transition-all duration-300 hover:bg-slate-50"
                                                         style={{ borderColor: "rgb(226 232 240)" }}
                                                     >
                                                         <span className="transition-colors" style={{ color: BRAND.navy }}>
@@ -260,7 +248,7 @@ export default function Navbar() {
                                                 <Accordion key={link.name} type="single" collapsible className="w-full">
                                                     <AccordionItem value="services" className="border-0">
                                                         <AccordionTrigger
-                                                            className="rounded-xl border bg-white px-4 py-4 font-semibold text-slate-700 transition-all duration-300 hover:bg-slate-50 [&[data-state=open]]:bg-slate-50"
+                                                            className="rounded-xl border bg-white px-4 py-4 font-medium text-slate-700 transition-all duration-300 hover:bg-slate-50 [&[data-state=open]]:bg-slate-50"
                                                             style={{ borderColor: "rgb(226 232 240)", color: BRAND.navy }}
                                                         >
                                                             {link.name}
@@ -272,7 +260,7 @@ export default function Navbar() {
                                                                         key={item.name}
                                                                         href={item.href}
                                                                         onClick={() => setIsSheetOpen(false)}
-                                                                        className="block rounded-lg px-3 py-3 text-sm font-semibold text-slate-700 transition-all duration-300 hover:bg-gradient-to-r hover:from-slate-50 hover:to-slate-100"
+                                                                        className="block rounded-lg px-3 py-3 text-sm font-medium text-slate-700 transition-all duration-300 hover:bg-gradient-to-r hover:from-slate-50 hover:to-slate-100"
                                                                         style={{ color: BRAND.navy }}
                                                                     >
                                                                         {item.name}
@@ -281,7 +269,7 @@ export default function Navbar() {
                                                                 <Link
                                                                     href="/services"
                                                                     onClick={() => setIsSheetOpen(false)}
-                                                                    className="block rounded-lg px-3 py-3 text-sm font-semibold transition-colors"
+                                                                    className="block rounded-lg px-3 py-3 text-sm font-medium transition-colors"
                                                                     style={{ color: BRAND.gray }}
                                                                 >
                                                                     View all services
@@ -307,7 +295,7 @@ export default function Navbar() {
 
                                         <Link href="/contact" onClick={() => setIsSheetOpen(false)}>
                                             <Button
-                                                className="w-full rounded-xl py-6 font-bold shadow-lg bg-[#04123b]"
+                                                className="w-full rounded-xl py-6 shadow-lg bg-[#04123b]"
                                             >
                                                 Book a Call
                                             </Button>

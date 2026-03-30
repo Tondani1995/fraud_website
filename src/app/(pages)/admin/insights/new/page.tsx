@@ -5,8 +5,9 @@ import axios from "axios";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
-import { ArrowLeft, Save, Eye, EyeOff, Loader2 } from "lucide-react";
+import { ArrowLeft, Save, Eye, Loader2 } from "lucide-react";
 
+import RichTextEditor from "@/components/insights/RichTextEditor";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -64,7 +65,7 @@ export default function NewInsightPage() {
     const tags = useMemo(() => {
         return tagsRaw
             .split(",")
-            .map((t) => t.trim())
+            .map((tag) => tag.trim())
             .filter(Boolean);
     }, [tagsRaw]);
 
@@ -93,8 +94,11 @@ export default function NewInsightPage() {
             await axios.post("/api/insights", payload);
             router.push("/admin/insights");
             router.refresh();
-        } catch (e: any) {
-            setError(e?.response?.data?.message || e?.message || "Failed to create insight.");
+        } catch (error: unknown) {
+            const message = axios.isAxiosError(error)
+                ? error.response?.data?.message || error.message || "Failed to create insight."
+                : "Failed to create insight.";
+            setError(message);
         } finally {
             setSubmitting(false);
         }
@@ -103,7 +107,6 @@ export default function NewInsightPage() {
     return (
         <Wrapper>
             <main className="bg-white">
-                {/* Header */}
                 <section className="relative overflow-hidden bg-gradient-to-br from-[#001030] via-[#1d3658] to-[#0b1b33]">
                     <div className="absolute inset-0">
                         <div className="absolute left-0 top-0 h-[520px] w-[520px] rounded-full bg-white/10 blur-3xl" />
@@ -117,11 +120,12 @@ export default function NewInsightPage() {
                                 <p className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-white/90">
                                     Admin
                                 </p>
-                                <h1 className="mt-4 text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+                                <h1 className="mt-4 text-3xl font-semibold leading-tight tracking-tight text-white sm:text-4xl">
                                     Add New Insight
                                 </h1>
                                 <p className="mt-2 max-w-2xl text-base leading-relaxed text-white/80">
-                                    Create a new insight post. You can wire richer editors later.
+                                    Create a new insight post with formatting tools for headings,
+                                    links, emphasis, and long-form content.
                                 </p>
                             </div>
 
@@ -158,7 +162,6 @@ export default function NewInsightPage() {
                     <div className="absolute bottom-0 left-0 h-px w-full bg-white/15" />
                 </section>
 
-                {/* Form */}
                 <section className="relative overflow-hidden bg-gradient-to-br from-white via-slate-50 to-white">
                     <div className="pointer-events-none absolute inset-0 -z-10">
                         <div className="absolute left-0 top-10 h-[520px] w-[520px] rounded-full bg-[#1d3658]/8 blur-3xl" />
@@ -166,20 +169,22 @@ export default function NewInsightPage() {
                         <div className="absolute inset-0 bg-[linear-gradient(to_right,#0b122005_1px,transparent_1px),linear-gradient(to_bottom,#0b122005_1px,transparent_1px)] bg-[size:44px_44px]" />
                     </div>
 
-                    <div className="mx-auto max-w-7xl px-6 py-10 lg:px-8 lg:py-12 ">
-                        {error && (
+                    <div className="mx-auto max-w-7xl px-6 py-10 lg:px-8 lg:py-12">
+                        {error ? (
                             <div className="mb-6 overflow-hidden rounded-2xl border border-red-200 bg-red-50 px-5 py-4 text-sm text-red-700 shadow-sm">
                                 <p className="font-semibold">{error}</p>
                             </div>
-                        )}
+                        ) : null}
 
-                        <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 py-16">
+                        <div className="grid grid-cols-1 gap-8 py-16 lg:grid-cols-12">
                             <div className="lg:col-span-8">
                                 <Card className="rounded-3xl border-2 border-slate-200 shadow-2xl">
                                     <CardHeader>
-                                        <CardTitle className="text-xl font-semibold text-[#001030]">Content</CardTitle>
+                                        <CardTitle className="text-xl font-semibold text-[#001030]">
+                                            Content
+                                        </CardTitle>
                                         <CardDescription>
-                                            Keep it simple for now — later you can add a rich text editor.
+                                            Write and format the full article using the editor toolbar.
                                         </CardDescription>
                                     </CardHeader>
                                     <CardContent className="space-y-6">
@@ -191,9 +196,9 @@ export default function NewInsightPage() {
                                                 id="title"
                                                 value={title}
                                                 onChange={(e) => {
-                                                    const v = e.target.value;
-                                                    setTitle(v);
-                                                    if (autoSlug) setSlug(slugify(v));
+                                                    const nextTitle = e.target.value;
+                                                    setTitle(nextTitle);
+                                                    if (autoSlug) setSlug(slugify(nextTitle));
                                                 }}
                                                 className="h-12 rounded-2xl"
                                                 placeholder="e.g. Control Gaps & Early Warning Signals"
@@ -208,7 +213,7 @@ export default function NewInsightPage() {
                                                 <div className="flex items-center gap-2">
                                                     <Switch
                                                         checked={autoSlug}
-                                                        onCheckedChange={(v) => setAutoSlug(Boolean(v))}
+                                                        onCheckedChange={(checked) => setAutoSlug(Boolean(checked))}
                                                         id="autoSlug"
                                                     />
                                                     <Label htmlFor="autoSlug" className="text-xs text-slate-600">
@@ -228,7 +233,10 @@ export default function NewInsightPage() {
                                                 placeholder="e.g. control-gaps-early-warning"
                                             />
                                             <p className="text-xs text-slate-500">
-                                                This becomes the URL: <span className="font-mono">/insights/{slug || "your-slug"}</span>
+                                                This becomes the URL:{" "}
+                                                <span className="font-mono">
+                                                    /insights/{slug || "your-slug"}
+                                                </span>
                                             </p>
                                         </div>
 
@@ -245,18 +253,13 @@ export default function NewInsightPage() {
                                             />
                                         </div>
 
-                                        <div className="space-y-2">
-                                            <Label htmlFor="content" className="text-sm font-semibold text-slate-700">
-                                                Content
-                                            </Label>
-                                            <Textarea
-                                                id="content"
-                                                value={content}
-                                                onChange={(e) => setContent(e.target.value)}
-                                                className="min-h-[240px] rounded-2xl"
-                                                placeholder="Write the full article here..."
-                                            />
-                                        </div>
+                                        <RichTextEditor
+                                            id="content"
+                                            label="Content"
+                                            value={content}
+                                            onChange={setContent}
+                                            placeholder="Write the full article here..."
+                                        />
 
                                         <div className="space-y-2">
                                             <Label htmlFor="tags" className="text-sm font-semibold text-slate-700">
@@ -279,13 +282,17 @@ export default function NewInsightPage() {
                                 <div className="sticky top-8 space-y-6">
                                     <Card className="rounded-3xl border-2 border-slate-200 shadow-xl">
                                         <CardHeader>
-                                            <CardTitle className="text-xl font-semibold text-[#001030]">Settings</CardTitle>
+                                            <CardTitle className="text-xl font-semibold text-[#001030]">
+                                                Settings
+                                            </CardTitle>
                                             <CardDescription>Publishing and quick preview.</CardDescription>
                                         </CardHeader>
                                         <CardContent className="space-y-5">
                                             <div className="space-y-2">
-                                                <Label className="text-sm font-semibold text-slate-700">Status</Label>
-                                                <Select value={status} onValueChange={(v) => setStatus(v as InsightStatus)}>
+                                                <Label className="text-sm font-semibold text-slate-700">
+                                                    Status
+                                                </Label>
+                                                <Select value={status} onValueChange={(value) => setStatus(value as InsightStatus)}>
                                                     <SelectTrigger className="h-12 rounded-2xl">
                                                         <SelectValue placeholder="Select status" />
                                                     </SelectTrigger>
@@ -339,14 +346,17 @@ export default function NewInsightPage() {
 
                                     <Card className="rounded-3xl border-2 border-slate-200 shadow-xl">
                                         <CardHeader>
-                                            <CardTitle className="text-lg font-semibold text-[#001030]">Tips</CardTitle>
+                                            <CardTitle className="text-lg font-semibold text-[#001030]">
+                                                Tips
+                                            </CardTitle>
                                             <CardDescription>Keep URLs clean and consistent.</CardDescription>
                                         </CardHeader>
                                         <CardContent className="space-y-2 text-sm text-slate-600">
-                                            <p>• Title is required.</p>
-                                            <p>• Slug must be unique.</p>
-                                            <p>• Excerpt appears on listing cards.</p>
-                                            <p>• Tags help filtering later.</p>
+                                            <p>- Title is required.</p>
+                                            <p>- Slug must be unique.</p>
+                                            <p>- Excerpt appears on listing cards.</p>
+                                            <p>- Use the toolbar to add headings, links, and emphasis.</p>
+                                            <p>- Tags help filtering later.</p>
                                         </CardContent>
                                     </Card>
                                 </div>

@@ -33,7 +33,7 @@ export default function TermsOfUse() {
             content: [
                 {
                     subtitle: "Agreement to Terms",
-                    text: "By accessing or using the MK Fraud Insights website, you agree to be bound by these Terms of Use and all applicable laws and regulations. If you do not agree with any part of these terms, you must not use our website or services.",
+                    text: "By accessing or using Mk Fraud Website, you agree to be bound by these Terms of Use and all applicable laws and regulations. If you do not agree with any part of these terms, you must not use our website or services.",
                 },
                 {
                     subtitle: "Capacity to Agree",
@@ -63,7 +63,7 @@ export default function TermsOfUse() {
             content: [
                 {
                     subtitle: "Ownership",
-                    text: "All content on this website, including text, graphics, logos, images, and software, is the property of MK Fraud Insights or its licensors and is protected by South African and international intellectual property laws. The MK Fraud Insights name, logo, and all related marks are trademarks owned by MK Fraud Insights.",
+                    text: "All content on this website, including text, graphics, logos, images, and software, is the property of Mk Fraud Website or its licensors and is protected by South African and international intellectual property laws. The Mk Fraud Website name, logo, and all related marks are trademarks owned by Mk Fraud Website.",
                 },
                 {
                     subtitle: "Limited Licence",
@@ -82,7 +82,7 @@ export default function TermsOfUse() {
                 },
                 {
                     subtitle: "Service Engagement",
-                    text: "Any formal engagement for fraud risk advisory services will be subject to a separate written agreement between you and MK Fraud Insights. Website content does not create a client relationship or any contractual obligations.",
+                    text: "Any formal engagement for fraud risk advisory services will be subject to a separate written agreement between you and Mk Fraud Website. Website content does not create a client relationship or any contractual obligations.",
                 },
                 {
                     subtitle: "Information Accuracy",
@@ -101,11 +101,11 @@ export default function TermsOfUse() {
                 },
                 {
                     subtitle: "No Warranties",
-                    text: "This website and all content are provided on an \"as is\" and \"as available\" basis. To the fullest extent permitted by law, MK Fraud Insights disclaims all warranties, express or implied, including warranties of merchantability, fitness for a particular purpose, and non-infringement.",
+                    text: "This website and all content are provided on an \"as is\" and \"as available\" basis. To the fullest extent permitted by law, Mk Fraud Website disclaims all warranties, express or implied, including warranties of merchantability, fitness for a particular purpose, and non-infringement.",
                 },
                 {
                     subtitle: "Limitation of Liability",
-                    text: "To the maximum extent permitted by South African law, MK Fraud Insights shall not be liable for any direct, indirect, incidental, consequential, or punitive damages arising from your use of or inability to use this website, even if we have been advised of the possibility of such damages. This includes but is not limited to loss of data, loss of profits, or business interruption.",
+                    text: "To the maximum extent permitted by South African law, Mk Fraud Website shall not be liable for any direct, indirect, incidental, consequential, or punitive damages arising from your use of or inability to use this website, even if we have been advised of the possibility of such damages. This includes but is not limited to loss of data, loss of profits, or business interruption.",
                 },
             ],
         },
@@ -127,7 +127,7 @@ export default function TermsOfUse() {
             content: [
                 {
                     subtitle: "Submitted Information",
-                    text: "Any information, feedback, or materials you submit through this website, including through contact forms or email, becomes the property of MK Fraud Insights. We may use such submissions for any purpose without compensation or attribution, subject to our Privacy Policy regarding personal information.",
+                    text: "Any information, feedback, or materials you submit through this website, including through contact forms or email, becomes the property of Mk Fraud Website. We may use such submissions for any purpose without compensation or attribution, subject to our Privacy Policy regarding personal information.",
                 },
                 {
                     subtitle: "Accuracy of Information",
@@ -142,7 +142,7 @@ export default function TermsOfUse() {
             content: [
                 {
                     subtitle: "Your Indemnity",
-                    text: "You agree to indemnify, defend, and hold harmless MK Fraud Insights, its directors, employees, and agents from any claims, damages, losses, liabilities, and expenses (including legal fees) arising from your use of this website, your violation of these Terms of Use, or your violation of any rights of another party.",
+                    text: "You agree to indemnify, defend, and hold harmless Mk Fraud Website, its directors, employees, and agents from any claims, damages, losses, liabilities, and expenses (including legal fees) arising from your use of this website, your violation of these Terms of Use, or your violation of any rights of another party.",
                 },
             ],
         },
@@ -179,11 +179,11 @@ export default function TermsOfUse() {
                 },
                 {
                     subtitle: "Entire Agreement",
-                    text: "These Terms of Use, together with our Privacy Policy, constitute the entire agreement between you and MK Fraud Insights regarding your use of this website and supersede all prior agreements and understandings.",
+                    text: "These Terms of Use, together with our Privacy Policy, constitute the entire agreement between you and Mk Fraud Website regarding your use of this website and supersede all prior agreements and understandings.",
                 },
                 {
                     subtitle: "No Waiver",
-                    text: "Our failure to enforce any right or provision of these Terms of Use shall not constitute a waiver of such right or provision. Any waiver must be in writing and signed by an authorised representative of MK Fraud Insights.",
+                    text: "Our failure to enforce any right or provision of these Terms of Use shall not constitute a waiver of such right or provision. Any waiver must be in writing and signed by an authorised representative of Mk Fraud Website.",
                 },
             ],
         },
@@ -210,13 +210,13 @@ export default function TermsOfUse() {
                                 </span>
                             </div>
 
-                            <h1 className="mb-6 text-4xl font-semibold leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl">
+                            <h1 className="mb-6 text-3xl font-semibold leading-tight tracking-tight text-white sm:text-4xl lg:text-5xl">
                                 Terms of <span className="text-white/95">Use</span>
                             </h1>
 
-                            <p className="mx-auto max-w-3xl text-lg leading-relaxed text-white/80 sm:text-xl">
-                                Please read these Terms of Use carefully before using the MK Fraud Insights
-                                website. These terms govern your access to and use of our website and
+                            <p className="mx-auto max-w-3xl leading-relaxed text-white/80">
+                                Please read these Terms of Use carefully before using Mk Fraud
+                                Website. These terms govern your access to and use of our website and
                                 services.
                             </p>
 
@@ -249,7 +249,7 @@ export default function TermsOfUse() {
                                         <AlertTriangle className="h-6 w-6 text-white" />
                                     </div>
                                     <div>
-                                        <h2 className="mb-2 text-xl font-semibold text-[#001030]">
+                                        <h2 className="mb-2 text-xl font-semibold leading-tight text-[#001030]">
                                             Important Notice
                                         </h2>
                                         <p className="leading-relaxed text-slate-700">
@@ -298,7 +298,7 @@ export default function TermsOfUse() {
                                                     <div className="space-y-6">
                                                         {section.content.map((item, idx) => (
                                                             <div key={idx}>
-                                                                <h4 className="mb-2 text-base font-semibold text-[#001030]">
+                                                                <h4 className="mb-2 text-base font-semibold leading-tight text-[#001030]">
                                                                     {item.subtitle}
                                                                 </h4>
                                                                 <p className="leading-relaxed text-slate-700">

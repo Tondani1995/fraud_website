@@ -12,6 +12,7 @@ import {
     ShieldCheck,
     Star,
     User,
+    BrainCircuit,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -28,24 +29,35 @@ export default function ServicesHero() {
             title: "Awareness & Resilience",
             description:
                 "Enable employees, customers, and suppliers to recognise fraud early and respond with confidence.",
+            href: "/services#awareness",
         },
         {
             icon: Radar,
             title: "Fraud Health Check",
             description:
                 "Understand where fraud risk exists, how it manifests, and why existing controls fail.",
+            href: "/services#health-check",
         },
         {
             icon: ShieldCheck,
             title: "Internal Fraud Controls",
             description:
                 "Build practical, fit-for-purpose controls aligned to real operational workflows.",
+            href: "/services#controls",
         },
         {
             icon: Layers,
             title: "Fraud Programme Design",
             description:
                 "Embed ownership, escalation, and decision support so prevention works day-to-day.",
+            href: "/services#programme-design",
+        },
+        {
+            icon: BrainCircuit,
+            title: "Threat Intelligence",
+            description:
+                "Monitor evolving fraud-enabling threats and translate them into current controls, playbooks, and escalation triggers.",
+            href: "/services#threat-intelligence",
         },
     ];
 
@@ -59,7 +71,7 @@ export default function ServicesHero() {
             </div>
 
             <div className="relative mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-28">
-                <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-center">
+                <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-start">
                     {/* LEFT CONTENT */}
                     <div className="lg:col-span-6 space-y-7">
                         <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-5 py-2.5 backdrop-blur">
@@ -69,18 +81,18 @@ export default function ServicesHero() {
                             </span>
                         </div>
 
-                        <h1 className="text-4xl font-bold leading-[1.1] tracking-tight text-white sm:text-5xl lg:text-6xl">
+                        <h1 className="text-3xl font-bold leading-tight tracking-tight text-white sm:text-4xl lg:text-5xl">
                             Move from reactive fraud response to
                             <span className="relative ml-2 inline-block">
                                 <span className="relative z-10 text-[#c8d6ff]">
-                                    structured prevention
+                                    Structured Prevention
                                 </span>
                                 <span className="absolute -bottom-1 left-0 h-2 w-full bg-white/10 blur-sm" />
                             </span>
                         </h1>
 
                         {/* Client intro copy */}
-                        <p className="max-w-xl text-lg leading-relaxed text-slate-200 sm:text-xl">
+                        <p className="max-w-xl leading-relaxed text-slate-200">
                             Our services are designed to help organisations move from reactive fraud response to
                             structured, practical fraud risk management.
                         </p>
@@ -103,7 +115,7 @@ export default function ServicesHero() {
 
                         <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
                             <Link href="/contact" className="w-full sm:w-auto">
-                                <Button className="w-full rounded-xl bg-white px-8 py-6 text-base font-semibold text-[#001030] shadow-lg transition-all duration-300 hover:scale-[1.02] hover:bg-slate-100">
+                                <Button className="w-full rounded-xl bg-white px-8 py-6 text-base text-[#001030] shadow-lg transition-all duration-300 hover:scale-[1.02] hover:bg-slate-100">
                                     Book a strategy call
                                     <ArrowRight className="ml-2 h-5 w-5" />
                                 </Button>
@@ -112,7 +124,7 @@ export default function ServicesHero() {
                             <Link href="#services" className="w-full sm:w-auto">
                                 <Button
                                     variant="outline"
-                                    className="w-full rounded-xl border-2 border-white/25 bg-transparent px-8 py-6 text-base font-semibold text-white transition-all duration-300 hover:border-white/40 hover:bg-white/5"
+                                    className="w-full rounded-xl border-2 border-white/25 bg-transparent px-8 py-6 text-base text-white transition-all duration-300 hover:border-white/40 hover:bg-white/5"
                                 >
                                     View services
                                     <ArrowRight className="ml-2 h-5 w-5" />
@@ -154,7 +166,7 @@ export default function ServicesHero() {
 
                         <div className="relative overflow-hidden rounded-3xl border border-white/15 bg-white/5 p-7 backdrop-blur-xl lg:p-9">
                             <div className="mb-6 flex items-center justify-between">
-                                <h3 className="text-xl font-bold text-white sm:text-2xl">
+                                <h3 className="text-xl font-bold leading-tight text-white sm:text-2xl">
                                     Services overview
                                 </h3>
                                 <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/15 bg-white/10">
@@ -165,10 +177,14 @@ export default function ServicesHero() {
                             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                                 {services.map((s, index) => {
                                     const Icon = s.icon;
+                                    const isLastCard = index === services.length - 1;
+
                                     return (
-                                        <div
+                                        <Link
                                             key={index}
-                                            className="rounded-2xl border border-white/10 bg-white/5 p-5 transition-all duration-300 hover:bg-white/10"
+                                            href={s.href}
+                                            className={`rounded-2xl border border-white/10 bg-white/5 p-5 transition-all duration-300 hover:bg-white/10 ${isLastCard ? "sm:col-span-2" : ""
+                                                }`}
                                         >
                                             <div className="flex items-start gap-4">
                                                 <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl border border-white/15 bg-white/10">
@@ -181,7 +197,7 @@ export default function ServicesHero() {
                                                     </p>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </Link>
                                     );
                                 })}
                             </div>

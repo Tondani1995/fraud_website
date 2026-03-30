@@ -1,59 +1,60 @@
 "use client";
 
+import Link from "next/link";
 import {
-    Search,
-    FileCheck,
+    Radar,
+    FileText,
+    ShieldCheck,
+    BookOpen,
     CheckCircle2,
-    AlertTriangle,
-    Award,
     ArrowRight,
     Sparkles,
+    AlertTriangle,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-export default function FraudHealthCheckSection() {
+export default function ThreatIntelligenceSection() {
     const whatYouReceive = [
         {
-            icon: FileCheck,
-            title: "Prioritised fraud risk register",
+            icon: Radar,
+            title: "Threat-to-Fraud Map",
             description:
-                "A clear view of your fraud exposures ranked by impact and likelihood.",
+                "A ranked view of which external threats are most likely to translate into fraud loss in your specific workflows \u2014 updated as the threat environment shifts.",
         },
         {
-            icon: Search,
-            title: "Control gap analysis",
+            icon: FileText,
+            title: "Monthly Threat Intelligence Brief",
             description:
-                "Understand where controls are failing, missing, or being bypassed in real workflows.",
+                "A concise briefing on emerging fraud-enabling threats: active pretexts, impersonation trends, and social engineering patterns relevant to your sector.",
         },
         {
-            icon: CheckCircle2,
-            title: "Practical recommendations",
+            icon: ShieldCheck,
+            title: "Verification & Escalation Updates",
             description:
-                "Actionable steps tailored to your operational environment — not generic frameworks.",
+                "Specific changes to verification steps, decision rights, and escalation logic \u2014 tied directly to the threats currently targeting your environment.",
         },
         {
-            icon: ArrowRight,
-            title: "Clear next-step roadmap",
+            icon: BookOpen,
+            title: "Pretext & Scenario Library",
             description:
-                "A sequenced plan showing what to fix first and why — designed for execution.",
+                "An updated library of active fraud pretexts and manipulation scripts for use in staff training and escalation playbooks.",
         },
     ];
 
     const thisIs = [
-        "Diagnostic and action-oriented",
-        "Focused on people, process, and control points",
-        "Designed to produce a usable plan — fast",
+        "Ongoing monitoring that keeps your fraud controls current",
+        "Threat signals translated into operational fraud actions",
+        "Early warning that feeds directly into your controls, escalation logic, and training",
     ];
 
     const thisIsNot = [
-        "A forensic investigation",
-        "A regulatory audit",
-        "A guarantee of zero fraud",
+        "Executive protection or physical security",
+        "A generic threat intelligence subscription",
+        "A replacement for your existing fraud programme",
     ];
 
     return (
-        <section id="health-check" className="relative overflow-hidden bg-white">
-            {/* background texture (keep it clean + on-brand) */}
+        <section id="threat-intelligence" className="relative overflow-hidden bg-white">
             <div className="absolute inset-0">
                 <div className="absolute -left-40 top-24 h-[520px] w-[520px] rounded-full bg-[#1d3658]/6 blur-3xl" />
                 <div className="absolute -right-44 bottom-24 h-[560px] w-[560px] rounded-full bg-blue-500/5 blur-3xl" />
@@ -61,32 +62,31 @@ export default function FraudHealthCheckSection() {
             </div>
 
             <div className="relative mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-28">
-                {/* header */}
-                <div className="mx-auto mb-12 max-w-3xl text-center">
+                <div className="mx-auto mb-12 max-w-4xl text-center">
                     <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#1d3658]/15 bg-[#1d3658]/5 px-5 py-2.5 shadow-sm">
-                        <Award className="h-4 w-4 text-[#1d3658]" />
+                        <Radar className="h-4 w-4 text-[#1d3658]" />
                         <span className="text-sm font-bold uppercase tracking-wide text-[#1d3658]">
-                            Service One
+                            Service Two
                         </span>
                         <Sparkles className="h-4 w-4 text-[#1d3658]" />
                     </div>
 
                     <h2 className="text-3xl font-bold leading-tight tracking-tight text-[#1d3658] sm:text-4xl lg:text-5xl">
-                        Fraud{" "}
-                        <span className="relative inline-block">
-                            <span className="relative z-10 text-[#1d3658]">Health Check</span>
-                            <span className="absolute -bottom-1 left-0 h-2 w-full bg-[#1d3658]/10 blur-sm" />
-                        </span>
+                        Threat Intelligence for Fraud
                     </h2>
 
                     <p className="mt-4 leading-relaxed text-slate-600">
-                        A structured assessment of fraud risk across your organisation, focused on how fraud
-                        actually occurs inside day-to-day operations.
+                        Your fraud controls are only as effective as the threats they were built for.
+                        As manipulation tactics, impersonation methods, and social engineering scripts
+                        evolve, static controls create blind spots &mdash; and losses follow. We monitor
+                        the external threat environment relevant to your sector and workflows, and
+                        translate emerging signals into updated controls, verification steps, and staff
+                        playbooks &mdash; so your fraud programme stays current without starting from
+                        scratch.
                     </p>
                 </div>
 
                 <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:items-start">
-                    {/* LEFT: what you receive */}
                     <div className="lg:col-span-7">
                         <div className="mb-6 flex items-end justify-between gap-4">
                             <h3 className="text-2xl font-bold leading-tight text-[#1d3658] sm:text-3xl">
@@ -94,7 +94,7 @@ export default function FraudHealthCheckSection() {
                             </h3>
                             <div className="hidden items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-600 shadow-sm sm:flex">
                                 <span className="h-2 w-2 rounded-full bg-[#1d3658]" />
-                                Designed for execution
+                                Intelligence-led updates
                             </div>
                         </div>
 
@@ -134,9 +134,8 @@ export default function FraudHealthCheckSection() {
                             })}
                         </div>
 
-                        {/* subtle supporting strip */}
                         <div className="mt-6 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
-                            <div className="flex flex-col gap-4 p-6 sm:flex-row sm:items-center sm:justify-between">
+                            <div className="flex flex-col gap-4 p-6 sm:items-center sm:justify-between">
                                 <div className="flex items-start gap-3">
                                     <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-[#1d3658]">
                                         <CheckCircle2 className="h-5 w-5 text-white" strokeWidth={2.5} />
@@ -144,26 +143,27 @@ export default function FraudHealthCheckSection() {
                                     <div>
                                         <p className="font-bold text-[#1d3658]">Outcome</p>
                                         <p className="text-sm leading-relaxed text-slate-600">
-                                            You leave with clear visibility and a plan you can actually run.
+                                            You always know what is being used against organisations like
+                                            yours and your controls reflect it.
                                         </p>
                                     </div>
                                 </div>
 
-                                <div className="flex items-center gap-2 rounded-full border border-[#1d3658]/15 bg-[#1d3658]/5 px-4 py-2 text-sm font-semibold text-[#1d3658]">
-                                    Typical: 4–6 weeks
+                                <div className="flex items-center gap-2 rounded-full border border-[#1d3658]/15 bg-[#1d3658]/5 px-4 py-2 text-xs font-semibold text-[#1d3658]">
+                                    Ongoing monthly retainer, with an optional 2-week
+                                    Threat-to-Fraud Diagnostic Sprint as a starting point.
                                 </div>
                             </div>
                             <div className="h-1 w-full bg-[#1d3658]/20" />
                         </div>
                     </div>
 
-                    {/* RIGHT: this is / this is not + CTA */}
                     <div className="lg:col-span-5">
-                        <div className="lg:sticky lg:top-8 space-y-5">
+                        <div className="space-y-5 lg:sticky lg:top-8">
                             <div className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-xl">
                                 <div className="border-b border-slate-200 bg-slate-50 p-6">
                                     <p className="text-sm font-bold uppercase tracking-wide text-slate-600">
-                                        Clarity
+                                        Threat intelligence fit
                                     </p>
                                     <h3 className="mt-1 text-2xl font-bold leading-tight text-[#1d3658]">
                                         What this is (and isn&apos;t)
@@ -208,7 +208,7 @@ export default function FraudHealthCheckSection() {
                                                 </svg>
                                             </div>
                                             <div>
-                                                <p className="font-bold text-[#1d3658]">This is not</p>
+                                                <p className="font-bold text-[#1d3658]">This isn&apos;t</p>
                                                 <ul className="mt-2 space-y-2">
                                                     {thisIsNot.map((item, index) => (
                                                         <li key={index} className="flex items-start gap-2 text-sm text-slate-700">
@@ -228,27 +228,30 @@ export default function FraudHealthCheckSection() {
                                             </div>
                                             <div className="min-w-0">
                                                 <p className="font-bold text-[#1d3658]">
-                                                    Ready to understand your fraud risk?
+                                                    Ready to keep your fraud controls current?
                                                 </p>
                                                 <p className="mt-1 text-sm leading-relaxed text-slate-700">
-                                                    Get clear visibility into where fraud is happening and what to fix first.
+                                                    Let&apos;s translate relevant threat signals into controls,
+                                                    verification steps, and staff playbooks that stay current.
                                                 </p>
                                             </div>
                                         </div>
 
                                         <div className="mt-4">
-                                            <Button className="w-full rounded-xl bg-[#1d3658] py-6 text-base text-white shadow-lg transition-all duration-300 hover:scale-[1.02] hover:bg-[#152a44]">
-                                                <span className="flex items-center justify-center gap-2">
-                                                    Request a Health Check
-                                                    <ArrowRight className="h-5 w-5" />
-                                                </span>
-                                            </Button>
+                                            <Link href="/contact">
+                                                <Button className="w-full rounded-xl bg-[#1d3658] py-6 text-base text-white shadow-lg transition-all duration-300 hover:scale-[1.02] hover:bg-[#152a44]">
+                                                    <span className="flex items-center justify-center gap-2">
+                                                        Discuss Threat Intelligence
+                                                        <ArrowRight className="h-5 w-5" />
+                                                    </span>
+                                                </Button>
+                                            </Link>
                                         </div>
 
                                         <div className="mt-4 flex items-start gap-2 rounded-xl border border-[#1d3658]/15 bg-white p-4">
-                                            <div className="mt-0.5 h-2 w-2 rounded-full bg-[#1d3658]" />
-                                            <p className="text-sm font-semibold text-slate-700">
-                                                Typical duration: 4–6 weeks from start to actionable plan.
+                                            <p className="text-sm font-medium text-slate-700">
+                                                Ongoing monthly retainer, with an optional 2-week
+                                                Threat-to-Fraud Diagnostic Sprint as a starting point.
                                             </p>
                                         </div>
                                     </div>

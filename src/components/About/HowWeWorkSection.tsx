@@ -60,11 +60,11 @@ export default function HowWeWorkSection() {
                         </span>
                     </div>
 
-                    <h2 className="mt-6 text-4xl font-bold tracking-tight text-[#001030] sm:text-5xl">
+                    <h2 className="mt-6 text-3xl font-bold leading-tight tracking-tight text-[#001030] sm:text-4xl lg:text-5xl">
                         How we work
                     </h2>
 
-                    <p className="mt-4 text-lg leading-relaxed text-slate-600 sm:text-xl">
+                    <p className="mt-4 leading-relaxed text-slate-600">
                         Practical, structured, and grounded in operational reality — not frameworks built for
                         audits.
                     </p>
@@ -96,7 +96,7 @@ export default function HowWeWorkSection() {
                                         <Icon className="h-8 w-8 text-white" strokeWidth={2.5} />
                                     </div>
 
-                                    <h3 className="text-2xl font-bold text-[#001030]">{principle.title}</h3>
+                                    <h3 className="text-2xl font-bold leading-tight text-[#001030]">{principle.title}</h3>
                                     <p className="mt-2 text-sm font-semibold text-slate-500">{principle.description}</p>
                                     <p className="mt-4 leading-relaxed text-slate-600">{principle.detail}</p>
 
@@ -113,8 +113,8 @@ export default function HowWeWorkSection() {
                 <div className="mt-14 grid grid-cols-1 items-start gap-8 lg:grid-cols-12">
                     <div className="lg:col-span-6">
                         <div className="overflow-hidden rounded-3xl border border-slate-200 bg-white p-8 shadow-2xl lg:p-10">
-                            <h3 className="text-3xl font-bold text-[#001030]">What sets us apart</h3>
-                            <p className="mt-4 text-lg leading-relaxed text-slate-600">
+                            <h3 className="text-2xl font-bold leading-tight text-[#001030]">What sets us apart</h3>
+                            <p className="mt-4 leading-relaxed text-slate-600">
                                 We don’t rely on off-the-shelf solutions. Our work is tailored to your risk profile
                                 and how your teams actually operate.
                             </p>
@@ -138,7 +138,7 @@ export default function HowWeWorkSection() {
                     <div className="lg:col-span-6">
                         <div className="overflow-hidden rounded-3xl border border-[#001030]/15 bg-[#001030] p-8 shadow-2xl lg:p-10">
                             <div className="flex items-center justify-between gap-6">
-                                <h3 className="text-3xl font-bold text-white">What we deliver instead</h3>
+                                <h3 className="text-2xl font-bold leading-tight text-white">What we deliver instead</h3>
                                 <div className="hidden h-12 w-12 items-center justify-center rounded-2xl bg-white/10 ring-1 ring-white/15 sm:flex">
                                     <Shield className="h-6 w-6 text-white" strokeWidth={2.5} />
                                 </div>

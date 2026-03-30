@@ -33,7 +33,7 @@ export async function POST(req: Request) {
         const excerpt = (body?.excerpt || "").toString().trim();
         const content = (body?.content || "").toString().trim();
         const tags = Array.isArray(body?.tags) ? body.tags : [];
-        const author = (body?.author || "MK Fraud Insights").toString().trim();
+        const author = (body?.author || "Mk Fraud Website").toString().trim();
         const status = (body?.status || "draft").toString().trim();
 
         if (!title) {

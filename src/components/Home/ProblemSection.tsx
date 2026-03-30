@@ -44,7 +44,7 @@ export default function ProblemSection() {
             </span>
           </div>
 
-          <h2 className="mb-6 text-4xl font-bold leading-tight tracking-tight text-[#001030] sm:text-5xl lg:text-6xl">
+          <h2 className="mb-6 text-3xl font-bold leading-tight tracking-tight text-[#001030] sm:text-4xl lg:text-5xl">
             Fraud is already embedded in your{" "}
             <span className="relative inline-block">
               <span className="relative z-10 text-[#1d3658]">operating model</span>
@@ -52,7 +52,7 @@ export default function ProblemSection() {
             </span>
           </h2>
 
-          <p className="text-lg leading-relaxed text-slate-600 sm:text-xl">
+          <p className="leading-relaxed text-slate-600">
             Most organisations don&apos;t see fraud clearly because it hides inside everyday
             processes, trusted roles, and operational noise.
           </p>
@@ -100,7 +100,7 @@ export default function ProblemSection() {
                       </div>
                     </div>
 
-                    <h3 className="mb-4 text-2xl font-bold text-[#001030]">
+                    <h3 className="mb-4 text-2xl font-bold leading-tight text-[#001030]">
                       {problem.title}
                     </h3>
 

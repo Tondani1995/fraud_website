@@ -2,6 +2,7 @@
 
 import {
     Search,
+    Radar,
     Layers,
     Users,
     ShieldCheck,
@@ -32,6 +33,21 @@ export default function EngagementOptionsSection() {
             ],
             timeline: "4–6 weeks",
             bestFor: "First step in fraud risk management",
+        },
+        {
+            icon: Radar,
+            badge: "Monitor",
+            title: "Threat Intelligence for Fraud",
+            description:
+                "For organisations that need their fraud controls to stay current as threats evolve \u2014 with early warning built into their programme.",
+            includes: [
+                "Threat-to-Fraud Map for key workflows",
+                "Monthly threat intelligence brief",
+                "Updated verification and escalation triggers",
+                "Quarterly deep-dive workshops",
+            ],
+            timeline: "Ongoing monthly retainer",
+            bestFor: "Organisations that want fraud controls that adapt as threats change",
         },
         {
             icon: Layers,
@@ -101,7 +117,7 @@ export default function EngagementOptionsSection() {
                         </span>
                     </div>
 
-                    <h2 className="text-4xl font-bold leading-tight tracking-tight text-[#001030] sm:text-5xl lg:text-6xl">
+                    <h2 className="text-3xl font-bold leading-tight tracking-tight text-[#001030] sm:text-4xl lg:text-5xl">
                         Choose your{" "}
                         <span className="relative inline-block">
                             <span className="relative z-10 text-[#1d3658]">starting point</span>
@@ -109,7 +125,7 @@ export default function EngagementOptionsSection() {
                         </span>
                     </h2>
 
-                    <p className="mt-6 text-lg leading-relaxed text-slate-600 sm:text-xl">
+                    <p className="mt-6 leading-relaxed text-slate-600">
                         Select the engagement that matches your fraud risk maturity and business priorities.
                         Every option delivers practical outcomes.
                     </p>
@@ -162,7 +178,7 @@ export default function EngagementOptionsSection() {
                                                     <p className="text-xs font-bold uppercase tracking-wide text-[#1d3658]/70">
                                                         {option.badge}
                                                     </p>
-                                                    <h3 className="mt-1 text-2xl font-bold text-[#001030]">
+                                                    <h3 className="mt-1 text-2xl font-bold leading-tight text-[#001030]">
                                                         {option.title}
                                                     </h3>
                                                 </div>
@@ -226,7 +242,7 @@ export default function EngagementOptionsSection() {
                                             </div>
                                         </div>
 
-                                        <Button className="w-full rounded-xl bg-[#001030] py-6 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:scale-[1.02] hover:bg-[#001030]/90">
+                                        <Button className="w-full rounded-xl bg-[#001030] py-6 text-base text-white shadow-lg transition-all duration-300 hover:scale-[1.02] hover:bg-[#001030]/90">
                                             <span className="flex items-center justify-center gap-2">
                                                 Select this option
                                                 <ArrowRight className="h-5 w-5" />
@@ -253,10 +269,10 @@ export default function EngagementOptionsSection() {
                                     Need help choosing?
                                 </span>
                             </div>
-                            <h3 className="text-3xl font-bold text-[#001030] sm:text-4xl">
+                            <h3 className="text-2xl font-bold leading-tight text-[#001030] sm:text-3xl">
                                 Not sure which option fits your needs?
                             </h3>
-                            <p className="mt-4 text-lg leading-relaxed text-slate-600">
+                            <p className="mt-4 leading-relaxed text-slate-600">
                                 Book a call and we’ll recommend the quickest, highest-impact path based on your
                                 operating environment and fraud risk profile.
                             </p>
@@ -264,7 +280,7 @@ export default function EngagementOptionsSection() {
 
                         <div className="flex flex-col gap-3 sm:flex-row lg:justify-end">
                             <Link href="/contact" className="w-full sm:w-auto">
-                                <Button className="w-full rounded-xl bg-[#001030] px-8 py-6 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:scale-[1.02] hover:bg-[#001030]/90">
+                                <Button className="w-full rounded-xl bg-[#001030] px-8 py-6 text-base text-white shadow-lg transition-all duration-300 hover:scale-[1.02] hover:bg-[#001030]/90">
                                     <span className="flex items-center justify-center gap-2">
                                         Book a scoping call
                                         <ArrowRight className="h-5 w-5" />
@@ -275,7 +291,7 @@ export default function EngagementOptionsSection() {
                             <Link href="/services" className="w-full sm:w-auto">
                                 <Button
                                     variant="outline"
-                                    className="w-full rounded-xl border-2 border-[#1d3658]/25 bg-transparent px-8 py-6 text-base font-semibold text-[#1d3658] transition-all duration-300 hover:border-[#1d3658]/40 hover:bg-[#1d3658]/5"
+                                    className="w-full rounded-xl border-2 border-[#1d3658]/25 bg-transparent px-8 py-6 text-base text-[#1d3658] transition-all duration-300 hover:border-[#1d3658]/40 hover:bg-[#1d3658]/5"
                                 >
                                     View services
                                     <ArrowRight className="ml-2 h-5 w-5" />

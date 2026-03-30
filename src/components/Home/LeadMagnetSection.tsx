@@ -88,13 +88,13 @@ export default function LeadMagnetSection() {
 
                         <h2
                             id="lead-magnet-title"
-                            className="mt-6 text-3xl font-bold tracking-tight leading-tight text-[#001030] sm:text-4xl lg:text-5xl"
+                            className="mt-6 text-2xl font-bold tracking-tight leading-tight text-[#001030] sm:text-3xl lg:text-5xl"
                         >
                             Fraud Readiness Checklist
                             <span className="ml-2 text-[#1d3658]/70">(Free)</span>
                         </h2>
 
-                        <p className="mt-4 max-w-xl text-lg leading-relaxed text-slate-600">
+                        <p className="mt-4 max-w-xl leading-relaxed text-slate-600">
                             A practical checklist to help organisations identify common fraud
                             gaps across people, process, and controls.
                         </p>
@@ -123,7 +123,7 @@ export default function LeadMagnetSection() {
                     <div className="lg:col-span-6">
                         <div className="overflow-hidden rounded-3xl border-2 border-slate-200 bg-white shadow-2xl">
                             <div className="border-b border-slate-200 bg-slate-50/60 px-7 py-6">
-                                <h3 className="text-xl font-bold tracking-tight text-[#001030]">
+                                <h3 className="text-xl font-bold leading-tight tracking-tight text-[#001030]">
                                     Send me the checklist
                                 </h3>
                                 <p className="mt-1 text-sm text-slate-600">
@@ -211,7 +211,7 @@ export default function LeadMagnetSection() {
                             <div className="border-t border-slate-200 bg-white px-7 py-5">
                                 <div className="flex items-center justify-between gap-3">
                                     <p className="text-xs text-slate-500">
-                                        Powered by MK Fraud Insights
+                                        Powered by Mk Fraud Website
                                     </p>
                                     <div className="h-2 w-24 rounded-full bg-[#1d3658]/15" />
                                 </div>

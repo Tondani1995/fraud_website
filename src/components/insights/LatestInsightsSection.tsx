@@ -129,10 +129,10 @@ export default function LatestInsightsSection({
                             Latest
                         </span>
                     </div>
-                    <h2 className="mt-6 text-4xl font-bold tracking-tight text-[#001030] sm:text-5xl">
+                    <h2 className="mt-6 text-3xl font-bold leading-tight tracking-tight text-[#001030] sm:text-4xl lg:text-5xl">
                         {title}
                     </h2>
-                    <p className="mt-4 text-lg text-slate-600">{subtitle}</p>
+                    <p className="mt-4 text-slate-600">{subtitle}</p>
                 </div>
 
                 {/* Category pills */}
@@ -228,7 +228,7 @@ export default function LatestInsightsSection({
                                                 </div>
                                             </div>
 
-                                            <h3 className="mt-4 text-xl font-bold leading-snug text-[#001030] transition-colors duration-300 group-hover:text-[#1d3658]">
+                                            <h3 className="mt-4 text-xl font-bold leading-tight text-[#001030] transition-colors duration-300 group-hover:text-[#1d3658]">
                                                 {insight.title}
                                             </h3>
                                         </div>

@@ -10,11 +10,11 @@ const poppins = Poppins({
 
 export const metadata: Metadata = {
   title: {
-    default: "MK Fraud Insights | Fraud Strategy, Risk & Awareness Consulting",
-    template: "%s | MK Fraud Insights",
+    default: "Mk Fraud Website | Fraud Strategy, Risk & Awareness Consulting",
+    template: "%s | Mk Fraud Website",
   },
   description:
-    "MK Fraud Insights is a South African fraud risk and strategy consultancy helping organisations reduce fraud losses through intelligence-led strategy, practical controls, and targeted awareness training.",
+    "Mk Fraud Website is a South African fraud risk and strategy consultancy helping organisations reduce fraud losses through intelligence-led strategy, practical controls, and targeted awareness training.",
   keywords: [
     "fraud consulting",
     "fraud risk management",
@@ -25,9 +25,9 @@ export const metadata: Metadata = {
     "South Africa fraud consulting",
     "non-financial fraud risk",
   ],
-  authors: [{ name: "MK Fraud Insights" }],
-  creator: "MK Fraud Insights",
-  publisher: "MK Fraud Insights",
+  authors: [{ name: "Mk Fraud Website" }],
+  creator: "Mk Fraud Website",
+  publisher: "Mk Fraud Website",
   robots: {
     index: true,
     follow: true,
@@ -36,8 +36,8 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_ZA",
     url: "https://mkfraud.com",
-    siteName: "MK Fraud Insights",
-    title: "MK Fraud Insights",
+    siteName: "Mk Fraud Website",
+    title: "Mk Fraud Website",
     description:
       "Helping organisations move beyond reactive fraud controls toward resilient, intelligence-led fraud programmes.",
   },
@@ -50,7 +50,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${poppins.variable} antialiased`}>
+      <body className={`${poppins.className} ${poppins.variable} antialiased`}>
         {children}
       </body>
     </html>

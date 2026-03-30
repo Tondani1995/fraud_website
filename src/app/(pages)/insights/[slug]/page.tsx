@@ -1,19 +1,21 @@
-// src/app/(pages)/insights/[slug]/page.tsx
-
 import Wrapper from "@/app/Wrapper";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { headers } from "next/headers";
 import {
     ArrowLeft,
+    ArrowRight,
     Calendar,
     Clock,
     Tag,
     User,
-    CheckCircle2,
-    ArrowRight,
 } from "lucide-react";
+
 import { Button } from "@/components/ui/button";
+import {
+    renderInsightRichText,
+    stripInsightFormatting,
+} from "@/lib/insights/richText";
 
 type Insight = {
     _id: string;
@@ -37,9 +39,10 @@ function estimateReadTime(text: string) {
 
 function formatDate(iso?: string) {
     if (!iso) return "";
-    const d = new Date(iso);
-    if (Number.isNaN(d.getTime())) return "";
-    return d.toLocaleDateString("en-ZA", {
+    const date = new Date(iso);
+    if (Number.isNaN(date.getTime())) return "";
+
+    return date.toLocaleDateString("en-ZA", {
         year: "numeric",
         month: "long",
         day: "numeric",
@@ -48,69 +51,21 @@ function formatDate(iso?: string) {
 
 function formatDateShort(iso?: string) {
     if (!iso) return "";
-    const d = new Date(iso);
-    if (Number.isNaN(d.getTime())) return "";
-    return d.toLocaleDateString("en-ZA", {
+    const date = new Date(iso);
+    if (Number.isNaN(date.getTime())) return "";
+
+    return date.toLocaleDateString("en-ZA", {
         year: "numeric",
         month: "short",
         day: "numeric",
     });
 }
 
-function renderContent(text: string) {
-    const blocks = (text || "")
-        .split(/\n\n+/)
-        .map((b) => b.trim())
-        .filter(Boolean);
-
-    return blocks.map((b, idx) => {
-        const lines = b
-            .split("\n")
-            .map((l) => l.trim())
-            .filter(Boolean);
-
-        const isBullets =
-            lines.length > 1 && lines.every((l) => l.startsWith("- ") || l.startsWith("• "));
-
-        if (isBullets) {
-            return (
-                <ul key={idx} className="mt-5 space-y-3">
-                    {lines.map((l, i) => {
-                        const item = l.replace(/^(-\s|•\s)/, "");
-                        return (
-                            <li key={i} className="flex items-start gap-3">
-                                <span className="mt-1 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-[#1d3658]/10">
-                                    <CheckCircle2 className="h-4 w-4 text-[#1d3658]" strokeWidth={3} />
-                                </span>
-                                <span className="text-slate-700">{item}</span>
-                            </li>
-                        );
-                    })}
-                </ul>
-            );
-        }
-
-        const maybeHeading = lines.length === 1 && b.length <= 70 && b.split(" ").length <= 8;
-        if (maybeHeading) {
-            return (
-                <h3 key={idx} className="mt-10 text-2xl font-semibold tracking-tight text-[#001030]">
-                    {b}
-                </h3>
-            );
-        }
-
-        return (
-            <p key={idx} className="mt-5 leading-relaxed text-slate-700">
-                {b}
-            </p>
-        );
-    });
-}
-
 async function getBaseUrl() {
-    const h = await headers();
-    const host = h.get("x-forwarded-host") || h.get("host");
-    const proto = h.get("x-forwarded-proto") || "http";
+    const requestHeaders = await headers();
+    const host = requestHeaders.get("x-forwarded-host") || requestHeaders.get("host");
+    const proto = requestHeaders.get("x-forwarded-proto") || "http";
+
     if (!host) return process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
     return `${proto}://${host}`;
 }
@@ -152,7 +107,7 @@ export default async function InsightDetailPage({
 }: {
     params: Promise<{ slug: string }>;
 }) {
-    const { slug } = await params; // ✅ Next.js: params can be a Promise
+    const { slug } = await params;
 
     if (!slug) notFound();
 
@@ -161,27 +116,26 @@ export default async function InsightDetailPage({
     if (!post) notFound();
     if (post.status && post.status !== "published") notFound();
 
-    // Sidebar: up to 3 other published insights (excluding current)
     const all = await getAllInsights();
     const moreInsights = all
-        .filter((x) => x?.slug && x.slug !== post.slug)
-        .filter((x) => !x.status || x.status === "published")
+        .filter((item) => item?.slug && item.slug !== post.slug)
+        .filter((item) => !item.status || item.status === "published")
         .sort((a, b) => {
-            const da = new Date(a.updatedAt || a.createdAt || 0).getTime();
-            const db = new Date(b.updatedAt || b.createdAt || 0).getTime();
-            return db - da;
+            const dateA = new Date(a.updatedAt || a.createdAt || 0).getTime();
+            const dateB = new Date(b.updatedAt || b.createdAt || 0).getTime();
+            return dateB - dateA;
         })
         .slice(0, 3);
 
-    const author = post.author || "MK Fraud Insights";
+    const author = post.author || "Mk Fraud Website";
     const date = formatDate(post.updatedAt || post.createdAt) || "";
-    const readTime = post.readTime || estimateReadTime(post.content || "");
+    const readTime =
+        post.readTime || estimateReadTime(stripInsightFormatting(post.content || ""));
     const tags = post.tags || [];
 
     return (
         <Wrapper>
             <main className="bg-white">
-                {/* HERO */}
                 <section className="relative overflow-hidden bg-gradient-to-br from-[#001030] via-[#1d3658] to-[#0b1b33]">
                     <div className="absolute inset-0">
                         <div className="absolute left-0 top-0 h-[560px] w-[560px] rounded-full bg-white/10 blur-3xl" />
@@ -198,8 +152,6 @@ export default async function InsightDetailPage({
                                 <ArrowLeft className="h-4 w-4" />
                                 Back to Insights
                             </Link>
-
-                            {/* <ShareButton title={post.title} /> */}
                         </div>
 
                         <div className="max-w-3xl">
@@ -236,13 +188,13 @@ export default async function InsightDetailPage({
 
                             {tags.length ? (
                                 <div className="mt-5 flex flex-wrap gap-2">
-                                    {tags.map((t) => (
+                                    {tags.map((tag) => (
                                         <span
-                                            key={t}
+                                            key={tag}
                                             className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs font-semibold text-white/90"
                                         >
                                             <Tag className="h-3.5 w-3.5" />
-                                            {t}
+                                            {tag}
                                         </span>
                                     ))}
                                 </div>
@@ -253,7 +205,6 @@ export default async function InsightDetailPage({
                     <div className="absolute bottom-0 left-0 h-px w-full bg-white/15" />
                 </section>
 
-                {/* BODY */}
                 <section className="relative overflow-hidden bg-gradient-to-br from-white via-slate-50 to-white">
                     <div className="pointer-events-none absolute inset-0 -z-10">
                         <div className="absolute left-0 top-10 h-[520px] w-[520px] rounded-full bg-[#1d3658]/8 blur-3xl" />
@@ -263,10 +214,11 @@ export default async function InsightDetailPage({
 
                     <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8 lg:py-20">
                         <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:items-start">
-                            {/* MAIN ARTICLE */}
                             <article className="lg:col-span-8">
                                 <div className="overflow-hidden rounded-3xl border-2 border-slate-200 bg-white shadow-2xl">
-                                    <div className="p-7 sm:p-10">{renderContent(post.content || "")}</div>
+                                    <div className="p-7 sm:p-10">
+                                        {renderInsightRichText(post.content || "")}
+                                    </div>
                                     <div className="h-1 w-full bg-[#1d3658]/15" />
                                 </div>
 
@@ -282,10 +234,8 @@ export default async function InsightDetailPage({
                                 </div>
                             </article>
 
-                            {/* SIDEBAR */}
                             <aside className="lg:col-span-4">
                                 <div className="sticky top-8 space-y-6">
-                                    {/* More insights (max 3) */}
                                     <div className="overflow-hidden rounded-3xl border-2 border-slate-200 bg-white shadow-xl">
                                         <div className="border-b border-slate-200 bg-slate-50/60 px-7 py-6">
                                             <p className="text-sm font-semibold uppercase tracking-wide text-[#1d3658]">
@@ -299,40 +249,44 @@ export default async function InsightDetailPage({
                                         <div className="space-y-4 p-6">
                                             {moreInsights.length === 0 ? (
                                                 <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-                                                    <p className="text-sm font-semibold text-[#001030]">No other insights yet.</p>
+                                                    <p className="text-sm font-semibold text-[#001030]">
+                                                        No other insights yet.
+                                                    </p>
                                                     <p className="mt-1 text-sm text-slate-600">
                                                         Add more posts from the admin dashboard.
                                                     </p>
                                                 </div>
                                             ) : (
-                                                moreInsights.map((it) => {
-                                                    const d = formatDateShort(it.updatedAt || it.createdAt);
-                                                    const firstTag = (it.tags || [])[0];
+                                                moreInsights.map((item) => {
+                                                    const shortDate = formatDateShort(
+                                                        item.updatedAt || item.createdAt
+                                                    );
+                                                    const firstTag = (item.tags || [])[0];
 
                                                     return (
                                                         <Link
-                                                            key={it._id || it.slug}
-                                                            href={`/insights/${it.slug}`}
+                                                            key={item._id || item.slug}
+                                                            href={`/insights/${item.slug}`}
                                                             className="block rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:border-[#1d3658]/30 hover:shadow-md"
                                                         >
                                                             <div className="flex items-start justify-between gap-3">
                                                                 <p className="font-semibold leading-snug text-[#001030]">
-                                                                    {it.title}
+                                                                    {item.title}
                                                                 </p>
                                                                 <ArrowRight className="mt-0.5 h-4 w-4 flex-shrink-0 text-slate-400" />
                                                             </div>
 
-                                                            {it.excerpt ? (
+                                                            {item.excerpt ? (
                                                                 <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-slate-600">
-                                                                    {it.excerpt}
+                                                                    {item.excerpt}
                                                                 </p>
                                                             ) : null}
 
                                                             <div className="mt-3 flex flex-wrap items-center gap-2 text-xs text-slate-500">
-                                                                {d ? (
+                                                                {shortDate ? (
                                                                     <span className="inline-flex items-center gap-1">
                                                                         <Calendar className="h-3 w-3" />
-                                                                        {d}
+                                                                        {shortDate}
                                                                     </span>
                                                                 ) : null}
 
@@ -358,7 +312,6 @@ export default async function InsightDetailPage({
                                             </Link>
                                         </div>
                                     </div>
-
                                 </div>
                             </aside>
                         </div>

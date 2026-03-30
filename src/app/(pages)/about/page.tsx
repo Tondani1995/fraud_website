@@ -91,15 +91,15 @@ export default function About() {
                                 </span>
                             </div>
 
-                            <h1 className="mt-6 text-5xl font-bold leading-[1.05] tracking-tight text-white sm:text-6xl lg:text-7xl">
-                                MK Fraud{" "}
+                            <h1 className="mt-6 text-4xl font-bold leading-tight tracking-tight text-white sm:text-5xl lg:text-5xl">
+                                Mk Fraud{" "}
                                 <span className="relative inline-block">
-                                    <span className="relative z-10 text-[#c8d6ff]">Insights</span>
+                                    <span className="relative z-10 text-[#c8d6ff]">Website</span>
                                     <span className="absolute -bottom-2 left-0 h-3 w-full bg-white/10 blur-sm" />
                                 </span>
                             </h1>
 
-                            <p className="mt-6 text-lg leading-relaxed text-slate-200 sm:text-xl">
+                            <p className="mt-6 leading-relaxed text-slate-200">
                                 We are a fraud risk consulting venture focused on non-financial sectors in South
                                 Africa — helping organisations build practical fraud capability, reduce leakage,
                                 and protect customers.
@@ -155,7 +155,7 @@ export default function About() {
                                                     <Icon className="h-8 w-8 text-white" strokeWidth={2.5} />
                                                 </div>
 
-                                                <h3 className="mb-2 text-2xl font-bold text-white">{approach.title}</h3>
+                                                <h3 className="mb-2 text-2xl font-bold leading-tight text-white">{approach.title}</h3>
                                                 <p className="mb-4 text-sm font-semibold text-slate-200">
                                                     {approach.description}
                                                 </p>
@@ -187,10 +187,10 @@ export default function About() {
                                 </span>
                             </div>
 
-                            <h2 className="mt-6 text-4xl font-bold tracking-tight text-[#001030] sm:text-5xl">
+                            <h2 className="mt-6 text-3xl font-bold leading-tight tracking-tight text-[#001030] sm:text-4xl lg:text-5xl">
                                 Built by practitioners
                             </h2>
-                            <p className="mt-4 text-lg leading-relaxed text-slate-600 sm:text-xl">
+                            <p className="mt-4 leading-relaxed text-slate-600">
                                 Grounded in operational reality — informed by strategy, analytics, and frontline
                                 risk management experience.
                             </p>
@@ -207,7 +207,7 @@ export default function About() {
                                         <div className="mb-6 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-[#001030] shadow-lg transition-transform duration-300 group-hover:rotate-6">
                                             <Icon className="h-7 w-7 text-white" strokeWidth={2.5} />
                                         </div>
-                                        <h3 className="mb-4 text-xl font-bold text-[#001030]">{item.title}</h3>
+                                        <h3 className="mb-4 text-xl font-bold leading-tight text-[#001030]">{item.title}</h3>
                                         <p className="leading-relaxed text-slate-600">{item.description}</p>
                                     </div>
                                 );
@@ -228,10 +228,10 @@ export default function About() {
                     <div className="relative mx-auto max-w-7xl px-6 py-24 lg:px-8 lg:py-32">
                         <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-12 lg:gap-16">
                             <div className="lg:col-span-6">
-                                <h2 className="text-4xl font-bold leading-tight text-white sm:text-5xl">
+                                <h2 className="text-3xl font-bold leading-tight text-white sm:text-4xl lg:text-5xl">
                                     Our values drive everything we do
                                 </h2>
-                                <p className="mt-5 text-lg leading-relaxed text-slate-200">
+                                <p className="mt-5 leading-relaxed text-slate-200">
                                     We believe in delivering tangible outcomes that make a real difference to your
                                     organization&apos;s fraud resilience.
                                 </p>
@@ -256,7 +256,7 @@ export default function About() {
 
                             <div className="lg:col-span-6">
                                 <div className="overflow-hidden rounded-3xl border border-white/12 bg-white/5 p-8 backdrop-blur lg:p-10">
-                                    <h3 className="text-2xl font-bold text-white">Why work with us?</h3>
+                                    <h3 className="text-2xl font-bold leading-tight text-white">Why work with us?</h3>
 
                                     <div className="mt-6 space-y-5">
                                         {[
@@ -285,7 +285,7 @@ export default function About() {
                                                     <CheckCircle2 className="h-5 w-5 text-white" strokeWidth={3} />
                                                 </div>
                                                 <div>
-                                                    <h4 className="font-bold text-white">{reason.title}</h4>
+                                                    <h4 className="font-bold leading-tight text-white">{reason.title}</h4>
                                                     <p className="mt-1 text-sm leading-relaxed text-slate-200">
                                                         {reason.description}
                                                     </p>
@@ -295,7 +295,7 @@ export default function About() {
                                     </div>
 
                                     <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2">
-                                        {["Strategy", "Awareness", "Controls", "Programme Design"].map((tag) => (
+                                        {["Threat Intelligence", "Strategy", "Awareness", "Controls", "Programme Design"].map((tag) => (
                                             <div
                                                 key={tag}
                                                 className="rounded-2xl border border-white/12 bg-white/5 px-4 py-3 text-center text-sm font-semibold text-slate-200"
@@ -325,10 +325,10 @@ export default function About() {
                                         <span className="text-sm font-semibold text-[#001030]">Let&apos;s work together</span>
                                     </div>
 
-                                    <h3 className="mt-5 text-3xl font-bold text-[#001030] lg:text-4xl">
+                                    <h3 className="mt-5 text-2xl font-bold leading-tight text-[#001030] lg:text-3xl">
                                         Ready to strengthen your fraud defences?
                                     </h3>
-                                    <p className="mt-3 text-lg text-slate-600">
+                                    <p className="mt-3 text-slate-600">
                                         Book a call to discuss how we can help your organisation build practical fraud
                                         capability and reduce risk.
                                     </p>

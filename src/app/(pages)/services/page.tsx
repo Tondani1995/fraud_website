@@ -5,6 +5,7 @@ import FraudHealthCheckSection from '@/components/Services/FraudHealthCheckSecti
 import FraudProgrammeDesignSection from '@/components/Services/FraudProgrammeDesignSection'
 import InternalFraudControlsSection from '@/components/Services/InternalFraudControlsSection'
 import ServicesHero from '@/components/Services/ServicesHero'
+import ThreatIntelligenceSection from '@/components/Services/ThreatIntelligenceSection'
 import React from 'react'
 
 export default function page() {
@@ -13,6 +14,7 @@ export default function page() {
             <div>
                 <ServicesHero />
                 <FraudHealthCheckSection />
+                <ThreatIntelligenceSection />
                 <FraudProgrammeDesignSection />
                 <AwarenessResilienceSection />
                 <InternalFraudControlsSection />
