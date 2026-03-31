@@ -61,7 +61,7 @@ export default function HeroSection() {
             </div>
 
             <div className="space-y-4">
-              <h1 className="text-4xl font-bold leading-tight tracking-tight text-white sm:text-5xl lg:text-5xl">
+              <h1 className="text-4xl font-bold leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl">
                 Fraud is not only a{" "}
                 <span className="relative inline-block">
                   <span className="relative z-10 text-white">banking</span>
@@ -76,7 +76,7 @@ export default function HeroSection() {
               </p>
             </div>
 
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
+            <div className="flex flex-col gap-4">
               <Link href="/contact" className="w-full sm:w-auto">
                 <Button
                   size="lg"
