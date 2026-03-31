@@ -211,7 +211,7 @@ export default function Footer() {
 
         <div className="mt-12 border-t border-white/10 pt-8">
           <div className="flex flex-col items-center justify-center gap-4 text-center text-sm text-white/60 lg:flex-row lg:justify-between lg:text-left">
-            <p>Copyright {new Date().getFullYear()} Mk Fraud Website. All rights reserved.</p>
+            <p>Copyright 2020 Mk Fraud Website. All rights reserved.</p>
             <div className="flex flex-wrap gap-6">
               <Link href="/privacy-policy" className="transition-colors hover:text-white">
                 Privacy Policy
