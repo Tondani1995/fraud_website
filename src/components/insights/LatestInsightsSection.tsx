@@ -228,7 +228,7 @@ export default function LatestInsightsSection({
                                                 </div>
                                             </div>
 
-                                            <h3 className="mt-4 text-lg font-semibold leading-tight text-[#001030] transition-colors duration-300 md:h-14 group-hover:text-[#1d3658] line-clamp-2">
+                                            <h3 className="mt-4 text-lg font-semibold leading-tight text-[#001030] transition-colors duration-300 group-hover:text-[#1d3658] line-clamp-2">
                                                 {insight.title}
                                             </h3>
                                         </div>
