@@ -125,7 +125,7 @@ export default function LatestInsightsSection({
                 <div className="mx-auto mb-10 max-w-4xl text-center">
                     <div className="inline-flex items-center gap-2 rounded-full border border-[#1d3658]/15 bg-white px-5 py-2.5 shadow-sm">
                         <span className="flex h-2 w-2 rounded-full bg-[#1d3658]" />
-                        <span className="text-sm font-bold uppercase tracking-wide text-[#001030]">
+                        <span className="text-sm font-semibold uppercase tracking-wide text-[#001030]">
                             Latest
                         </span>
                     </div>
@@ -143,7 +143,7 @@ export default function LatestInsightsSection({
                             <button
                                 key={category.id}
                                 onClick={() => setActiveCategory(category.id)}
-                                className={`group flex items-center gap-2 rounded-full border px-6 py-3 font-bold transition-all duration-300 ${isActive
+                                className={`group flex items-center gap-2 rounded-full border px-6 py-3 font-semibold text-sm transition-all duration-300 ${isActive
                                         ? "border-[#001030] bg-[#001030] text-white shadow-lg"
                                         : "border-slate-200 bg-white text-slate-700 hover:border-[#1d3658]/40 hover:bg-slate-50"
                                     }`}
@@ -212,7 +212,7 @@ export default function LatestInsightsSection({
                                                 : "border-slate-200"
                                             }`}
                                     >
-                                        <div className="border-b border-slate-200 bg-white p-6">
+                                        <div className="border-b border-slate-200 bg-white px-5 pt-5 pb-3">
                                             <div className="flex items-start justify-between gap-4">
                                                 <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1">
                                                     <span className="text-xs font-bold text-[#001030]">Insight</span>
@@ -220,20 +220,20 @@ export default function LatestInsightsSection({
 
                                                 <div className="flex items-center gap-2">
                                                     {(insight.tags || []).slice(0, 1).map((t) => (
-                                                        <div key={t} className="rounded-full bg-[#1d3658]/10 px-3 py-1">
-                                                            <span className="text-xs font-bold text-[#1d3658]">{t}</span>
+                                                        <div key={t} className="rounded-full bg-[#1d3658]/10 px-2">
+                                                            <span className="text-xs font-semibold text-[#1d3658]">{t}</span>
                                                         </div>
                                                     ))}
                                                     <Tag className="h-4 w-4 text-slate-400" />
                                                 </div>
                                             </div>
 
-                                            <h3 className="mt-4 text-xl font-bold leading-tight text-[#001030] transition-colors duration-300 group-hover:text-[#1d3658]">
+                                            <h3 className="mt-4 text-lg font-semibold leading-tight text-[#001030] transition-colors duration-300 md:h-14 group-hover:text-[#1d3658] line-clamp-2">
                                                 {insight.title}
                                             </h3>
                                         </div>
 
-                                        <div className="p-6">
+                                        <div className="p-5">
                                             <p className="mb-5 line-clamp-3 text-sm leading-relaxed text-slate-600">
                                                 {insight.excerpt}
                                             </p>
@@ -253,7 +253,7 @@ export default function LatestInsightsSection({
 
                                             <div className="mt-5">
                                                 <Link href={`/insights/${insight.slug}`}>
-                                                    <Button className="w-full rounded-xl bg-[#001030] py-6 text-sm font-semibold text-white shadow-md transition-all duration-300 hover:bg-[#0b1b44]">
+                                                    <Button className="w-full rounded-xl bg-[#001030] py-6 text-white shadow-md transition-all duration-300 hover:bg-[#0b1b44]">
                                                         Read
                                                         <ArrowRight className="ml-2 h-4 w-4" />
                                                     </Button>

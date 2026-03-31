@@ -9,9 +9,11 @@ import {
     Highlighter,
     Italic,
     Link2,
+    Loader2,
     List,
     ListOrdered,
     Quote,
+    Sparkles,
     Underline,
 } from "lucide-react";
 
@@ -25,6 +27,8 @@ type RichTextEditorProps = {
     label: string;
     value: string;
     onChange: (value: string) => void;
+    onGenerateAi?: () => void | Promise<void>;
+    isGeneratingAi?: boolean;
     placeholder?: string;
     rows?: number;
     minHeightClassName?: string;
@@ -41,6 +45,8 @@ export default function RichTextEditor({
     label,
     value,
     onChange,
+    onGenerateAi,
+    isGeneratingAi = false,
     placeholder,
     rows = 14,
     minHeightClassName = "min-h-[280px]",
@@ -287,6 +293,24 @@ export default function RichTextEditor({
                             >
                                 <Quote className="h-4 w-4" />
                                 <span>Quote</span>
+                            </Button>
+
+                            <Button
+                                type="button"
+                                variant="outline"
+                                size="sm"
+                                className="h-9 rounded-xl border-[#1d3658]/20 bg-[#1d3658]/5 px-3 text-[#1d3658] hover:bg-[#1d3658]/10"
+                                onClick={() => void onGenerateAi?.()}
+                                aria-label="Generate with AI"
+                                title="Generate with AI"
+                                disabled={!onGenerateAi || isGeneratingAi}
+                            >
+                                {isGeneratingAi ? (
+                                    <Loader2 className="h-4 w-4 animate-spin" />
+                                ) : (
+                                    <Sparkles className="h-4 w-4" />
+                                )}
+                                <span>{isGeneratingAi ? "Generating..." : "Generate with AI"}</span>
                             </Button>
                         </div>
 

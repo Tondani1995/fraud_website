@@ -5,19 +5,12 @@ import axios from "axios";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
-import { ArrowLeft, Save, Eye, Loader2 } from "lucide-react";
+import { ArrowLeft, Loader2, Sparkles } from "lucide-react";
 
 import RichTextEditor from "@/components/insights/RichTextEditor";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select";
 import {
     Card,
     CardContent,
@@ -43,7 +36,7 @@ function slugify(input: string) {
     return input
         .toLowerCase()
         .trim()
-        .replace(/['’]/g, "")
+        .replace(/['â€™]/g, "")
         .replace(/[^a-z0-9]+/g, "-")
         .replace(/^-+|-+$/g, "");
 }
@@ -57,9 +50,10 @@ export default function NewInsightPage() {
     const [excerpt, setExcerpt] = useState("");
     const [content, setContent] = useState("");
     const [tagsRaw, setTagsRaw] = useState("");
-    const [status, setStatus] = useState<InsightStatus>("draft");
-
     const [submitting, setSubmitting] = useState(false);
+    const [submitTarget, setSubmitTarget] = useState<InsightStatus | null>(null);
+    const [generatingAi, setGeneratingAi] = useState(false);
+    const [generatingTags, setGeneratingTags] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
     const tags = useMemo(() => {
@@ -73,7 +67,7 @@ export default function NewInsightPage() {
         return title.trim() && slug.trim() && excerpt.trim() && content.trim();
     }, [title, slug, excerpt, content]);
 
-    async function onSubmit() {
+    async function onSubmit(nextStatus: InsightStatus) {
         setError(null);
         if (!canSubmit) {
             setError("Please fill in Title, Slug, Excerpt, and Content.");
@@ -86,10 +80,11 @@ export default function NewInsightPage() {
             excerpt: excerpt.trim(),
             content: content.trim(),
             tags,
-            status,
+            status: nextStatus,
         };
 
         setSubmitting(true);
+        setSubmitTarget(nextStatus);
         try {
             await axios.post("/api/insights", payload);
             router.push("/admin/insights");
@@ -101,6 +96,80 @@ export default function NewInsightPage() {
             setError(message);
         } finally {
             setSubmitting(false);
+            setSubmitTarget(null);
+        }
+    }
+
+    async function onGenerateAi() {
+        setError(null);
+
+        if (!title.trim()) {
+            setError("Please add a title before generating content with AI.");
+            return;
+        }
+
+        if (content.trim()) {
+            const shouldReplace = window.confirm(
+                "This will replace the current content in the editor. Do you want to continue?"
+            );
+
+            if (!shouldReplace) return;
+        }
+
+        setGeneratingAi(true);
+        try {
+            const response = await axios.post("/api/ai/generate-insight", {
+                title: title.trim(),
+                excerpt: excerpt.trim(),
+            });
+
+            const generatedContent = response.data?.content;
+
+            if (!generatedContent || typeof generatedContent !== "string") {
+                throw new Error("No content was generated.");
+            }
+
+            setContent(generatedContent.trim());
+        } catch (error: unknown) {
+            const message = axios.isAxiosError(error)
+                ? error.response?.data?.error || error.message || "Failed to generate insight content."
+                : "Failed to generate insight content.";
+            setError(message);
+        } finally {
+            setGeneratingAi(false);
+        }
+    }
+
+    async function onGenerateTags() {
+        setError(null);
+
+        if (!title.trim()) {
+            setError("Please add a title before generating tags with AI.");
+            return;
+        }
+
+        setGeneratingTags(true);
+        try {
+            const response = await axios.post("/api/ai/generate-tags", {
+                title: title.trim(),
+                excerpt: excerpt.trim(),
+                content: content.trim(),
+            });
+
+            const nextTagsText = response.data?.tagsText;
+
+            if (!nextTagsText || typeof nextTagsText !== "string") {
+                throw new Error("No tags were generated.");
+            }
+
+            setTagsRaw(nextTagsText);
+        } catch (error: unknown) {
+            const message = axios.isAxiosError(error)
+                ? error.response?.data?.error || error.message || "Failed to generate tags."
+                : "Failed to generate tags.";
+            setError(message);
+        } finally {
+            setGeneratingTags(false);
         }
     }
 
@@ -129,33 +198,13 @@ export default function NewInsightPage() {
                                 </p>
                             </div>
 
-                            <div className="flex flex-col gap-3 sm:flex-row">
-                                <Link
-                                    href="/admin/insights"
-                                    className="inline-flex h-12 items-center justify-center rounded-2xl border border-white/25 bg-white/10 px-5 text-sm font-semibold text-white hover:bg-white/15"
-                                >
-                                    <ArrowLeft className="mr-2 h-4 w-4" />
-                                    Back
-                                </Link>
-
-                                <Button
-                                    onClick={onSubmit}
-                                    disabled={submitting || !canSubmit}
-                                    className="h-12 rounded-2xl bg-white px-6 font-semibold text-[#1d3658] hover:bg-slate-100"
-                                >
-                                    {submitting ? (
-                                        <span className="flex items-center gap-2">
-                                            <Loader2 className="h-4 w-4 animate-spin" />
-                                            Saving...
-                                        </span>
-                                    ) : (
-                                        <span className="flex items-center gap-2">
-                                            <Save className="h-5 w-5" />
-                                            Save
-                                        </span>
-                                    )}
-                                </Button>
-                            </div>
+                            <Link
+                                href="/admin/insights"
+                                className="inline-flex h-12 items-center justify-center rounded-2xl border border-white/25 bg-white/10 px-5 text-sm font-semibold text-white hover:bg-white/15"
+                            >
+                                <ArrowLeft className="mr-2 h-4 w-4" />
+                                Back
+                            </Link>
                         </div>
                     </div>
 
@@ -176,191 +225,172 @@ export default function NewInsightPage() {
                             </div>
                         ) : null}
 
-                        <div className="grid grid-cols-1 gap-8 py-16 lg:grid-cols-12">
-                            <div className="lg:col-span-8">
-                                <Card className="rounded-3xl border-2 border-slate-200 shadow-2xl">
-                                    <CardHeader>
-                                        <CardTitle className="text-xl font-semibold text-[#001030]">
-                                            Content
-                                        </CardTitle>
-                                        <CardDescription>
-                                            Write and format the full article using the editor toolbar.
-                                        </CardDescription>
-                                    </CardHeader>
-                                    <CardContent className="space-y-6">
-                                        <div className="space-y-2">
-                                            <Label htmlFor="title" className="text-sm font-semibold text-slate-700">
-                                                Title
-                                            </Label>
-                                            <Input
-                                                id="title"
-                                                value={title}
-                                                onChange={(e) => {
-                                                    const nextTitle = e.target.value;
-                                                    setTitle(nextTitle);
-                                                    if (autoSlug) setSlug(slugify(nextTitle));
-                                                }}
-                                                className="h-12 rounded-2xl"
-                                                placeholder="e.g. Control Gaps & Early Warning Signals"
-                                            />
-                                        </div>
-
-                                        <div className="space-y-2">
-                                            <div className="flex items-center justify-between gap-3">
-                                                <Label htmlFor="slug" className="text-sm font-semibold text-slate-700">
-                                                    Slug
-                                                </Label>
-                                                <div className="flex items-center gap-2">
-                                                    <Switch
-                                                        checked={autoSlug}
-                                                        onCheckedChange={(checked) => setAutoSlug(Boolean(checked))}
-                                                        id="autoSlug"
-                                                    />
-                                                    <Label htmlFor="autoSlug" className="text-xs text-slate-600">
-                                                        Auto-generate
-                                                    </Label>
-                                                </div>
-                                            </div>
-
-                                            <Input
-                                                id="slug"
-                                                value={slug}
-                                                onChange={(e) => {
-                                                    setSlug(e.target.value);
-                                                    setAutoSlug(false);
-                                                }}
-                                                className="h-12 rounded-2xl font-mono"
-                                                placeholder="e.g. control-gaps-early-warning"
-                                            />
-                                            <p className="text-xs text-slate-500">
-                                                This becomes the URL:{" "}
-                                                <span className="font-mono">
-                                                    /insights/{slug || "your-slug"}
-                                                </span>
-                                            </p>
-                                        </div>
-
-                                        <div className="space-y-2">
-                                            <Label htmlFor="excerpt" className="text-sm font-semibold text-slate-700">
-                                                Excerpt
-                                            </Label>
-                                            <Textarea
-                                                id="excerpt"
-                                                value={excerpt}
-                                                onChange={(e) => setExcerpt(e.target.value)}
-                                                className="min-h-[110px] rounded-2xl"
-                                                placeholder="Short summary shown on cards and list pages..."
-                                            />
-                                        </div>
-
-                                        <RichTextEditor
-                                            id="content"
-                                            label="Content"
-                                            value={content}
-                                            onChange={setContent}
-                                            placeholder="Write the full article here..."
+                        <div className="py-16">
+                            <Card className="rounded-3xl border-2 border-slate-200 shadow-2xl">
+                                <CardHeader>
+                                    <CardTitle className="text-xl font-semibold text-[#001030]">
+                                        Content
+                                    </CardTitle>
+                                    <CardDescription>
+                                        Write and format the full article using the editor toolbar.
+                                    </CardDescription>
+                                </CardHeader>
+                                <CardContent className="space-y-6">
+                                    <div className="space-y-2">
+                                        <Label htmlFor="title" className="text-sm font-semibold text-slate-700">
+                                            Title
+                                        </Label>
+                                        <Input
+                                            id="title"
+                                            value={title}
+                                            onChange={(e) => {
+                                                const nextTitle = e.target.value;
+                                                setTitle(nextTitle);
+                                                if (autoSlug) setSlug(slugify(nextTitle));
+                                            }}
+                                            className="h-12 rounded-2xl"
+                                            placeholder="e.g. Control Gaps & Early Warning Signals"
                                         />
+                                    </div>
 
-                                        <div className="space-y-2">
+                                    <div className="space-y-2">
+                                        <div className="flex items-center justify-between gap-3">
+                                            <Label htmlFor="slug" className="text-sm font-semibold text-slate-700">
+                                                Slug
+                                            </Label>
+                                            <div className="flex items-center gap-2">
+                                                <Switch
+                                                    checked={autoSlug}
+                                                    onCheckedChange={(checked) => setAutoSlug(Boolean(checked))}
+                                                    id="autoSlug"
+                                                />
+                                                <Label htmlFor="autoSlug" className="text-xs text-slate-600">
+                                                    Auto-generate
+                                                </Label>
+                                            </div>
+                                        </div>
+
+                                        <Input
+                                            id="slug"
+                                            value={slug}
+                                            onChange={(e) => {
+                                                setSlug(e.target.value);
+                                                setAutoSlug(false);
+                                            }}
+                                            className="h-12 rounded-2xl font-mono"
+                                            placeholder="e.g. control-gaps-early-warning"
+                                        />
+                                        <p className="text-xs text-slate-500">
+                                            This becomes the URL:{" "}
+                                            <span className="font-mono">
+                                                /insights/{slug || "your-slug"}
+                                            </span>
+                                        </p>
+                                    </div>
+
+                                    <div className="space-y-2">
+                                        <Label htmlFor="excerpt" className="text-sm font-semibold text-slate-700">
+                                            Excerpt
+                                        </Label>
+                                        <Textarea
+                                            id="excerpt"
+                                            value={excerpt}
+                                            onChange={(e) => setExcerpt(e.target.value)}
+                                            className="min-h-[110px] rounded-2xl"
+                                            placeholder="Short summary shown on cards and list pages..."
+                                        />
+                                    </div>
+
+                                    <RichTextEditor
+                                        id="content"
+                                        label="Content"
+                                        value={content}
+                                        onChange={setContent}
+                                        onGenerateAi={onGenerateAi}
+                                        isGeneratingAi={generatingAi}
+                                        placeholder="Write the full article here..."
+                                    />
+
+                                    <div className="space-y-2">
+                                        <div className="flex items-center justify-between gap-3">
                                             <Label htmlFor="tags" className="text-sm font-semibold text-slate-700">
                                                 Tags
                                             </Label>
-                                            <Input
-                                                id="tags"
-                                                value={tagsRaw}
-                                                onChange={(e) => setTagsRaw(e.target.value)}
-                                                className="h-12 rounded-2xl"
-                                                placeholder="e.g. Readiness, Controls, Operations"
-                                            />
-                                            <p className="text-xs text-slate-500">Comma separated.</p>
+                                            <Button
+                                                type="button"
+                                                variant="outline"
+                                                size="sm"
+                                                onClick={onGenerateTags}
+                                                disabled={generatingTags}
+                                                className="h-9 rounded-xl border-[#1d3658]/20 bg-[#1d3658]/5 px-3 text-[#1d3658] hover:bg-[#1d3658]/10"
+                                            >
+                                                {generatingTags ? (
+                                                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                                ) : (
+                                                    <Sparkles className="mr-2 h-4 w-4" />
+                                                )}
+                                                {generatingTags ? "Generating..." : "Generate Tags with AI"}
+                                            </Button>
                                         </div>
-                                    </CardContent>
-                                </Card>
-                            </div>
+                                        <Input
+                                            id="tags"
+                                            value={tagsRaw}
+                                            onChange={(e) => setTagsRaw(e.target.value)}
+                                            className="h-12 rounded-2xl"
+                                            placeholder="e.g. Readiness, Controls, Operations"
+                                        />
+                                        <p className="text-xs text-slate-500">
+                                            Comma separated. You can also generate tags automatically from the title and content.
+                                        </p>
+                                    </div>
 
-                            <div className="lg:col-span-4">
-                                <div className="sticky top-8 space-y-6">
-                                    <Card className="rounded-3xl border-2 border-slate-200 shadow-xl">
-                                        <CardHeader>
-                                            <CardTitle className="text-xl font-semibold text-[#001030]">
-                                                Settings
-                                            </CardTitle>
-                                            <CardDescription>Publishing and quick preview.</CardDescription>
-                                        </CardHeader>
-                                        <CardContent className="space-y-5">
-                                            <div className="space-y-2">
-                                                <Label className="text-sm font-semibold text-slate-700">
-                                                    Status
-                                                </Label>
-                                                <Select value={status} onValueChange={(value) => setStatus(value as InsightStatus)}>
-                                                    <SelectTrigger className="h-12 rounded-2xl">
-                                                        <SelectValue placeholder="Select status" />
-                                                    </SelectTrigger>
-                                                    <SelectContent>
-                                                        <SelectItem value="draft">Draft</SelectItem>
-                                                        <SelectItem value="published">Published</SelectItem>
-                                                    </SelectContent>
-                                                </Select>
-                                            </div>
-
-                                            <div className="rounded-2xl border border-slate-200 bg-slate-50/60 p-5">
-                                                <p className="text-sm font-semibold text-[#001030]">Preview</p>
-                                                <p className="mt-1 text-sm text-slate-600">
-                                                    After saving, visit the insight detail route.
+                                    <div className="rounded-3xl border border-slate-200 bg-slate-50/70 p-5">
+                                        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                                            <div>
+                                                <p className="text-sm font-semibold text-[#001030]">
+                                                    Save this insight
                                                 </p>
+                                                <p className="mt-1 text-sm text-slate-600">
+                                                    Use draft if you still want to review it later, or publish when it is ready to go live.
+                                                </p>
+                                            </div>
+                                            <div className="flex flex-col gap-3 sm:flex-row">
                                                 <Button
+                                                    type="button"
                                                     variant="outline"
-                                                    className="mt-4 h-12 w-full rounded-2xl"
-                                                    onClick={() => {
-                                                        if (!slug.trim()) return;
-                                                        router.push(`/insights/${slug.trim()}`);
-                                                    }}
-                                                    disabled={!slug.trim()}
+                                                    onClick={() => void onSubmit("draft")}
+                                                    disabled={submitting || !canSubmit}
+                                                    className="h-12 rounded-2xl px-6"
                                                 >
-                                                    <span className="flex items-center gap-2">
-                                                        <Eye className="h-4 w-4" />
-                                                        Open Preview
-                                                    </span>
+                                                    {submitting && submitTarget === "draft" ? (
+                                                        <>
+                                                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                                            Saving Draft...
+                                                        </>
+                                                    ) : (
+                                                        "Save as Draft"
+                                                    )}
+                                                </Button>
+                                                <Button
+                                                    type="button"
+                                                    onClick={() => void onSubmit("published")}
+                                                    disabled={submitting || !canSubmit}
+                                                    className="h-12 rounded-2xl bg-[#001030] px-6 text-white hover:opacity-95"
+                                                >
+                                                    {submitting && submitTarget === "published" ? (
+                                                        <>
+                                                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                                            Publishing...
+                                                        </>
+                                                    ) : (
+                                                        "Publish Insight"
+                                                    )}
                                                 </Button>
                                             </div>
-
-                                            <Button
-                                                onClick={onSubmit}
-                                                disabled={submitting || !canSubmit}
-                                                className="h-12 w-full rounded-2xl bg-[#001030] px-6 font-semibold text-white hover:opacity-95"
-                                            >
-                                                {submitting ? (
-                                                    <span className="flex items-center gap-2">
-                                                        <Loader2 className="h-4 w-4 animate-spin" />
-                                                        Saving...
-                                                    </span>
-                                                ) : (
-                                                    <span className="flex items-center gap-2">
-                                                        <Save className="h-5 w-5" />
-                                                        Save Insight
-                                                    </span>
-                                                )}
-                                            </Button>
-                                        </CardContent>
-                                    </Card>
-
-                                    <Card className="rounded-3xl border-2 border-slate-200 shadow-xl">
-                                        <CardHeader>
-                                            <CardTitle className="text-lg font-semibold text-[#001030]">
-                                                Tips
-                                            </CardTitle>
-                                            <CardDescription>Keep URLs clean and consistent.</CardDescription>
-                                        </CardHeader>
-                                        <CardContent className="space-y-2 text-sm text-slate-600">
-                                            <p>- Title is required.</p>
-                                            <p>- Slug must be unique.</p>
-                                            <p>- Excerpt appears on listing cards.</p>
-                                            <p>- Use the toolbar to add headings, links, and emphasis.</p>
-                                            <p>- Tags help filtering later.</p>
-                                        </CardContent>
-                                    </Card>
-                                </div>
-                            </div>
+                                        </div>
+                                    </div>
+                                </CardContent>
+                            </Card>
                         </div>
                     </div>
 
