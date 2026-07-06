@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Wrapper from "@/app/Wrapper";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -12,10 +13,12 @@ import {
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import JsonLd from "@/components/JsonLd";
 import {
     renderInsightRichText,
     stripInsightFormatting,
 } from "@/lib/insights/richText";
+import { absoluteUrl, buildPageMetadata, SITE_NAME } from "@/lib/site";
 
 type Insight = {
     _id: string;
@@ -28,6 +31,7 @@ type Insight = {
     author?: string;
     createdAt?: string;
     updatedAt?: string;
+    publishedAt?: string;
     readTime?: string;
 };
 
@@ -102,6 +106,30 @@ async function getAllInsights(): Promise<Insight[]> {
     return list;
 }
 
+export async function generateMetadata({
+    params,
+}: {
+    params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+    const { slug } = await params;
+    const post = await getInsight(slug);
+
+    if (!post || (post.status && post.status !== "published")) {
+        return buildPageMetadata({
+            title: "Insight Not Found",
+            description: "This MK Fraud Insights article is not available.",
+            path: "/insights",
+        });
+    }
+
+    return buildPageMetadata({
+        title: post.title,
+        description: post.excerpt || `Read this fraud risk insight from ${SITE_NAME}.`,
+        path: `/insights/${post.slug}`,
+        type: "article",
+    });
+}
+
 export default async function InsightDetailPage({
     params,
 }: {
@@ -127,14 +155,35 @@ export default async function InsightDetailPage({
         })
         .slice(0, 3);
 
-    const author = post.author || "Mk Fraud Website";
+    const author = post.author || SITE_NAME;
     const date = formatDate(post.updatedAt || post.createdAt) || "";
     const readTime =
         post.readTime || estimateReadTime(stripInsightFormatting(post.content || ""));
     const tags = post.tags || [];
+    const articleUrl = absoluteUrl(`/insights/${post.slug}`);
+    const articleJsonLd = {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        headline: post.title,
+        description: post.excerpt,
+        url: articleUrl,
+        mainEntityOfPage: articleUrl,
+        datePublished: post.publishedAt || post.createdAt || post.updatedAt,
+        dateModified: post.updatedAt || post.publishedAt || post.createdAt,
+        author: {
+            "@type": "Organization",
+            name: author,
+        },
+        publisher: {
+            "@type": "Organization",
+            name: SITE_NAME,
+        },
+        keywords: tags,
+    };
 
     return (
         <Wrapper>
+            <JsonLd data={articleJsonLd} />
             <main className="bg-white">
                 <section className="relative overflow-hidden bg-gradient-to-br from-[#001030] via-[#1d3658] to-[#0b1b33]">
                     <div className="absolute inset-0">
