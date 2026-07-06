@@ -3,6 +3,7 @@ import { Poppins } from "next/font/google";
 import { Suspense } from "react";
 import "./globals.css";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
+import CookieConsent from "@/components/CookieConsent";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -10,13 +11,16 @@ const poppins = Poppins({
   variable: "--font-poppins",
 });
 
+const siteUrl = "https://www.mkfraud.co.za";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: {
-    default: "Mk Fraud Website | Fraud Strategy, Risk & Awareness Consulting",
-    template: "%s | Mk Fraud Website",
+    default: "MK Fraud Insights | Fraud Strategy, Risk & Awareness Consulting",
+    template: "%s | MK Fraud Insights",
   },
   description:
-    "Mk Fraud Website is a South African fraud risk and strategy consultancy helping organisations reduce fraud losses through intelligence-led strategy, practical controls, and targeted awareness training.",
+    "MK Fraud Insights is a South African fraud risk and strategy consultancy helping organisations reduce fraud losses through intelligence-led strategy, practical controls, and targeted awareness training.",
   keywords: [
     "fraud consulting",
     "fraud risk management",
@@ -27,9 +31,9 @@ export const metadata: Metadata = {
     "South Africa fraud consulting",
     "non-financial fraud risk",
   ],
-  authors: [{ name: "Mk Fraud Website" }],
-  creator: "Mk Fraud Website",
-  publisher: "Mk Fraud Website",
+  authors: [{ name: "MK Fraud Insights" }],
+  creator: "MK Fraud Insights",
+  publisher: "MK Fraud Insights",
   robots: {
     index: true,
     follow: true,
@@ -37,9 +41,9 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_ZA",
-    url: "https://mkfraud.com",
-    siteName: "Mk Fraud Website",
-    title: "Mk Fraud Website",
+    url: siteUrl,
+    siteName: "MK Fraud Insights",
+    title: "MK Fraud Insights",
     description:
       "Helping organisations move beyond reactive fraud controls toward resilient, intelligence-led fraud programmes.",
   },
@@ -57,6 +61,7 @@ export default function RootLayout({
           <GoogleAnalytics />
         </Suspense>
         {children}
+        <CookieConsent />
       </body>
     </html>
   );
