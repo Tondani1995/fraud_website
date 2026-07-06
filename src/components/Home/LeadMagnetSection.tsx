@@ -211,7 +211,7 @@ export default function LeadMagnetSection() {
                             <div className="border-t border-slate-200 bg-white px-7 py-5">
                                 <div className="flex items-center justify-between gap-3">
                                     <p className="text-xs text-slate-500">
-                                        Powered by Mk Fraud Website
+                                        Powered by MK Fraud Insights
                                     </p>
                                     <div className="h-2 w-24 rounded-full bg-[#1d3658]/15" />
                                 </div>
@@ -220,7 +220,6 @@ export default function LeadMagnetSection() {
                     </div>
                 </div>
             </div>
-
             <div className="absolute bottom-0 left-0 h-px w-full bg-[#1d3658]/15" />
         </section>
     );
