@@ -31,15 +31,27 @@ export async function GET(request: NextRequest) {
 
   const response = await fetch("https://api.web3forms.com/submit", {
     method: "POST",
+    headers: {
+      Origin: "https://www.mkfraud.co.za",
+      Referer: "https://www.mkfraud.co.za/",
+    },
     body: formData,
   });
 
-  const result = await response.json().catch(() => null);
+  const text = await response.text();
+  let result: { success?: boolean; message?: string } | null = null;
+
+  try {
+    result = JSON.parse(text);
+  } catch {
+    result = null;
+  }
 
   return NextResponse.json({
     ok: response.ok,
     status: response.status,
     web3formsSuccess: result?.success ?? null,
     web3formsMessage: result?.message ?? null,
+    raw: text.slice(0, 500),
   });
 }
