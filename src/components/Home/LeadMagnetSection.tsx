@@ -27,17 +27,36 @@ export default function LeadMagnetSection() {
         setStatus("loading");
         setMessage("");
 
+        const submittedForm = new FormData(e.currentTarget);
+        const honeypot = submittedForm.get("botcheck")?.toString();
+
+        if (honeypot) {
+            setStatus("success");
+            setMessage("Done! Check your inbox — we’ve sent the Fraud Readiness Checklist.");
+            return;
+        }
+
+        const cleanName = name.trim();
+        const cleanEmail = email.trim();
+
+        if (!cleanName || !cleanEmail) {
+            setStatus("error");
+            setMessage("Please add your name and email address.");
+            return;
+        }
+
         try {
             const fd = new FormData();
             fd.append("access_key", WEB3FORMS_ACCESS_KEY);
-            fd.append("name", name);
-            fd.append("email", email);
+            fd.append("name", cleanName);
+            fd.append("email", cleanEmail);
             fd.append(
                 "message",
-                `Lead Magnet Request:\nName: ${name}\nEmail: ${email}\nRequested: Fraud Readiness Checklist`
+                `Lead Magnet Request:\nName: ${cleanName}\nEmail: ${cleanEmail}\nRequested: Fraud Readiness Checklist`
             );
-            fd.append("subject", `Lead Magnet: Fraud Readiness Checklist — ${name}`);
-            fd.append("from_name", name);
+            fd.append("subject", `Lead Magnet: Fraud Readiness Checklist — ${cleanName}`);
+            fd.append("from_name", cleanName);
+            fd.append("botcheck", "");
 
             const res = await fetch("https://api.web3forms.com/submit", {
                 method: "POST",
@@ -132,6 +151,15 @@ export default function LeadMagnetSection() {
                             </div>
 
                             <form onSubmit={onSubmit} className="space-y-5 px-7 py-7">
+                                <input
+                                    type="checkbox"
+                                    name="botcheck"
+                                    tabIndex={-1}
+                                    autoComplete="off"
+                                    className="hidden"
+                                    aria-hidden="true"
+                                />
+
                                 <div className="space-y-2">
                                     <label
                                         htmlFor="lead-name"
@@ -177,8 +205,8 @@ export default function LeadMagnetSection() {
                                 {(status === "success" || status === "error") && (
                                     <div
                                         className={`rounded-2xl border p-4 text-sm ${status === "success"
-                                                ? "border-emerald-200 bg-emerald-50 text-emerald-900"
-                                                : "border-rose-200 bg-rose-50 text-rose-900"
+                                            ? "border-emerald-200 bg-emerald-50 text-emerald-900"
+                                            : "border-rose-200 bg-rose-50 text-rose-900"
                                             }`}
                                         role="status"
                                         aria-live="polite"
