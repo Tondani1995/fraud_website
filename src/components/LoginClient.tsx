@@ -150,7 +150,7 @@ export default function LoginClient() {
                             </Button>
 
                             <div className="flex items-center justify-between pt-1 text-xs text-slate-500">
-                                <span>Copyright {new Date().getFullYear()} Mk Fraud Website</span>
+                                <span>MK Fraud Insights is a product of Stonda (Pty) Ltd.</span>
                                 <Link
                                     href="/"
                                     className="font-semibold text-[#1d3658] hover:underline"
