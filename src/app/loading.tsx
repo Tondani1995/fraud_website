@@ -23,7 +23,7 @@ export default function Loading() {
         className="relative w-full max-w-md text-white"
       >
         <div className="inline-flex items-center rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-white/85">
-          Mk Fraud Website
+          MK Fraud Insights
         </div>
 
         <h1 className="mt-6 text-3xl font-semibold leading-tight tracking-tight">
