@@ -90,7 +90,7 @@ export default function Navbar() {
                 <div className="flex h-20 items-center justify-between md:h-24">
                     <div className="flex items-center gap-3">
                         <Link href="/" className="flex items-center">
-                            <Image src="/logo.png" width={170} height={44} alt="Mk Fraud Website" priority />
+                            <Image src="/logo.png" width={170} height={44} alt="MK Fraud Insights" priority />
                         </Link>
                     </div>
 
@@ -129,39 +129,18 @@ export default function Navbar() {
                                     {isServicesOpen && (
                                         <div
                                             role="menu"
-                                            className="absolute left-0 top-full mt-0 w-72 overflow-hidden rounded-2xl border-2 border-slate-200 bg-white shadow-2xl"
+                                            className="absolute left-1/2 top-full w-72 -translate-x-1/2 rounded-2xl border border-slate-200 bg-white p-3 shadow-2xl"
                                         >
-                                            <div className="p-2">
-                                                {link.dropdown.map((item) => (
-                                                    <Link
-                                                        key={item.name}
-                                                        href={item.href}
-                                                        className="group text-sm flex items-center gap-3 rounded-xl p-3 transition-all duration-300 hover:bg-gradient-to-r hover:from-slate-50 hover:to-slate-100"
-                                                        onClick={() => setActiveDropdown(null)}
-                                                    >
-                                                        <div
-                                                            className="flex h-2 w-2 rounded-full opacity-0 transition-opacity group-hover:opacity-100"
-                                                            style={{
-                                                                backgroundImage: `linear-gradient(to right, ${BRAND.navy}, ${BRAND.gray})`,
-                                                            }}
-                                                        />
-                                                        <span
-                                                            className="font-medium text-slate-700 transition-colors group-hover:text-[#001030]"
-                                                        >
-                                                            {item.name}
-                                                        </span>
-                                                    </Link>
-                                                ))}
-                                            </div>
-                                            <div className="border-t border-slate-200 p-3">
+                                            {link.dropdown.map((item) => (
                                                 <Link
-                                                    href="/services"
-                                                    className="block rounded-xl px-3 py-2 text-sm font-medium text-slate-600 transition-colors hover:text-[#001030]"
+                                                    key={item.name}
+                                                    href={item.href}
                                                     onClick={() => setActiveDropdown(null)}
+                                                    className="block rounded-xl px-4 py-3 text-sm font-medium text-slate-700 transition hover:bg-slate-50 hover:text-[#001030]"
                                                 >
-                                                    View all services
+                                                    {item.name}
                                                 </Link>
-                                            </div>
+                                            ))}
                                         </div>
                                     )}
                                 </div>
@@ -175,7 +154,7 @@ export default function Navbar() {
                             onClick={() =>
                                 trackEvent("contact_click", {
                                     contact_type: "email",
-                                    placement: "navbar_desktop",
+                                    placement: "navbar",
                                 })
                             }
                             className="flex items-center gap-2 text-sm font-semibold text-slate-600 transition-colors hover:text-[#001030]"
@@ -183,22 +162,19 @@ export default function Navbar() {
                             <Mail className="h-4 w-4" />
                             <span className="hidden xl:inline">hello@mkfraud.co.za</span>
                         </Link>
-
                         <Link
                             href="/contact"
                             onClick={() =>
                                 trackEvent("cta_click", {
                                     cta_name: "book_a_call",
-                                    placement: "navbar_desktop",
+                                    placement: "navbar",
                                 })
                             }
                         >
                             <Button
-                                className="group relative overflow-hidden px-8 py-6  shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl bg-[#04123b]"
-                            // style={{
-                            //   backgroundImage: `linear-gradient(to right, ${BRAND.navy}, ${BRAND.navy2}, ${BRAND.gray})`,
-                            //   boxShadow: "0 10px 30px rgba(0,16,48,0.18)",
-                            // }}
+                                size="lg"
+                                className="group relative overflow-hidden px-8 py-6 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl"
+                                style={{ backgroundColor: "#04123b" }}
                             >
                                 Book a Call
                             </Button>
@@ -210,122 +186,76 @@ export default function Navbar() {
                             <SheetTrigger asChild>
                                 <button
                                     className="flex h-10  w-10 items-center justify-center rounded-lg border-2 border-slate-200 bg-white transition-all duration-300 hover:bg-slate-50"
-                                    style={{ borderColor: isSheetOpen ? BRAND.navy : undefined }}
                                     aria-label="Open menu"
                                 >
-                                    {isSheetOpen ? (
-                                        <X className="h-5 w-5" style={{ color: BRAND.navy }} />
-                                    ) : (
-                                        <Menu className="h-5 w-5" style={{ color: BRAND.navy }} />
-                                    )}
+                                    <Menu className="h-5 w-5" style={{ color: BRAND.navy }} />
                                 </button>
                             </SheetTrigger>
 
-                            <SheetContent side="right" className="w-[92vw] max-w-md p-0">
+                            <SheetContent side="right" className="w-full max-w-sm p-0">
                                 <SheetHeader className="sr-only">
                                     <SheetTitle>Navigation menu</SheetTitle>
                                 </SheetHeader>
 
-                                <div className="flex items-sta justify-between border-b border-slate-200 px-4 py-4">
-                                    <Link href="/" className="flex items-center" onClick={() => setIsSheetOpen(false)}>
-                                        <Image src="/logo.png" width={160} height={42} alt="Mk Fraud Website" />
-                                    </Link>
-                                    <button
-                                        onClick={() => setIsSheetOpen(false)}
-                                        className="flex h-10 w-10 items-center justify-center rounded-lg border-2 border-slate-200 bg-white relative z-50 transition-all duration-300 hover:bg-slate-50"
-                                        style={{ borderColor: BRAND.navy }}
-                                        aria-label="Close menu"
-                                    >
-                                        <X className="h-5 w-5" style={{ color: BRAND.navy }} />
-                                    </button>
-                                </div>
+                                <div className="flex h-full flex-col bg-white">
+                                    <div className="flex items-center justify-between border-b border-slate-200 p-6">
+                                        <Link href="/" onClick={() => setIsSheetOpen(false)}>
+                                            <Image src="/logo.png" width={160} height={42} alt="MK Fraud Insights" />
+                                        </Link>
+                                        <button
+                                            className="flex h-10 w-10 items-center justify-center rounded-lg border-2 border-slate-200 bg-white"
+                                            onClick={() => setIsSheetOpen(false)}
+                                            aria-label="Close menu"
+                                        >
+                                            <X className="h-5 w-5" style={{ color: BRAND.navy }} />
+                                        </button>
+                                    </div>
 
-                                <div className="px-4 py-4 overflow-auto">
-                                    <div className="space-y-2">
-                                        {navLinks.map((link) => {
-                                            if (!link.dropdown) {
-                                                return (
+                                    <div className="flex-1 overflow-y-auto p-6">
+                                        <nav className="space-y-2">
+                                            {navLinks.map((link) =>
+                                                link.dropdown ? (
+                                                    <Accordion key={link.name} type="single" collapsible>
+                                                        <AccordionItem value={link.name} className="border-none">
+                                                            <AccordionTrigger className="rounded-xl px-4 py-3 text-base font-semibold text-slate-700 hover:bg-slate-50 hover:no-underline">
+                                                                {link.name}
+                                                            </AccordionTrigger>
+                                                            <AccordionContent className="pb-2 pl-4">
+                                                                <div className="space-y-1">
+                                                                    {link.dropdown.map((item) => (
+                                                                        <Link
+                                                                            key={item.name}
+                                                                            href={item.href}
+                                                                            onClick={() => setIsSheetOpen(false)}
+                                                                            className="block rounded-lg px-4 py-2 text-sm text-slate-600 hover:bg-slate-50 hover:text-[#001030]"
+                                                                        >
+                                                                            {item.name}
+                                                                        </Link>
+                                                                    ))}
+                                                                </div>
+                                                            </AccordionContent>
+                                                        </AccordionItem>
+                                                    </Accordion>
+                                                ) : (
                                                     <Link
                                                         key={link.name}
                                                         href={link.href}
                                                         onClick={() => setIsSheetOpen(false)}
-                                                        className="flex items-center justify-between rounded-xl border bg-white px-4 py-4 font-medium text-slate-700 transition-all duration-300 hover:bg-slate-50"
-                                                        style={{ borderColor: "rgb(226 232 240)" }}
+                                                        className="block rounded-xl px-4 py-3 text-base font-semibold text-slate-700 transition hover:bg-slate-50 hover:text-[#001030]"
                                                     >
-                                                        <span className="transition-colors" style={{ color: BRAND.navy }}>
-                                                            {link.name}
-                                                        </span>
+                                                        {link.name}
                                                     </Link>
-                                                );
-                                            }
-
-                                            return (
-                                                <Accordion key={link.name} type="single" collapsible className="w-full">
-                                                    <AccordionItem value="services" className="border-0">
-                                                        <AccordionTrigger
-                                                            className="rounded-xl border bg-white px-4 py-4 font-medium text-slate-700 transition-all duration-300 hover:bg-slate-50 [&[data-state=open]]:bg-slate-50"
-                                                            style={{ borderColor: "rgb(226 232 240)", color: BRAND.navy }}
-                                                        >
-                                                            {link.name}
-                                                        </AccordionTrigger>
-                                                        <AccordionContent className="pb-0 pt-2">
-                                                            <div className="space-y-2 rounded-xl border bg-white p-2" style={{ borderColor: "rgb(226 232 240)" }}>
-                                                                {link.dropdown.map((item) => (
-                                                                    <Link
-                                                                        key={item.name}
-                                                                        href={item.href}
-                                                                        onClick={() => setIsSheetOpen(false)}
-                                                                        className="block rounded-lg px-3 py-3 text-sm font-medium text-slate-700 transition-all duration-300 hover:bg-gradient-to-r hover:from-slate-50 hover:to-slate-100"
-                                                                        style={{ color: BRAND.navy }}
-                                                                    >
-                                                                        {item.name}
-                                                                    </Link>
-                                                                ))}
-                                                                <Link
-                                                                    href="/services"
-                                                                    onClick={() => setIsSheetOpen(false)}
-                                                                    className="block rounded-lg px-3 py-3 text-sm font-medium transition-colors"
-                                                                    style={{ color: BRAND.gray }}
-                                                                >
-                                                                    View all services
-                                                                </Link>
-                                                            </div>
-                                                        </AccordionContent>
-                                                    </AccordionItem>
-                                                </Accordion>
-                                            );
-                                        })}
+                                                )
+                                            )}
+                                        </nav>
                                     </div>
 
-                                    <div className="mt-5 space-y-3 border-t border-slate-200 pt-5">
-                                        <Link
-                                            href="mailto:hello@mkfraud.co.za"
-                                            onClick={() => {
-                                                trackEvent("contact_click", {
-                                                    contact_type: "email",
-                                                    placement: "navbar_mobile",
-                                                });
-                                                setIsSheetOpen(false);
-                                            }}
-                                            className="flex items-center gap-3 rounded-xl border-2 bg-white p-4 font-semibold transition-all duration-300 hover:bg-slate-50"
-                                            style={{ borderColor: "rgb(226 232 240)", color: BRAND.navy }}
-                                        >
-                                            <Mail className="h-5 w-5" style={{ color: BRAND.navy }} />
-                                            hello@mkfraud.co.za
-                                        </Link>
-
-                                        <Link
-                                            href="/contact"
-                                            onClick={() => {
-                                                trackEvent("cta_click", {
-                                                    cta_name: "book_a_call",
-                                                    placement: "navbar_mobile",
-                                                });
-                                                setIsSheetOpen(false);
-                                            }}
-                                        >
+                                    <div className="border-t border-slate-200 p-6">
+                                        <Link href="/contact" onClick={() => setIsSheetOpen(false)}>
                                             <Button
-                                                className="w-full rounded-xl py-6 shadow-lg bg-[#04123b]"
+                                                size="lg"
+                                                className="w-full rounded-xl py-6 text-base font-semibold"
+                                                style={{ backgroundColor: BRAND.navy }}
                                             >
                                                 Book a Call
                                             </Button>
