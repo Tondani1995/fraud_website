@@ -228,7 +228,7 @@ export default function Footer() {
           <div className="flex flex-col items-center justify-center gap-4 text-center text-sm text-white/60 lg:flex-row lg:justify-between lg:text-left">
             <p>MK Fraud Insights is a product of Stonda (Pty) Ltd.</p>
             <div className="flex flex-wrap gap-6">
-              <span>Copyright {new Date().getFullYear()} Stonda (Pty) Ltd. All rights reserved.</span>
+              <span>Copyright 2020 Stonda (Pty) Ltd. All rights reserved.</span>
               <Link href="/privacy-policy" className="transition-colors hover:text-white">
                 Privacy Policy
               </Link>
