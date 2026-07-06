@@ -7,6 +7,8 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { trackEvent } from "@/lib/gtag";
 
+const linkedInUrl = "https://www.linkedin.com/company/mkstratinsights/";
+
 export default function Footer() {
   const [hoveredLink, setHoveredLink] = useState<string | null>(null);
 
@@ -36,20 +38,27 @@ export default function Footer() {
           <div className="lg:col-span-1">
             <div className="mb-6 inline-flex items-center gap-3">
               <div className="flex h-20 w-20 items-center justify-center rounded-xl border border-white/15 bg-white/95 shadow-lg">
-                <Image src="/logoicon.png" width={60} height={60} alt="Mk Fraud Website" />
+                <Image src="/logoicon.png" width={60} height={60} alt="MK Fraud Insights" />
               </div>
-              {/* <h3 className="text-xl font-black text-white">Mk Fraud Website</h3> */}
             </div>
 
             <p className="mb-6 text-sm leading-relaxed text-white/75">
-              Specialist fraud risk and strategy consultancy combining fraud programme design with
-              threat intelligence &mdash; helping organisations stay ahead of the threats that drive
-              real losses.
+              MK Fraud Insights is a product of Stonda (Pty) Ltd. We combine fraud programme
+              design with threat intelligence to help organisations stay ahead of the threats that
+              drive real losses.
             </p>
 
             <div className="flex gap-3">
               <Link
-                href="https://www.linkedin.com"
+                href={linkedInUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() =>
+                  trackEvent("social_click", {
+                    platform: "linkedin",
+                    placement: "footer_social",
+                  })
+                }
                 className="group flex h-10 w-10 items-center justify-center rounded-xl border border-white/15 bg-white/5 backdrop-blur-sm transition-all duration-300 hover:scale-110 hover:bg-white/10"
                 aria-label="LinkedIn"
               >
@@ -86,9 +95,8 @@ export default function Footer() {
                     onMouseLeave={() => setHoveredLink(null)}
                   >
                     <ArrowRight
-                      className={`h-4 w-4 transition-all duration-300 ${
-                        hoveredLink === link.name ? "opacity-100" : "opacity-0"
-                      }`}
+                      className={`h-4 w-4 transition-all duration-300 ${hoveredLink === link.name ? "opacity-100" : "opacity-0"
+                        }`}
                     />
                     <span>{link.name}</span>
                   </Link>
@@ -112,9 +120,8 @@ export default function Footer() {
                     onMouseLeave={() => setHoveredLink(null)}
                   >
                     <ArrowRight
-                      className={`h-4 w-4 transition-all duration-300 ${
-                        hoveredLink === link.name ? "opacity-100" : "opacity-0"
-                      }`}
+                      className={`h-4 w-4 transition-all duration-300 ${hoveredLink === link.name ? "opacity-100" : "opacity-0"
+                        }`}
                     />
                     <span>{link.name}</span>
                   </Link>
@@ -151,7 +158,15 @@ export default function Footer() {
               </Link>
 
               <Link
-                href="https://www.linkedin.com"
+                href={linkedInUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() =>
+                  trackEvent("social_click", {
+                    platform: "linkedin",
+                    placement: "footer_contact_card",
+                  })
+                }
                 className="group flex items-center gap-3 rounded-xl border border-white/15 bg-white/5 p-3 backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:bg-white/10"
               >
                 <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-white/10">
@@ -159,7 +174,7 @@ export default function Footer() {
                 </div>
                 <div>
                   <p className="text-xs font-semibold text-white/55">Connect</p>
-                  <p className="text-sm text-white">LinkedIn Profile</p>
+                  <p className="text-sm text-white">LinkedIn Page</p>
                 </div>
                 <ExternalLink className="ml-auto h-4 w-4 text-white/40 transition-all group-hover:text-white/80" />
               </Link>
@@ -211,8 +226,9 @@ export default function Footer() {
 
         <div className="mt-12 border-t border-white/10 pt-8">
           <div className="flex flex-col items-center justify-center gap-4 text-center text-sm text-white/60 lg:flex-row lg:justify-between lg:text-left">
-            <p>Copyright 2020 Mk Fraud Website. All rights reserved.</p>
+            <p>MK Fraud Insights is a product of Stonda (Pty) Ltd.</p>
             <div className="flex flex-wrap gap-6">
+              <span>Copyright 2020 Stonda (Pty) Ltd. All rights reserved.</span>
               <Link href="/privacy-policy" className="transition-colors hover:text-white">
                 Privacy Policy
               </Link>

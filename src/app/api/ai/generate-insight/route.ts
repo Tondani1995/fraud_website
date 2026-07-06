@@ -1,9 +1,11 @@
+import { getAdminFromRequest } from "@/lib/adminAuth";
+
 const OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions";
 const OPENROUTER_MODEL = process.env.OPENROUTER_MODEL || "openrouter/auto";
 
 function buildSystemPrompt() {
     return [
-        "You write insight articles for Mk Fraud Website, a fraud risk and strategy consultancy.",
+        "You write insight articles for MK Fraud Insights, a fraud risk and strategy consultancy.",
         "Your writing style is clear, professional, practical, and authoritative.",
         "The audience includes business leaders, fraud teams, risk professionals, compliance teams, and informed readers.",
         "Write in a structured editorial style similar to a fraud advisory article, not like marketing copy.",
@@ -35,7 +37,7 @@ function buildUserPrompt(title: string, excerpt?: string) {
     return [
         `Write an insight article for this title: "${trimmedTitle}".`,
         trimmedExcerpt ? `Use this short direction if helpful: "${trimmedExcerpt}".` : "",
-        "Make it publication-ready for the Mk Fraud Website insights section.",
+        "Make it publication-ready for the MK Fraud Insights section.",
         "The article should feel thoughtful, credible, and easy to read.",
         "Include meaningful headings and at least one useful bullet list if the topic benefits from it.",
         "The output should feel similar in length and depth to a full-length fraud insight article.",
@@ -47,6 +49,14 @@ function buildUserPrompt(title: string, excerpt?: string) {
 
 export async function POST(request: Request) {
     try {
+        const admin = await getAdminFromRequest(request);
+        if (!admin) {
+            return Response.json(
+                { error: "Admin authentication required." },
+                { status: 401 }
+            );
+        }
+
         const { title, excerpt } = (await request.json()) as {
             title?: string;
             excerpt?: string;
@@ -61,7 +71,7 @@ export async function POST(request: Request) {
 
         if (!process.env.OPENROUTER_API_KEY) {
             return Response.json(
-                { error: "Missing OPENROUTER_API_KEY in the environment." },
+                { error: "AI generation is not configured." },
                 { status: 500 }
             );
         }
@@ -73,8 +83,8 @@ export async function POST(request: Request) {
                 "Content-Type": "application/json",
                 "HTTP-Referer": process.env.NEXT_PUBLIC_SITE_URL
                     ? `https://${process.env.NEXT_PUBLIC_SITE_URL.replace(/^https?:\/\//, "")}`
-                    : "http://localhost:3000",
-                "X-Title": "Mk Fraud Website",
+                    : "https://www.mkfraud.co.za",
+                "X-Title": "MK Fraud Insights",
             },
             body: JSON.stringify({
                 model: OPENROUTER_MODEL,

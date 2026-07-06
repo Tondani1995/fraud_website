@@ -9,37 +9,36 @@ function getJwtSecret() {
     return new TextEncoder().encode(secret);
 }
 
+function redirectToLogin(req: NextRequest, nextPath: string) {
+    const url = req.nextUrl.clone();
+    url.pathname = "/login";
+    url.searchParams.set("next", nextPath);
+    return NextResponse.redirect(url);
+}
+
 export async function middleware(req: NextRequest) {
     const { pathname } = req.nextUrl;
 
     // protect admin routes
     if (!pathname.startsWith("/admin")) return NextResponse.next();
 
+    // legacy /admin/login should land on the actual login page
+    if (pathname === "/admin/login") return redirectToLogin(req, "/admin/insights");
+
     const token = req.cookies.get(COOKIE_NAME)?.value;
 
     // no token => go login
-    if (!token) {
-        const url = req.nextUrl.clone();
-        url.pathname = "/admin/login";
-        url.searchParams.set("next", pathname);
-        return NextResponse.redirect(url);
-    }
+    if (!token) return redirectToLogin(req, pathname);
 
     try {
         const { payload } = await jwtVerify(token, getJwtSecret());
 
         // must be admin
-        if (payload.role !== "admin") {
-            const url = req.nextUrl.clone();
-            url.pathname = "/admin/login";
-            return NextResponse.redirect(url);
-        }
+        if (payload.role !== "admin") return redirectToLogin(req, "/admin/insights");
 
         return NextResponse.next();
     } catch {
-        const url = req.nextUrl.clone();
-        url.pathname = "/admin/login";
-        return NextResponse.redirect(url);
+        return redirectToLogin(req, pathname);
     }
 }
 
