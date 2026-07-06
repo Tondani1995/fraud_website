@@ -1,9 +1,11 @@
+import { getAdminFromRequest } from "@/lib/adminAuth";
+
 const OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions";
 const OPENROUTER_MODEL = process.env.OPENROUTER_MODEL || "openrouter/auto";
 
 function buildSystemPrompt() {
     return [
-        "You generate short website insight tags for Mk Fraud Website, a fraud risk and strategy consultancy.",
+        "You generate short website insight tags for MK Fraud Insights, a fraud risk and strategy consultancy.",
         "Your job is to return relevant tags only, based on an insight title, excerpt, and article content.",
         "Return between 6 and 10 tags.",
         "Each tag must be short, specific, and useful for insight categorisation.",
@@ -38,6 +40,14 @@ function parseTags(raw: string) {
 
 export async function POST(request: Request) {
     try {
+        const admin = await getAdminFromRequest(request);
+        if (!admin) {
+            return Response.json(
+                { error: "Admin authentication required." },
+                { status: 401 }
+            );
+        }
+
         const { title, excerpt, content } = (await request.json()) as {
             title?: string;
             excerpt?: string;
@@ -53,7 +63,7 @@ export async function POST(request: Request) {
 
         if (!process.env.OPENROUTER_API_KEY) {
             return Response.json(
-                { error: "Missing OPENROUTER_API_KEY in the environment." },
+                { error: "AI generation is not configured." },
                 { status: 500 }
             );
         }
@@ -65,8 +75,8 @@ export async function POST(request: Request) {
                 "Content-Type": "application/json",
                 "HTTP-Referer": process.env.NEXT_PUBLIC_SITE_URL
                     ? `https://${process.env.NEXT_PUBLIC_SITE_URL.replace(/^https?:\/\//, "")}`
-                    : "http://localhost:3000",
-                "X-Title": "Mk Fraud Website",
+                    : "https://www.mkfraud.co.za",
+                "X-Title": "MK Fraud Insights",
             },
             body: JSON.stringify({
                 model: OPENROUTER_MODEL,
