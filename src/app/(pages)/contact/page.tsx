@@ -16,6 +16,9 @@ import { Button } from "@/components/ui/button";
 import Wrapper from "@/app/Wrapper";
 import Link from "next/link";
 import { trackEvent } from "@/lib/gtag";
+import { LINKEDIN_URL } from "@/lib/site";
+
+const CALENDLY_URL = "https://calendly.com/mkfraud/30min?embed_domain=mkfraud.co.za&embed_type=Inline";
 
 export default function ContactUs() {
   const [formData, setFormData] = useState({
@@ -27,25 +30,8 @@ export default function ContactUs() {
     message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-
   const [focusedField, setFocusedField] = useState<string | null>(null);
   const [isSubmitted, setIsSubmitted] = useState(false);
-
-  // const handleSubmit = (e: React.FormEvent) => {
-  //   e.preventDefault();
-  //   setIsSubmitted(true);
-  //   setTimeout(() => {
-  //     setFormData({
-  //       name: "",
-  //       email: "",
-  //       company: "",
-  //       phone: "",
-  //       service: "",
-  //       message: "",
-  //     });
-  //     setIsSubmitted(false);
-  //   }, 5000);
-  // };
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -63,8 +49,6 @@ export default function ContactUs() {
     "Expert guidance",
   ];
 
-  // form
-
   const WEB3FORMS_ACCESS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY!;
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -73,23 +57,38 @@ export default function ContactUs() {
     setIsSubmitting(true);
     setIsSubmitted(false);
 
+    const submittedForm = new FormData(e.currentTarget);
+    const honeypot = submittedForm.get("botcheck")?.toString();
+
+    if (honeypot) {
+      setIsSubmitted(true);
+      setIsSubmitting(false);
+      return;
+    }
+
+    const cleanName = formData.name.trim();
+    const cleanEmail = formData.email.trim();
+    const cleanMessage = formData.message.trim();
+    const cleanService = formData.service.trim();
+
+    if (!cleanName || !cleanEmail || !cleanMessage || !cleanService) {
+      setIsSubmitting(false);
+      setIsSubmitted(false);
+      return;
+    }
+
     try {
       const fd = new FormData();
-
-      // Required / common fields
       fd.append("access_key", WEB3FORMS_ACCESS_KEY);
-      fd.append("name", formData.name);
-      fd.append("email", formData.email);
-      fd.append("message", formData.message);
-
-      // Your extra fields (still sent to email)
-      fd.append("company", formData.company || "");
-      fd.append("phone", formData.phone || "");
-      fd.append("service", formData.service || "");
-
-      // Optional but recommended (helps deliverability & inbox formatting)
-      fd.append("subject", `New Contact Form: ${formData.service || "General"} — ${formData.name}`);
-      fd.append("from_name", formData.name);
+      fd.append("name", cleanName);
+      fd.append("email", cleanEmail);
+      fd.append("message", cleanMessage);
+      fd.append("company", formData.company.trim());
+      fd.append("phone", formData.phone.trim());
+      fd.append("service", cleanService);
+      fd.append("botcheck", "");
+      fd.append("subject", `New Contact Form: ${cleanService || "General"} — ${cleanName}`);
+      fd.append("from_name", cleanName);
 
       const res = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
@@ -101,13 +100,12 @@ export default function ContactUs() {
       if (data.success) {
         trackEvent("generate_lead", {
           form_name: "contact_form",
-          service_interest: formData.service || "not_specified",
+          service_interest: cleanService || "not_specified",
           page_location: "/contact",
         });
 
         setIsSubmitted(true);
 
-        // Clear inputs in your controlled form
         setFormData({
           name: "",
           email: "",
@@ -117,17 +115,14 @@ export default function ContactUs() {
           message: "",
         });
       } else {
-        console.log("Web3Forms error:", data);
         setIsSubmitted(false);
       }
-    } catch (err) {
-      console.error(err);
+    } catch {
       setIsSubmitted(false);
     } finally {
       setIsSubmitting(false);
     }
   };
-
 
   return (
     <Wrapper>
@@ -185,12 +180,18 @@ export default function ContactUs() {
                     </div>
                   ) : (
                     <form onSubmit={handleSubmit} className="space-y-6">
+                      <input
+                        type="checkbox"
+                        name="botcheck"
+                        tabIndex={-1}
+                        autoComplete="off"
+                        className="hidden"
+                        aria-hidden="true"
+                      />
+
                       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
                         <div>
-                          <label
-                            htmlFor="name"
-                            className="mb-2 block text-sm font-semibold text-[#001030]"
-                          >
+                          <label htmlFor="name" className="mb-2 block text-sm font-semibold text-[#001030]">
                             Full name <span className="text-[#1d3658]">*</span>
                           </label>
                           <input
@@ -202,19 +203,13 @@ export default function ContactUs() {
                             onChange={handleChange}
                             onFocus={() => setFocusedField("name")}
                             onBlur={() => setFocusedField(null)}
-                            className={`w-full rounded-xl border bg-white px-4 py-3 text-slate-900 transition-all duration-300 focus:outline-none ${focusedField === "name"
-                              ? "border-[#1d3658]/45 shadow-lg shadow-[#1d3658]/10"
-                              : "border-slate-200"
-                              }`}
+                            className={`w-full rounded-xl border bg-white px-4 py-3 text-slate-900 transition-all duration-300 focus:outline-none ${focusedField === "name" ? "border-[#1d3658]/45 shadow-lg shadow-[#1d3658]/10" : "border-slate-200"}`}
                             placeholder="John Doe"
                           />
                         </div>
 
                         <div>
-                          <label
-                            htmlFor="email"
-                            className="mb-2 block text-sm font-semibold text-[#001030]"
-                          >
+                          <label htmlFor="email" className="mb-2 block text-sm font-semibold text-[#001030]">
                             Email <span className="text-[#1d3658]">*</span>
                           </label>
                           <input
@@ -226,10 +221,7 @@ export default function ContactUs() {
                             onChange={handleChange}
                             onFocus={() => setFocusedField("email")}
                             onBlur={() => setFocusedField(null)}
-                            className={`w-full rounded-xl border bg-white px-4 py-3 text-slate-900 transition-all duration-300 focus:outline-none ${focusedField === "email"
-                              ? "border-[#1d3658]/45 shadow-lg shadow-[#1d3658]/10"
-                              : "border-slate-200"
-                              }`}
+                            className={`w-full rounded-xl border bg-white px-4 py-3 text-slate-900 transition-all duration-300 focus:outline-none ${focusedField === "email" ? "border-[#1d3658]/45 shadow-lg shadow-[#1d3658]/10" : "border-slate-200"}`}
                             placeholder="john@company.com"
                           />
                         </div>
@@ -237,10 +229,7 @@ export default function ContactUs() {
 
                       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
                         <div>
-                          <label
-                            htmlFor="company"
-                            className="mb-2 block text-sm font-semibold text-[#001030]"
-                          >
+                          <label htmlFor="company" className="mb-2 block text-sm font-semibold text-[#001030]">
                             Company
                           </label>
                           <input
@@ -251,19 +240,13 @@ export default function ContactUs() {
                             onChange={handleChange}
                             onFocus={() => setFocusedField("company")}
                             onBlur={() => setFocusedField(null)}
-                            className={`w-full rounded-xl border bg-white px-4 py-3 text-slate-900 transition-all duration-300 focus:outline-none ${focusedField === "company"
-                              ? "border-[#1d3658]/45 shadow-lg shadow-[#1d3658]/10"
-                              : "border-slate-200"
-                              }`}
+                            className={`w-full rounded-xl border bg-white px-4 py-3 text-slate-900 transition-all duration-300 focus:outline-none ${focusedField === "company" ? "border-[#1d3658]/45 shadow-lg shadow-[#1d3658]/10" : "border-slate-200"}`}
                             placeholder="Your Company Ltd"
                           />
                         </div>
 
                         <div>
-                          <label
-                            htmlFor="phone"
-                            className="mb-2 block text-sm font-semibold text-[#001030]"
-                          >
+                          <label htmlFor="phone" className="mb-2 block text-sm font-semibold text-[#001030]">
                             Phone
                           </label>
                           <input
@@ -274,20 +257,14 @@ export default function ContactUs() {
                             onChange={handleChange}
                             onFocus={() => setFocusedField("phone")}
                             onBlur={() => setFocusedField(null)}
-                            className={`w-full rounded-xl border bg-white px-4 py-3 text-slate-900 transition-all duration-300 focus:outline-none ${focusedField === "phone"
-                              ? "border-[#1d3658]/45 shadow-lg shadow-[#1d3658]/10"
-                              : "border-slate-200"
-                              }`}
+                            className={`w-full rounded-xl border bg-white px-4 py-3 text-slate-900 transition-all duration-300 focus:outline-none ${focusedField === "phone" ? "border-[#1d3658]/45 shadow-lg shadow-[#1d3658]/10" : "border-slate-200"}`}
                             placeholder="+27 82 301 4351"
                           />
                         </div>
                       </div>
 
                       <div>
-                        <label
-                          htmlFor="service"
-                          className="mb-2 block text-sm font-semibold text-[#001030]"
-                        >
+                        <label htmlFor="service" className="mb-2 block text-sm font-semibold text-[#001030]">
                           Service interested in <span className="text-[#1d3658]">*</span>
                         </label>
                         <select
@@ -298,10 +275,7 @@ export default function ContactUs() {
                           onChange={handleChange}
                           onFocus={() => setFocusedField("service")}
                           onBlur={() => setFocusedField(null)}
-                          className={`w-full rounded-xl border bg-white px-4 py-3 text-slate-900 transition-all duration-300 focus:outline-none ${focusedField === "service"
-                            ? "border-[#1d3658]/45 shadow-lg shadow-[#1d3658]/10"
-                            : "border-slate-200"
-                            }`}
+                          className={`w-full rounded-xl border bg-white px-4 py-3 text-slate-900 transition-all duration-300 focus:outline-none ${focusedField === "service" ? "border-[#1d3658]/45 shadow-lg shadow-[#1d3658]/10" : "border-slate-200"}`}
                         >
                           <option value="">Select a service</option>
                           <option value="fraud-health-check">Fraud Health Check</option>
@@ -314,10 +288,7 @@ export default function ContactUs() {
                       </div>
 
                       <div>
-                        <label
-                          htmlFor="message"
-                          className="mb-2 block text-sm font-semibold text-[#001030]"
-                        >
+                        <label htmlFor="message" className="mb-2 block text-sm font-semibold text-[#001030]">
                           Message <span className="text-[#1d3658]">*</span>
                         </label>
                         <textarea
@@ -329,10 +300,7 @@ export default function ContactUs() {
                           onChange={handleChange}
                           onFocus={() => setFocusedField("message")}
                           onBlur={() => setFocusedField(null)}
-                          className={`w-full rounded-xl border bg-white px-4 py-3 text-slate-900 transition-all duration-300 focus:outline-none ${focusedField === "message"
-                            ? "border-[#1d3658]/45 shadow-lg shadow-[#1d3658]/10"
-                            : "border-slate-200"
-                            }`}
+                          className={`w-full rounded-xl border bg-white px-4 py-3 text-slate-900 transition-all duration-300 focus:outline-none ${focusedField === "message" ? "border-[#1d3658]/45 shadow-lg shadow-[#1d3658]/10" : "border-slate-200"}`}
                           placeholder="Tell us about your fraud challenges and what you want to achieve..."
                         />
                       </div>
@@ -347,7 +315,6 @@ export default function ContactUs() {
                           <Send className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
                         </span>
                       </Button>
-
 
                       <p className="flex items-center gap-2 text-sm text-slate-500">
                         <CheckCircle2 className="h-4 w-4 text-[#1d3658]" />
@@ -383,8 +350,19 @@ export default function ContactUs() {
                     <Linkedin className="h-6 w-6 text-white" />
                   </div>
                   <p className="text-sm font-semibold text-slate-500">LinkedIn</p>
-                  <a href="#" className="mt-1 block font-bold text-[#001030] hover:text-[#1d3658]">
-                    Mk Fraud Website
+                  <a
+                    href={LINKEDIN_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() =>
+                      trackEvent("social_click", {
+                        platform: "linkedin",
+                        placement: "contact_card",
+                      })
+                    }
+                    className="mt-1 block font-bold text-[#001030] hover:text-[#1d3658]"
+                  >
+                    MK Fraud Insights
                   </a>
                 </div>
 
@@ -419,9 +397,9 @@ export default function ContactUs() {
                 </div>
 
                 <div className="p-6">
-                  <div className="h-[520px] rounded-2xl border border-dashed border-slate-300 bg-white overflow-hidden">
+                  <div className="h-[520px] overflow-hidden rounded-2xl border border-dashed border-slate-300 bg-white">
                     <iframe
-                      src="https://calendly.com/mkfraud/30min?embed_domain=yourdomain.com&embed_type=Inline"
+                      src={CALENDLY_URL}
                       width="100%"
                       height="100%"
                       frameBorder="0"
@@ -429,8 +407,6 @@ export default function ContactUs() {
                     />
                   </div>
                 </div>
-
-
               </div>
 
               <div className="mt-8 overflow-hidden rounded-3xl border border-slate-200 bg-white p-8 shadow-xl">
