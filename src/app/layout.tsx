@@ -4,6 +4,7 @@ import { Suspense } from "react";
 import "./globals.css";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
 import CookieConsent from "@/components/CookieConsent";
+import SiteRuntimeFixes from "@/components/SiteRuntimeFixes";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -59,6 +60,7 @@ export default function RootLayout({
       <body className={`${poppins.className} ${poppins.variable} antialiased`}>
         <Suspense fallback={null}>
           <GoogleAnalytics />
+          <SiteRuntimeFixes />
         </Suspense>
         {children}
         <CookieConsent />
