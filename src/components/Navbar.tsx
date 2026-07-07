@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronDown, Mail, Menu, X } from "lucide-react";
+import { ChevronDown, Menu, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -67,11 +67,7 @@ export default function Navbar() {
             ))}
           </div>
 
-          <div className="hidden items-center gap-3 lg:flex">
-            <Link href="mailto:hello@mkfraud.co.za" onClick={() => trackEvent("contact_click", { contact_type: "email", placement: "navbar" })} className="flex items-center gap-2 text-sm font-semibold text-slate-600 transition-colors hover:text-[#001030]">
-              <Mail className="h-4 w-4" />
-              <span className="hidden xl:inline">hello@mkfraud.co.za</span>
-            </Link>
+          <div className="hidden items-center lg:flex">
             <Link href="/fraud-readiness-score" onClick={() => trackEvent("cta_click", { cta_name: "assess_your_organisation", placement: "navbar" })}>
               <Button size="lg" className="px-8 py-6 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl" style={{ backgroundColor: "#04123b" }}>
                 Assess Your Organisation
