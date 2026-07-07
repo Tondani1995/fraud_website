@@ -8,16 +8,24 @@ import {
     Award,
     ArrowRight,
     Sparkles,
+    BarChart3,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function FraudHealthCheckSection() {
     const whatYouReceive = [
         {
+            icon: BarChart3,
+            title: "Self health-check score",
+            description:
+                "Start with the Fraud Readiness Score to see readiness, exposure and priority gaps before a deeper engagement.",
+        },
+        {
             icon: FileCheck,
             title: "Prioritised fraud risk register",
             description:
-                "A clear view of your fraud exposures ranked by impact and likelihood.",
+                "A clear view of your fraud exposures ranked by impact and likelihood once MK reviews the context.",
         },
         {
             icon: Search,
@@ -31,18 +39,12 @@ export default function FraudHealthCheckSection() {
             description:
                 "Actionable steps tailored to your operational environment — not generic frameworks.",
         },
-        {
-            icon: ArrowRight,
-            title: "Clear next-step roadmap",
-            description:
-                "A sequenced plan showing what to fix first and why — designed for execution.",
-        },
     ];
 
     const thisIs = [
+        "A self-check entry point into a deeper MK Fraud Health Check",
         "Diagnostic and action-oriented",
-        "Focused on people, process, and control points",
-        "Designed to produce a usable plan — fast",
+        "Focused on people, process, exposure and control points",
     ];
 
     const thisIsNot = [
@@ -53,7 +55,6 @@ export default function FraudHealthCheckSection() {
 
     return (
         <section id="health-check" className="relative overflow-hidden bg-white">
-            {/* background texture (keep it clean + on-brand) */}
             <div className="absolute inset-0">
                 <div className="absolute -left-40 top-24 h-[520px] w-[520px] rounded-full bg-[#1d3658]/6 blur-3xl" />
                 <div className="absolute -right-44 bottom-24 h-[560px] w-[560px] rounded-full bg-blue-500/5 blur-3xl" />
@@ -61,32 +62,25 @@ export default function FraudHealthCheckSection() {
             </div>
 
             <div className="relative mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-28">
-                {/* header */}
                 <div className="mx-auto mb-12 max-w-3xl text-center">
                     <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#1d3658]/15 bg-[#1d3658]/5 px-5 py-2.5 shadow-sm">
                         <Award className="h-4 w-4 text-[#1d3658]" />
                         <span className="text-sm font-bold uppercase tracking-wide text-[#1d3658]">
-                            Service One
+                            Health Check Pathway
                         </span>
                         <Sparkles className="h-4 w-4 text-[#1d3658]" />
                     </div>
 
                     <h2 className="text-3xl font-bold leading-tight tracking-tight text-[#1d3658] sm:text-4xl lg:text-5xl">
-                        Fraud{" "}
-                        <span className="relative inline-block">
-                            <span className="relative z-10 text-[#1d3658]">Health Check</span>
-                            <span className="absolute -bottom-1 left-0 h-2 w-full bg-[#1d3658]/10 blur-sm" />
-                        </span>
+                        Fraud Health Check
                     </h2>
 
                     <p className="mt-4 leading-relaxed text-slate-600">
-                        A structured assessment of fraud risk across your organisation, focused on how fraud
-                        actually occurs inside day-to-day operations.
+                        The Fraud Readiness Score is the self health-check entry point. It gives an immediate snapshot first, then helps decide whether the organisation needs a detailed report or a fuller MK Fraud Health Check.
                     </p>
                 </div>
 
                 <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:items-start">
-                    {/* LEFT: what you receive */}
                     <div className="lg:col-span-7">
                         <div className="mb-6 flex items-end justify-between gap-4">
                             <h3 className="text-2xl font-bold leading-tight text-[#1d3658] sm:text-3xl">
@@ -94,7 +88,7 @@ export default function FraudHealthCheckSection() {
                             </h3>
                             <div className="hidden items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-600 shadow-sm sm:flex">
                                 <span className="h-2 w-2 rounded-full bg-[#1d3658]" />
-                                Designed for execution
+                                Score first, advisory after
                             </div>
                         </div>
 
@@ -121,20 +115,11 @@ export default function FraudHealthCheckSection() {
                                                 </p>
                                             </div>
                                         </div>
-
-                                        <div className="mt-4 h-px w-full bg-slate-100" />
-                                        <div className="mt-4 flex items-center justify-between">
-                                            <span className="text-xs font-semibold text-slate-500">
-                                                Deliverable
-                                            </span>
-                                            <ArrowRight className="h-4 w-4 text-slate-400 transition-transform duration-300 group-hover:translate-x-1" />
-                                        </div>
                                     </div>
                                 );
                             })}
                         </div>
 
-                        {/* subtle supporting strip */}
                         <div className="mt-6 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
                             <div className="flex flex-col gap-4 p-6 sm:flex-row sm:items-center sm:justify-between">
                                 <div className="flex items-start gap-3">
@@ -144,20 +129,19 @@ export default function FraudHealthCheckSection() {
                                     <div>
                                         <p className="font-bold text-[#1d3658]">Outcome</p>
                                         <p className="text-sm leading-relaxed text-slate-600">
-                                            You leave with clear visibility and a plan you can actually run.
+                                            You know your score, your exposure context and whether a deeper report or health check is needed.
                                         </p>
                                     </div>
                                 </div>
 
                                 <div className="flex items-center gap-2 rounded-full border border-[#1d3658]/15 bg-[#1d3658]/5 px-4 py-2 text-sm font-semibold text-[#1d3658]">
-                                    Typical: 4–6 weeks
+                                    Self-check first
                                 </div>
                             </div>
                             <div className="h-1 w-full bg-[#1d3658]/20" />
                         </div>
                     </div>
 
-                    {/* RIGHT: this is / this is not + CTA */}
                     <div className="lg:col-span-5">
                         <div className="lg:sticky lg:top-8 space-y-5">
                             <div className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-xl">
@@ -191,34 +175,15 @@ export default function FraudHealthCheckSection() {
                                     </div>
 
                                     <div className="mt-4 rounded-2xl border border-slate-200 bg-white p-5">
-                                        <div className="flex items-start gap-3">
-                                            <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl bg-slate-100">
-                                                <svg
-                                                    className="h-5 w-5 text-slate-600"
-                                                    fill="none"
-                                                    stroke="currentColor"
-                                                    viewBox="0 0 24 24"
-                                                    strokeWidth={3}
-                                                >
-                                                    <path
-                                                        strokeLinecap="round"
-                                                        strokeLinejoin="round"
-                                                        d="M6 18L18 6M6 6l12 12"
-                                                    />
-                                                </svg>
-                                            </div>
-                                            <div>
-                                                <p className="font-bold text-[#1d3658]">This is not</p>
-                                                <ul className="mt-2 space-y-2">
-                                                    {thisIsNot.map((item, index) => (
-                                                        <li key={index} className="flex items-start gap-2 text-sm text-slate-700">
-                                                            <span className="mt-1 h-1.5 w-1.5 rounded-full bg-slate-400" />
-                                                            <span className="font-semibold">{item}</span>
-                                                        </li>
-                                                    ))}
-                                                </ul>
-                                            </div>
-                                        </div>
+                                        <p className="font-bold text-[#1d3658]">This is not</p>
+                                        <ul className="mt-2 space-y-2">
+                                            {thisIsNot.map((item, index) => (
+                                                <li key={index} className="flex items-start gap-2 text-sm text-slate-700">
+                                                    <span className="mt-1 h-1.5 w-1.5 rounded-full bg-slate-400" />
+                                                    <span className="font-semibold">{item}</span>
+                                                </li>
+                                            ))}
+                                        </ul>
                                     </div>
 
                                     <div className="mt-6 rounded-2xl border border-[#1d3658]/15 bg-[#1d3658]/5 p-5">
@@ -228,27 +193,29 @@ export default function FraudHealthCheckSection() {
                                             </div>
                                             <div className="min-w-0">
                                                 <p className="font-bold text-[#1d3658]">
-                                                    Ready to understand your fraud risk?
+                                                    Start with the self health check
                                                 </p>
                                                 <p className="mt-1 text-sm leading-relaxed text-slate-700">
-                                                    Get clear visibility into where fraud is happening and what to fix first.
+                                                    Complete the Fraud Readiness Score and use the result to decide whether to request the detailed report or broader advisory support.
                                                 </p>
                                             </div>
                                         </div>
 
                                         <div className="mt-4">
-                                            <Button className="w-full rounded-xl bg-[#1d3658] py-6 text-base text-white shadow-lg transition-all duration-300 hover:scale-[1.02] hover:bg-[#152a44]">
-                                                <span className="flex items-center justify-center gap-2">
-                                                    Request a Health Check
-                                                    <ArrowRight className="h-5 w-5" />
-                                                </span>
-                                            </Button>
+                                            <Link href="/fraud-readiness-score">
+                                                <Button className="w-full rounded-xl bg-[#1d3658] py-6 text-base text-white shadow-lg transition-all duration-300 hover:scale-[1.02] hover:bg-[#152a44]">
+                                                    <span className="flex items-center justify-center gap-2">
+                                                        Start the Score
+                                                        <ArrowRight className="h-5 w-5" />
+                                                    </span>
+                                                </Button>
+                                            </Link>
                                         </div>
 
                                         <div className="mt-4 flex items-start gap-2 rounded-xl border border-[#1d3658]/15 bg-white p-4">
                                             <div className="mt-0.5 h-2 w-2 rounded-full bg-[#1d3658]" />
                                             <p className="text-sm font-semibold text-slate-700">
-                                                Typical duration: 4–6 weeks from start to actionable plan.
+                                                The full Health Check remains available when the score shows deeper review is needed.
                                             </p>
                                         </div>
                                     </div>
@@ -258,7 +225,6 @@ export default function FraudHealthCheckSection() {
                     </div>
                 </div>
             </div>
-
             <div className="absolute bottom-0 left-0 h-px w-full bg-slate-200" />
         </section>
     );
