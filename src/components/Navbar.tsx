@@ -46,8 +46,9 @@ export default function Navbar() {
                 name: "Services",
                 href: "/services",
                 dropdown: [
-                    { name: "Threat Intelligence for Fraud", href: "/services#threat-intelligence" },
+                    { name: "Fraud Readiness Score", href: "/fraud-readiness-score" },
                     { name: "Fraud Health Check", href: "/services#health-check" },
+                    { name: "Threat Intelligence for Fraud", href: "/services#threat-intelligence" },
                     { name: "Programme Design", href: "/services#programme-design" },
                     { name: "Awareness & Resilience", href: "/services#awareness" },
                     { name: "Internal Controls", href: "/services#controls" },
@@ -129,14 +130,14 @@ export default function Navbar() {
                                     {isServicesOpen && (
                                         <div
                                             role="menu"
-                                            className="absolute left-1/2 top-full w-72 -translate-x-1/2 rounded-2xl border border-slate-200 bg-white p-3 shadow-2xl"
+                                            className="absolute left-1/2 top-full w-80 -translate-x-1/2 rounded-2xl border border-slate-200 bg-white p-3 shadow-2xl"
                                         >
-                                            {link.dropdown.map((item) => (
+                                            {link.dropdown.map((item, index) => (
                                                 <Link
                                                     key={item.name}
                                                     href={item.href}
                                                     onClick={() => setActiveDropdown(null)}
-                                                    className="block rounded-xl px-4 py-3 text-sm font-medium text-slate-700 transition hover:bg-slate-50 hover:text-[#001030]"
+                                                    className={`block rounded-xl px-4 py-3 text-sm font-medium transition ${index === 0 ? "bg-[#001030] text-white hover:bg-[#0b1b44]" : "text-slate-700 hover:bg-slate-50 hover:text-[#001030]"}`}
                                                 >
                                                     {item.name}
                                                 </Link>
@@ -163,10 +164,10 @@ export default function Navbar() {
                             <span className="hidden xl:inline">hello@mkfraud.co.za</span>
                         </Link>
                         <Link
-                            href="/contact"
+                            href="/fraud-readiness-score"
                             onClick={() =>
                                 trackEvent("cta_click", {
-                                    cta_name: "book_a_call",
+                                    cta_name: "start_readiness_score",
                                     placement: "navbar",
                                 })
                             }
@@ -176,7 +177,7 @@ export default function Navbar() {
                                 className="group relative overflow-hidden px-8 py-6 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl"
                                 style={{ backgroundColor: "#04123b" }}
                             >
-                                Book a Call
+                                Start Score
                             </Button>
                         </Link>
                     </div>
@@ -222,12 +223,12 @@ export default function Navbar() {
                                                             </AccordionTrigger>
                                                             <AccordionContent className="pb-2 pl-4">
                                                                 <div className="space-y-1">
-                                                                    {link.dropdown.map((item) => (
+                                                                    {link.dropdown.map((item, index) => (
                                                                         <Link
                                                                             key={item.name}
                                                                             href={item.href}
                                                                             onClick={() => setIsSheetOpen(false)}
-                                                                            className="block rounded-lg px-4 py-2 text-sm text-slate-600 hover:bg-slate-50 hover:text-[#001030]"
+                                                                            className={`block rounded-lg px-4 py-2 text-sm ${index === 0 ? "bg-[#001030] font-semibold text-white" : "text-slate-600 hover:bg-slate-50 hover:text-[#001030]"}`}
                                                                         >
                                                                             {item.name}
                                                                         </Link>
@@ -251,13 +252,13 @@ export default function Navbar() {
                                     </div>
 
                                     <div className="border-t border-slate-200 p-6">
-                                        <Link href="/contact" onClick={() => setIsSheetOpen(false)}>
+                                        <Link href="/fraud-readiness-score" onClick={() => setIsSheetOpen(false)}>
                                             <Button
                                                 size="lg"
                                                 className="w-full rounded-xl py-6 text-base font-semibold"
                                                 style={{ backgroundColor: BRAND.navy }}
                                             >
-                                                Book a Call
+                                                Start the Score
                                             </Button>
                                         </Link>
                                     </div>
