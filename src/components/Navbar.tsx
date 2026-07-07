@@ -72,9 +72,9 @@ export default function Navbar() {
               <Mail className="h-4 w-4" />
               <span className="hidden xl:inline">hello@mkfraud.co.za</span>
             </Link>
-            <Link href="/fraud-readiness-score" onClick={() => trackEvent("cta_click", { cta_name: "readiness_assessment", placement: "navbar" })}>
+            <Link href="/fraud-readiness-score" onClick={() => trackEvent("cta_click", { cta_name: "assess_your_organisation", placement: "navbar" })}>
               <Button size="lg" className="px-8 py-6 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl" style={{ backgroundColor: "#04123b" }}>
-                Readiness Assessment
+                Assess Your Organisation
               </Button>
             </Link>
           </div>
@@ -112,7 +112,7 @@ export default function Navbar() {
           <div className="border-t border-slate-200 p-6">
             <Link href="/fraud-readiness-score" onClick={() => setMobileOpen(false)}>
               <Button size="lg" className="w-full rounded-xl py-6 text-base font-semibold" style={{ backgroundColor: "#001030" }}>
-                Start Readiness Assessment
+                Assess Your Organisation
               </Button>
             </Link>
           </div>
