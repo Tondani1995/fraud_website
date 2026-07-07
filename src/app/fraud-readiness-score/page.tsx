@@ -18,14 +18,14 @@ export default function FraudReadinessScorePage() {
                   Free fraud readiness snapshot
                 </div>
                 <h1 className="mt-6 max-w-4xl text-4xl font-bold leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl">
-                  Start with a score before committing to a full fraud health check.
+                  Start with an assessment before committing to a full fraud health check.
                 </h1>
                 <p className="mt-6 max-w-2xl text-base leading-8 text-white/75">
                   The Fraud Readiness Score is a structured self-assessment that helps your organisation understand readiness, exposure and priority control gaps. Once submitted, you receive a free snapshot immediately and can request a detailed MK report.
                 </p>
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                   <a href="#start-score" className="inline-flex items-center justify-center rounded-xl bg-white px-8 py-4 font-semibold text-[#001030] shadow-lg transition hover:bg-white/90">
-                    Start the score
+                    Start the assessment
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </a>
                   <Link href="/services#health-check" className="inline-flex items-center justify-center rounded-xl border border-white/20 px-8 py-4 font-semibold text-white transition hover:bg-white/5">
@@ -87,7 +87,7 @@ export default function FraudReadinessScorePage() {
           <div className="mx-auto max-w-7xl px-6 py-14 lg:px-8 lg:py-20">
             <div className="mb-8 max-w-3xl">
               <p className="text-sm font-bold uppercase tracking-wide text-[#1d3658]">Assessment</p>
-              <h2 className="mt-3 text-3xl font-bold tracking-tight text-[#001030] sm:text-4xl">Complete the Fraud Readiness Score</h2>
+              <h2 className="mt-3 text-3xl font-bold tracking-tight text-[#001030] sm:text-4xl">Complete the Fraud Readiness Assessment</h2>
               <p className="mt-4 leading-7 text-slate-600">
                 The assessment opens inside the MK Fraud service journey. When submitted, the client sees the free score snapshot immediately and can request a detailed report.
               </p>
