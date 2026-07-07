@@ -88,7 +88,7 @@ export default function FraudHealthCheckSection() {
                             </h3>
                             <div className="hidden items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-600 shadow-sm sm:flex">
                                 <span className="h-2 w-2 rounded-full bg-[#1d3658]" />
-                                Score first, advisory after
+                                Assessment first, advisory after
                             </div>
                         </div>
 
@@ -205,7 +205,7 @@ export default function FraudHealthCheckSection() {
                                             <Link href="/fraud-readiness-score">
                                                 <Button className="w-full rounded-xl bg-[#1d3658] py-6 text-base text-white shadow-lg transition-all duration-300 hover:scale-[1.02] hover:bg-[#152a44]">
                                                     <span className="flex items-center justify-center gap-2">
-                                                        Start the Score
+                                                        Start the Assessment
                                                         <ArrowRight className="h-5 w-5" />
                                                     </span>
                                                 </Button>
