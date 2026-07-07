@@ -52,8 +52,8 @@ export default function Navbar() {
               </button>
               {servicesOpen ? (
                 <div className="absolute left-1/2 top-full w-80 -translate-x-1/2 rounded-2xl border border-slate-200 bg-white p-3 shadow-2xl">
-                  {services.map((service, index) => (
-                    <Link key={service.name} href={service.href} onClick={() => setServicesOpen(false)} className={`block rounded-xl px-4 py-3 text-sm font-medium transition ${index === 0 ? "bg-[#001030] text-white hover:bg-[#0b1b44]" : "text-slate-700 hover:bg-slate-50 hover:text-[#001030]"}`}>
+                  {services.map((service) => (
+                    <Link key={service.name} href={service.href} onClick={() => setServicesOpen(false)} className="block rounded-xl px-4 py-3 text-sm font-medium text-slate-700 transition hover:bg-slate-50 hover:text-[#001030]">
                       {service.name}
                     </Link>
                   ))}
@@ -94,8 +94,8 @@ export default function Navbar() {
           <div className="space-y-2 p-6">
             <Link href="/" onClick={() => setMobileOpen(false)} className="block rounded-xl px-4 py-3 font-semibold text-slate-700 hover:bg-slate-50">Home</Link>
             <p className="px-4 pt-4 text-xs font-bold uppercase tracking-wide text-slate-500">Services</p>
-            {services.map((service, index) => (
-              <Link key={service.name} href={service.href} onClick={() => setMobileOpen(false)} className={`block rounded-xl px-4 py-3 text-sm font-semibold ${index === 0 ? "bg-[#001030] text-white" : "text-slate-700 hover:bg-slate-50"}`}>
+            {services.map((service) => (
+              <Link key={service.name} href={service.href} onClick={() => setMobileOpen(false)} className="block rounded-xl px-4 py-3 text-sm font-semibold text-slate-700 hover:bg-slate-50">
                 {service.name}
               </Link>
             ))}
