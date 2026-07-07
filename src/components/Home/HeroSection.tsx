@@ -8,7 +8,6 @@ import {
   AlertTriangle,
   ArrowRight,
   Sparkles,
-  TrendingDown,
 } from "lucide-react";
 import { useState } from "react";
 import Link from "next/link";
@@ -50,18 +49,18 @@ export default function HeroSection() {
       <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,#ffffff10_1px,transparent_1px),linear-gradient(to_bottom,#ffffff10_1px,transparent_1px)] bg-[size:28px_28px] opacity-35" />
 
       <div className="mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-28">
-        <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:items-center lg:gap-16">
-          <div className="space-y-8">
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,0.95fr)_minmax(420px,0.85fr)] lg:items-center lg:gap-16">
+          <div className="min-w-0 space-y-8">
             <div className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/5 px-5 py-2 backdrop-blur-sm">
               <span className="flex h-2 w-2 rounded-full bg-white/90" />
               <span className="text-sm font-semibold text-white/90">
-                {"Fraud Strategy \u2022 Threat Intelligence \u2022 Awareness"}
+                {"Fraud Strategy \u2022 Threat Intelligence \u2022 Readiness Assessment"}
               </span>
               <Sparkles className="h-4 w-4 text-white/90" />
             </div>
 
             <div className="space-y-4">
-              <h1 className="text-4xl font-bold leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl">
+              <h1 className="max-w-3xl text-4xl font-bold leading-tight tracking-tight text-white sm:text-5xl lg:text-[3.75rem]">
                 Fraud is not only a{" "}
                 <span className="relative inline-block">
                   <span className="relative z-10 text-white">banking</span>
@@ -71,41 +70,29 @@ export default function HeroSection() {
               </h1>
 
               <p className="max-w-xl leading-relaxed text-white/75">
-                We help non-financial organisations identify, understand, and reduce fraud risk
-                across operations, digital channels, and frontline environments.
+                We help non-financial organisations see where fraud risk already lives, measure how ready they are, and decide what to fix first.
               </p>
             </div>
 
-            <div className="flex flex-col gap-4">
-              <Link href="/contact" className="w-full sm:w-auto">
+            <div className="flex flex-col gap-4 sm:flex-row sm:flex-wrap">
+              <Link href="/fraud-readiness-score" className="w-full sm:w-auto">
                 <Button
                   size="lg"
                   className="group w-full rounded-xl bg-white px-8 py-6 text-base font-semibold text-[#001030] shadow-lg transition-all duration-300 hover:scale-[1.03] hover:bg-white/90"
                 >
                   <span className="flex items-center gap-2">
-                    Book a Fraud Readiness Call
+                    Assess Your Organisation
                     <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
                   </span>
-                </Button>
-              </Link>
-
-              <Link href="/insights" className="w-full sm:w-auto">
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="w-full rounded-xl border-2 border-white/20 bg-transparent px-8 py-6 text-base font-semibold text-white transition-all duration-300 hover:border-white/35 hover:bg-white/5"
-                >
-                  <TrendingDown className="mr-2 h-5 w-5 text-white/90" />
-                  Download Readiness Checklist
                 </Button>
               </Link>
             </div>
 
             <div className="flex flex-wrap gap-3 pt-2">
               {[
-                "Threat Intelligence",
-                "Strategy",
+                "Fraud Readiness Score",
                 "Fraud Health Checks",
+                "Threat Intelligence",
                 "Awareness & Resilience",
                 "Internal Controls",
               ].map((tag) => (
@@ -119,7 +106,7 @@ export default function HeroSection() {
             </div>
           </div>
 
-          <div className="relative">
+          <div className="relative min-w-0">
             <div className="absolute -inset-8 -z-10 rounded-3xl bg-white/6 blur-3xl" />
 
             <div className="relative overflow-hidden rounded-3xl border border-white/12 bg-white/5 p-7 shadow-2xl backdrop-blur-xl lg:p-9">
@@ -180,8 +167,7 @@ export default function HeroSection() {
                     <Sparkles className="h-4 w-4" />
                   </div>
                   <p className="text-sm font-medium leading-relaxed text-white/85">
-                    Designed for non-financial sectors where fraud risk lives inside everyday
-                    operations.
+                    Start with the self-assessment, then use the score to decide whether you need a full MK Fraud Health Check.
                   </p>
                 </div>
               </div>

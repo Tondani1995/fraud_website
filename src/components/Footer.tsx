@@ -20,8 +20,9 @@ export default function Footer() {
   ];
 
   const serviceLinks = [
-    { name: "Threat Intelligence for Fraud", href: "/services#threat-intelligence" },
+    { name: "Fraud Readiness Score", href: "/fraud-readiness-score" },
     { name: "Fraud Health Check", href: "/services#health-check" },
+    { name: "Threat Intelligence for Fraud", href: "/services#threat-intelligence" },
     { name: "Programme Design", href: "/services#programme-design" },
     { name: "Awareness & Resilience", href: "/services#awareness" },
     { name: "Internal Controls", href: "/services#controls" },
@@ -43,9 +44,7 @@ export default function Footer() {
             </div>
 
             <p className="mb-6 text-sm leading-relaxed text-white/75">
-              MK Fraud Insights is a product of Stonda (Pty) Ltd. We combine fraud programme
-              design with threat intelligence to help organisations stay ahead of the threats that
-              drive real losses.
+              MK Fraud Insights helps organisations see where fraud risk lives, measure readiness, and strengthen controls before losses become visible.
             </p>
 
             <div className="flex gap-3">
@@ -53,12 +52,7 @@ export default function Footer() {
                 href={linkedInUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={() =>
-                  trackEvent("social_click", {
-                    platform: "linkedin",
-                    placement: "footer_social",
-                  })
-                }
+                onClick={() => trackEvent("social_click", { platform: "linkedin", placement: "footer_social" })}
                 className="group flex h-10 w-10 items-center justify-center rounded-xl border border-white/15 bg-white/5 backdrop-blur-sm transition-all duration-300 hover:scale-110 hover:bg-white/10"
                 aria-label="LinkedIn"
               >
@@ -66,12 +60,7 @@ export default function Footer() {
               </Link>
               <Link
                 href="mailto:hello@mkfraud.co.za"
-                onClick={() =>
-                  trackEvent("contact_click", {
-                    contact_type: "email",
-                    placement: "footer_social",
-                  })
-                }
+                onClick={() => trackEvent("contact_click", { contact_type: "email", placement: "footer_social" })}
                 className="group flex h-10 w-10 items-center justify-center rounded-xl border border-white/15 bg-white/5 backdrop-blur-sm transition-all duration-300 hover:scale-110 hover:bg-white/10"
                 aria-label="Email"
               >
@@ -94,10 +83,7 @@ export default function Footer() {
                     onMouseEnter={() => setHoveredLink(link.name)}
                     onMouseLeave={() => setHoveredLink(null)}
                   >
-                    <ArrowRight
-                      className={`h-4 w-4 transition-all duration-300 ${hoveredLink === link.name ? "opacity-100" : "opacity-0"
-                        }`}
-                    />
+                    <ArrowRight className={`h-4 w-4 transition-all duration-300 ${hoveredLink === link.name ? "opacity-100" : "opacity-0"}`} />
                     <span>{link.name}</span>
                   </Link>
                 </li>
@@ -119,10 +105,7 @@ export default function Footer() {
                     onMouseEnter={() => setHoveredLink(link.name)}
                     onMouseLeave={() => setHoveredLink(null)}
                   >
-                    <ArrowRight
-                      className={`h-4 w-4 transition-all duration-300 ${hoveredLink === link.name ? "opacity-100" : "opacity-0"
-                        }`}
-                    />
+                    <ArrowRight className={`h-4 w-4 transition-all duration-300 ${hoveredLink === link.name ? "opacity-100" : "opacity-0"}`} />
                     <span>{link.name}</span>
                   </Link>
                 </li>
@@ -139,12 +122,7 @@ export default function Footer() {
             <div className="space-y-4">
               <Link
                 href="mailto:hello@mkfraud.co.za"
-                onClick={() =>
-                  trackEvent("contact_click", {
-                    contact_type: "email",
-                    placement: "footer_contact_card",
-                  })
-                }
+                onClick={() => trackEvent("contact_click", { contact_type: "email", placement: "footer_contact_card" })}
                 className="group flex items-center gap-3 rounded-xl border border-white/15 bg-white/5 p-3 backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:bg-white/10"
               >
                 <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-white/10">
@@ -161,12 +139,7 @@ export default function Footer() {
                 href={linkedInUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={() =>
-                  trackEvent("social_click", {
-                    platform: "linkedin",
-                    placement: "footer_contact_card",
-                  })
-                }
+                onClick={() => trackEvent("social_click", { platform: "linkedin", placement: "footer_contact_card" })}
                 className="group flex items-center gap-3 rounded-xl border border-white/15 bg-white/5 p-3 backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:bg-white/10"
               >
                 <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-white/10">
@@ -197,25 +170,20 @@ export default function Footer() {
             <div className="relative flex flex-col items-center gap-6 text-center lg:flex-row lg:justify-between lg:text-left">
               <div className="max-w-xl">
                 <h3 className="mb-2 text-2xl font-bold leading-tight text-white lg:text-3xl">
-                  Ready to strengthen your fraud defences?
+                  Assess your organisation's fraud readiness.
                 </h3>
                 <p className="text-white/75">
-                  Get expert guidance tailored to your organisation&apos;s unique risk profile.
+                  Complete the self-assessment, see your free snapshot, then decide whether to request the detailed report.
                 </p>
               </div>
 
               <Link
-                href="/contact"
-                onClick={() =>
-                  trackEvent("cta_click", {
-                    cta_name: "get_started_today",
-                    placement: "footer_cta",
-                  })
-                }
+                href="/fraud-readiness-score"
+                onClick={() => trackEvent("cta_click", { cta_name: "footer_assess_your_organisation", placement: "footer_cta" })}
               >
                 <Button className="group rounded-xl bg-white px-8 py-6 text-[#001030] shadow-2xl transition-all duration-300 hover:scale-105 hover:bg-white/90">
                   <span className="flex items-center gap-2">
-                    Get Started Today
+                    Assess Your Organisation
                     <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
                   </span>
                 </Button>

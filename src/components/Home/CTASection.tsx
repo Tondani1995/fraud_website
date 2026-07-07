@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowRight, Calendar, CheckCircle2, Clock, Shield } from "lucide-react";
+import { ArrowRight, CheckCircle2, Shield, BarChart3 } from "lucide-react";
 import { useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -9,27 +9,27 @@ export default function CTASection() {
   const [isHovered, setIsHovered] = useState(false);
 
   const benefits = [
-    { icon: Clock, text: "Get results in 30 days" },
-    { icon: Shield, text: "Tailored to your risk profile" },
-    { icon: CheckCircle2, text: "Actionable fraud prevention plan" },
+    { icon: BarChart3, text: "See your score immediately" },
+    { icon: Shield, text: "Understand readiness and exposure" },
+    { icon: CheckCircle2, text: "Request a detailed report after" },
   ];
 
   const deliverables = [
     {
-      title: "Risk assessment",
-      description: "Map exposure points across people, process, and channels.",
+      title: "Free readiness snapshot",
+      description: "A directional score across the approved fraud readiness domains.",
     },
     {
-      title: "Custom strategy",
-      description: "A practical plan aligned with your operations and constraints.",
+      title: "Exposure context",
+      description: "A separate view of inherent exposure so weak controls and high-risk operations are not confused.",
     },
     {
-      title: "30-day roadmap",
-      description: "Clear priorities and steps you can execute immediately.",
+      title: "Priority gap signals",
+      description: "A clear view of where the organisation should look first before commissioning deeper work.",
     },
     {
-      title: "Expert guidance",
-      description: "Direct input from fraud specialists throughout the engagement.",
+      title: "Detailed report option",
+      description: "The client can request a full MK report after seeing the score.",
     },
   ];
 
@@ -51,22 +51,16 @@ export default function CTASection() {
               <div className="inline-flex items-center gap-2 rounded-full border border-[#1d3658]/15 bg-white px-5 py-2.5 shadow-sm">
                 <span className="flex h-2 w-2 rounded-full bg-[#1d3658]" />
                 <span className="text-sm font-bold uppercase tracking-wide text-[#001030]">
-                  Limited availability
+                  Start with the assessment
                 </span>
               </div>
 
               <h2 className="mt-6 text-3xl font-bold leading-tight tracking-tight text-[#001030] sm:text-4xl">
-                Want a clear fraud plan in{" "}
-                <span className="relative inline-block">
-                  <span className="relative z-10 text-[#1d3658]">30 days</span>
-                  <span className="absolute -bottom-2 left-0 h-3 w-full bg-[#1d3658]/15 blur-sm" />
-                </span>
-                ?
+                Not sure where to start with fraud risk?
               </h2>
 
               <p className="mt-5 max-w-2xl leading-relaxed text-slate-600">
-                Book a call and we&apos;ll recommend the quickest, highest-impact path based on your
-                organisation&apos;s environment.
+                Complete the Fraud Readiness Assessment first. It gives a structured self-check, then shows whether a detailed report, health check, or advisory engagement should come next.
               </p>
 
               <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
@@ -89,29 +83,28 @@ export default function CTASection() {
               </div>
 
               <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-                <Link href="/contact" className="w-full sm:w-auto">
+                <Link href="/fraud-readiness-score" className="w-full sm:w-auto">
                   <Button
                     className="group w-full rounded-xl bg-[#001030] px-8 py-6 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:scale-[1.03] hover:bg-[#0b1b44]"
                     onMouseEnter={() => setIsHovered(true)}
                     onMouseLeave={() => setIsHovered(false)}
                   >
                     <span className="flex items-center gap-3">
-                      <Calendar className="h-5 w-5" />
-                      Book your strategy call
+                      <BarChart3 className="h-5 w-5" />
+                      Start the Fraud Readiness Assessment
                       <ArrowRight
-                        className={`h-5 w-5 transition-transform duration-300 ${isHovered ? "translate-x-1" : ""
-                          }`}
+                        className={`h-5 w-5 transition-transform duration-300 ${isHovered ? "translate-x-1" : ""}`}
                       />
                     </span>
                   </Button>
                 </Link>
 
-                <Link href="/services" className="w-full sm:w-auto">
+                <Link href="/contact" className="w-full sm:w-auto">
                   <Button
                     variant="outline"
                     className="w-full rounded-xl border-2 border-[#1d3658]/25 px-8 py-6 text-base font-semibold text-[#001030] transition-all duration-300 hover:border-[#1d3658]/45 hover:bg-[#1d3658]/5"
                   >
-                    Learn more
+                    Book a call
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Button>
                 </Link>
@@ -119,13 +112,14 @@ export default function CTASection() {
 
               <p className="mt-6 flex items-center gap-2 text-sm text-slate-500">
                 <CheckCircle2 className="h-4 w-4 text-[#1d3658]" />
-                No commitment required • Free consultation
+                Free snapshot first • Detailed report request available after scoring
               </p>
             </div>
 
             <div className="lg:col-span-5">
               <div className="relative h-full overflow-hidden rounded-3xl border border-slate-200 bg-white p-7 shadow-sm lg:p-8">
-                <div className="absolute inset-0 opacity-70"
+                <div
+                  className="absolute inset-0 opacity-70"
                   style={{
                     background:
                       "linear-gradient(135deg, rgba(29,54,88,0.06) 0%, rgba(0,16,48,0.04) 55%, rgba(64,80,80,0.04) 100%)",
@@ -134,7 +128,7 @@ export default function CTASection() {
 
                 <div className="relative">
                   <div className="mb-6 flex items-center justify-between">
-                    <h3 className="text-2xl font-bold leading-tight text-[#001030]">What you&apos;ll get</h3>
+                    <h3 className="text-2xl font-bold leading-tight text-[#001030]">What the product gives</h3>
                     <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white shadow-sm ring-1 ring-[#1d3658]/15">
                       <Shield className="h-6 w-6 text-[#1d3658]" />
                     </div>

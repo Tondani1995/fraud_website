@@ -3,6 +3,7 @@ import AwarenessResilienceSection from '@/components/Services/AwarenessResilienc
 import EngagementOptionsSection from '@/components/Services/EngagementOptionsSection'
 import FraudHealthCheckSection from '@/components/Services/FraudHealthCheckSection'
 import FraudProgrammeDesignSection from '@/components/Services/FraudProgrammeDesignSection'
+import FraudReadinessScoreSection from '@/components/Services/FraudReadinessScoreSection'
 import InternalFraudControlsSection from '@/components/Services/InternalFraudControlsSection'
 import ServicesHero from '@/components/Services/ServicesHero'
 import ThreatIntelligenceSection from '@/components/Services/ThreatIntelligenceSection'
@@ -13,6 +14,7 @@ export default function page() {
         <Wrapper>
             <div>
                 <ServicesHero />
+                <FraudReadinessScoreSection />
                 <FraudHealthCheckSection />
                 <ThreatIntelligenceSection />
                 <FraudProgrammeDesignSection />
