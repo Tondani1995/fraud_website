@@ -67,7 +67,7 @@ export default function LeadMagnetSection() {
             <div className="overflow-hidden rounded-3xl border-2 border-slate-200 bg-white shadow-2xl">
               <div className="border-b border-slate-200 bg-slate-50/60 px-7 py-6">
                 <h3 className="text-xl font-bold leading-tight tracking-tight text-[#001030]">
-                  Start with the score
+                  Start with the assessment
                 </h3>
                 <p className="mt-1 text-sm text-slate-600">
                   Complete the self-assessment and see the free snapshot immediately after submission.
@@ -91,7 +91,7 @@ export default function LeadMagnetSection() {
 
                 <Link href="/fraud-readiness-score" className="block">
                   <Button className="h-12 w-full rounded-lg bg-[#001030] text-base font-bold text-white shadow-lg transition-all duration-300 hover:scale-[1.01] hover:bg-[#001030]/95">
-                    Start the Fraud Readiness Score
+                    Start the Fraud Readiness Assessment
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Button>
                 </Link>
