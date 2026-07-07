@@ -55,7 +55,7 @@ export default function HeroSection() {
             <div className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/5 px-5 py-2 backdrop-blur-sm">
               <span className="flex h-2 w-2 rounded-full bg-white/90" />
               <span className="text-sm font-semibold text-white/90">
-                {"Fraud Strategy \u2022 Threat Intelligence \u2022 Readiness Score"}
+                {"Fraud Strategy \u2022 Threat Intelligence \u2022 Readiness Assessment"}
               </span>
               <Sparkles className="h-4 w-4 text-white/90" />
             </div>
@@ -82,7 +82,7 @@ export default function HeroSection() {
                   className="group w-full rounded-xl bg-white px-8 py-6 text-base font-semibold text-[#001030] shadow-lg transition-all duration-300 hover:scale-[1.03] hover:bg-white/90"
                 >
                   <span className="flex items-center gap-2">
-                    Start the Fraud Readiness Score
+                    Start the Fraud Readiness Assessment
                     <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
                   </span>
                 </Button>
