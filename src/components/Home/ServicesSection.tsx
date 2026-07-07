@@ -9,6 +9,7 @@ import {
   ArrowRight,
   Sparkles,
   BrainCircuit,
+  ClipboardCheck,
 } from "lucide-react";
 import { useState } from "react";
 import Link from "next/link";
@@ -17,6 +18,21 @@ export default function ServicesSection() {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
 
   const services = [
+    {
+      icon: ClipboardCheck,
+      title: "Fraud Readiness Score",
+      description:
+        "Start with a structured self-assessment that gives leadership an immediate readiness score, exposure view, and priority control gaps.",
+      href: "/fraud-readiness-score",
+      featured: true,
+    },
+    {
+      icon: Radar,
+      title: "Fraud Health Check",
+      description:
+        "Use the score as an entry point, then go deeper with MK review, control-gap analysis, and a practical remediation plan.",
+      href: "/services#health-check",
+    },
     {
       icon: BrainCircuit,
       title: "Threat Intelligence for Fraud",
@@ -30,13 +46,6 @@ export default function ServicesSection() {
       description:
         "Enable employees, customers, and suppliers to recognise fraud early and act with confidence.",
       href: "/services#awareness",
-    },
-    {
-      icon: Radar,
-      title: "Fraud Health Check",
-      description:
-        "Pinpoint where fraud enters, why controls fail, and what to fix first with a clear action plan.",
-      href: "/services#health-check",
     },
     {
       icon: ShieldCheck,
@@ -74,37 +83,30 @@ export default function ServicesSection() {
 
             <div className="space-y-4">
               <h2 className="text-3xl font-bold leading-tight tracking-tight text-[#001030] sm:text-4xl lg:text-5xl">
-                Practical fraud support{" "}
-                <span className="relative inline-block">
-                  <span className="relative z-10 text-[#1d3658]">where risk actually lives</span>
-                  <span className="absolute -bottom-2 left-0 h-3 w-full bg-[#1d3658]/15 blur-sm" />
-                </span>
+                Start with a score. Then fix what matters.
               </h2>
 
               <p className="max-w-2xl leading-relaxed text-slate-600">
-                We help organisations understand how fraud really happens, respond to evolving
-                threats, and build controls that work inside everyday operations.
+                The Fraud Readiness Score becomes the first step into MK Fraud support: a quick self-assessment, an immediate score, and a clearer path into a deeper health check where needed.
               </p>
             </div>
           </div>
 
           <div className="flex w-full flex-col gap-4 sm:flex-row lg:w-auto">
+            <Link href="/fraud-readiness-score" className="w-full sm:w-auto">
+              <Button className="group w-full rounded-xl bg-[#001030] px-8 py-6 text-base text-white shadow-lg transition-all duration-300 hover:scale-[1.03] hover:bg-[#0b1b44]">
+                Start the Score
+                <ArrowRight className="ml-2 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
+              </Button>
+            </Link>
+
             <Link href="/services" className="w-full sm:w-auto">
               <Button
                 variant="outline"
                 className="group w-full rounded-xl border-2 border-[#1d3658]/25 px-8 py-6 text-base text-[#001030] transition-all duration-300 hover:border-[#1d3658]/45 hover:bg-[#1d3658]/5"
               >
-                View All Services
+                View Services
                 <ArrowRight className="ml-2 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
-              </Button>
-            </Link>
-
-            <Link href="/contact" className="w-full sm:w-auto">
-              <Button className="group w-full rounded-xl bg-[#001030] px-8 py-6 text-base text-white shadow-lg transition-all duration-300 hover:scale-[1.03] hover:bg-[#0b1b44]">
-                <span className="flex items-center gap-2">
-                  Request a Consultation
-                  <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
-                </span>
               </Button>
             </Link>
           </div>
@@ -136,12 +138,19 @@ export default function ServicesSection() {
                     className={`relative h-full overflow-hidden rounded-3xl border bg-white p-8 shadow-lg transition-all duration-500 ${
                       isHovered
                         ? "-translate-y-1 border-[#1d3658]/20 shadow-2xl"
-                        : "border-slate-200"
+                        : service.featured
+                          ? "border-[#1d3658]/25"
+                          : "border-slate-200"
                     }`}
                   >
+                    {service.featured ? (
+                      <div className="mb-5 inline-flex rounded-full bg-[#001030] px-3 py-1 text-xs font-bold uppercase tracking-wide text-white">
+                        Main entry point
+                      </div>
+                    ) : null}
                     <div
                       className={`absolute inset-0 opacity-0 transition-opacity duration-500 ${
-                        isHovered ? "opacity-100" : ""
+                        isHovered || service.featured ? "opacity-100" : ""
                       }`}
                       style={{
                         background:
@@ -167,14 +176,14 @@ export default function ServicesSection() {
                           isHovered ? "translate-x-1" : ""
                         }`}
                       >
-                        <span>Learn More</span>
+                        <span>{service.featured ? "Start now" : "Learn more"}</span>
                         <ArrowRight className="h-4 w-4" />
                       </div>
                     </div>
 
                     <div
                       className={`absolute bottom-0 left-0 h-[3px] w-full bg-[#1d3658] transition-opacity duration-500 ${
-                        isHovered ? "opacity-100" : "opacity-0"
+                        isHovered || service.featured ? "opacity-100" : "opacity-0"
                       }`}
                     />
                   </div>
