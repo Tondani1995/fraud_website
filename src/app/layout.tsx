@@ -11,6 +11,7 @@ import {
   SITE_URL,
   organizationJsonLd,
 } from "@/lib/site";
+import { Analytics } from "@vercel/analytics/next";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -70,6 +71,7 @@ export default function RootLayout({
         </Suspense>
         {children}
         <CookieConsent />
+        <Analytics />
       </body>
     </html>
   );
