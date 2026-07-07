@@ -2,7 +2,7 @@ import Wrapper from "@/app/Wrapper";
 import { ArrowRight, BarChart3, CheckCircle2, FileText, Shield } from "lucide-react";
 import Link from "next/link";
 
-const scoreAppUrl = "https://mk-fraud-readiness-score.vercel.app/start";
+const scoreAppUrl = "https://mk-fraud-readiness-score.vercel.app/start?embed=1";
 
 export default function FraudReadinessScorePage() {
   return (
@@ -89,7 +89,7 @@ export default function FraudReadinessScorePage() {
               <p className="text-sm font-bold uppercase tracking-wide text-[#1d3658]">Assessment</p>
               <h2 className="mt-3 text-3xl font-bold tracking-tight text-[#001030] sm:text-4xl">Complete the Fraud Readiness Score</h2>
               <p className="mt-4 leading-7 text-slate-600">
-                The assessment opens inside the MK Fraud service journey. When submitted, the client should see the free score snapshot immediately and have the option to request a detailed report.
+                The assessment opens inside the MK Fraud service journey. When submitted, the client sees the free score snapshot immediately and can request a detailed report.
               </p>
             </div>
 
@@ -97,7 +97,7 @@ export default function FraudReadinessScorePage() {
               <iframe
                 title="MK Fraud Readiness Score"
                 src={scoreAppUrl}
-                className="h-[1650px] w-full border-0"
+                className="h-[1900px] w-full border-0"
                 loading="lazy"
               />
             </div>
