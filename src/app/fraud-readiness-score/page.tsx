@@ -94,12 +94,7 @@ export default function FraudReadinessScorePage() {
             </div>
 
             <div className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-2xl">
-              <iframe
-                title="MK Fraud Readiness Score"
-                src={scoreAppUrl}
-                className="h-[1900px] w-full border-0"
-                loading="lazy"
-              />
+              <iframe title="MK Fraud Readiness Score" src={scoreAppUrl} className="h-[1900px] w-full border-0" loading="lazy" />
             </div>
           </div>
         </section>
