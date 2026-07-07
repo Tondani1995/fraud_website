@@ -11,30 +11,30 @@ export default function FraudReadinessScorePage() {
         <section className="relative overflow-hidden bg-[#001030]">
           <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff10_1px,transparent_1px),linear-gradient(to_bottom,#ffffff10_1px,transparent_1px)] bg-[size:28px_28px] opacity-30" />
           <div className="relative mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-24">
-            <div className="grid gap-10 lg:grid-cols-[1.08fr_0.92fr] lg:items-center">
-              <div>
+            <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(360px,0.82fr)] lg:items-center lg:gap-16">
+              <div className="min-w-0 max-w-3xl">
                 <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-5 py-2 text-sm font-semibold text-white/90 backdrop-blur">
                   <BarChart3 className="h-4 w-4" />
                   Free fraud readiness snapshot
                 </div>
-                <h1 className="mt-6 max-w-4xl text-4xl font-bold leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl">
+                <h1 className="mt-6 max-w-3xl text-4xl font-bold leading-tight tracking-tight text-white sm:text-5xl lg:text-[3.7rem]">
                   Assess your organisation before committing to a full fraud health check.
                 </h1>
                 <p className="mt-6 max-w-2xl text-base leading-8 text-white/75">
                   The Fraud Readiness Score is a structured self-assessment that helps your organisation understand readiness, exposure and priority control gaps. Once submitted, you receive a free snapshot immediately and can request a detailed MK report.
                 </p>
-                <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                  <a href="#start-score" className="inline-flex items-center justify-center rounded-xl bg-white px-8 py-4 font-semibold text-[#001030] shadow-lg transition hover:bg-white/90">
+                <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+                  <a href="#start-score" className="inline-flex items-center justify-center rounded-xl bg-white px-7 py-4 font-semibold text-[#001030] shadow-lg transition hover:bg-white/90">
                     Assess Your Organisation
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </a>
-                  <Link href="/services#health-check" className="inline-flex items-center justify-center rounded-xl border border-white/20 px-8 py-4 font-semibold text-white transition hover:bg-white/5">
-                    View full Health Check
+                  <Link href="/services#health-check" className="inline-flex items-center justify-center rounded-xl border border-white/20 px-7 py-4 font-semibold text-white transition hover:bg-white/5">
+                    View Health Check
                   </Link>
                 </div>
               </div>
 
-              <div className="rounded-3xl border border-white/15 bg-white/5 p-6 shadow-2xl backdrop-blur">
+              <div className="min-w-0 rounded-3xl border border-white/15 bg-white/5 p-6 shadow-2xl backdrop-blur">
                 <div className="grid gap-4">
                   {[
                     [Shield, "Readiness", "Measures how prepared the organisation is across governance, controls, detection, response and culture."],
