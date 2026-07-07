@@ -83,7 +83,7 @@ export default function ServicesSection() {
 
             <div className="space-y-4">
               <h2 className="text-3xl font-bold leading-tight tracking-tight text-[#001030] sm:text-4xl lg:text-5xl">
-                Start with a score. Then fix what matters.
+                Start with an assessment. Then fix what matters.
               </h2>
 
               <p className="max-w-2xl leading-relaxed text-slate-600">
@@ -95,7 +95,7 @@ export default function ServicesSection() {
           <div className="flex w-full flex-col gap-4 sm:flex-row lg:w-auto">
             <Link href="/fraud-readiness-score" className="w-full sm:w-auto">
               <Button className="group w-full rounded-xl bg-[#001030] px-8 py-6 text-base text-white shadow-lg transition-all duration-300 hover:scale-[1.03] hover:bg-[#0b1b44]">
-                Start the Score
+                Start the Assessment
                 <ArrowRight className="ml-2 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
               </Button>
             </Link>
@@ -176,7 +176,7 @@ export default function ServicesSection() {
                           isHovered ? "translate-x-1" : ""
                         }`}
                       >
-                        <span>{service.featured ? "Start now" : "Learn more"}</span>
+                        <span>{service.featured ? "Start assessment" : "Learn more"}</span>
                         <ArrowRight className="h-4 w-4" />
                       </div>
                     </div>
