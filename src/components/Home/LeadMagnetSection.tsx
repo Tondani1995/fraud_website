@@ -1,254 +1,117 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { CheckCircle2, Mail, User, Loader2, Shield } from "lucide-react";
+import { CheckCircle2, Shield, ArrowRight, BarChart3 } from "lucide-react";
 
 export default function LeadMagnetSection() {
-    useMemo(
-        () => ({
-            primary: "#1d3658",
-            deep: "#001030",
-        }),
-        []
-    );
+  return (
+    <section
+      id="fraud-readiness-score"
+      className="relative overflow-hidden bg-gradient-to-br from-white via-slate-50 to-white"
+      aria-labelledby="readiness-score-title"
+    >
+      <div className="pointer-events-none absolute inset-0 -z-10">
+        <div className="absolute left-0 top-0 h-[520px] w-[520px] rounded-full bg-[#1d3658]/10 blur-3xl" />
+        <div className="absolute right-0 bottom-0 h-[560px] w-[560px] rounded-full bg-[#001030]/8 blur-3xl" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#0b122005_1px,transparent_1px),linear-gradient(to_bottom,#0b122005_1px,transparent_1px)] bg-[size:44px_44px]" />
+      </div>
 
-    const WEB3FORMS_ACCESS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY!;
-
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">(
-        "idle"
-    );
-    const [message, setMessage] = useState("");
-
-    async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
-        e.preventDefault();
-        setStatus("loading");
-        setMessage("");
-
-        const submittedForm = new FormData(e.currentTarget);
-        const honeypot = submittedForm.get("botcheck")?.toString();
-
-        if (honeypot) {
-            setStatus("success");
-            setMessage("Done! Check your inbox — we’ve sent the Fraud Readiness Checklist.");
-            return;
-        }
-
-        const cleanName = name.trim();
-        const cleanEmail = email.trim();
-
-        if (!cleanName || !cleanEmail) {
-            setStatus("error");
-            setMessage("Please add your name and email address.");
-            return;
-        }
-
-        try {
-            const fd = new FormData();
-            fd.append("access_key", WEB3FORMS_ACCESS_KEY);
-            fd.append("name", cleanName);
-            fd.append("email", cleanEmail);
-            fd.append(
-                "message",
-                `Lead Magnet Request:\nName: ${cleanName}\nEmail: ${cleanEmail}\nRequested: Fraud Readiness Checklist`
-            );
-            fd.append("subject", `Lead Magnet: Fraud Readiness Checklist — ${cleanName}`);
-            fd.append("from_name", cleanName);
-            fd.append("botcheck", "");
-
-            const res = await fetch("https://api.web3forms.com/submit", {
-                method: "POST",
-                body: fd,
-            });
-
-            const data = await res.json().catch(() => ({}));
-
-            if (!data?.success) {
-                setStatus("error");
-                setMessage(data?.message || "Something went wrong. Please try again.");
-                return;
-            }
-
-            setStatus("success");
-            setMessage(
-                "Done! Check your inbox — we’ve sent the Fraud Readiness Checklist."
-            );
-            setName("");
-            setEmail("");
-        } catch {
-            setStatus("error");
-            setMessage("Network error. Please try again.");
-        }
-    }
-
-    return (
-        <section
-            id="fraud-readiness-checklist"
-            className="relative overflow-hidden bg-gradient-to-br from-white via-slate-50 to-white"
-            aria-labelledby="lead-magnet-title"
-        >
-            <div className="pointer-events-none absolute inset-0 -z-10">
-                <div className="absolute left-0 top-0 h-[520px] w-[520px] rounded-full bg-[#1d3658]/10 blur-3xl" />
-                <div className="absolute right-0 bottom-0 h-[560px] w-[560px] rounded-full bg-[#001030]/8 blur-3xl" />
-                <div className="absolute inset-0 bg-[linear-gradient(to_right,#0b122005_1px,transparent_1px),linear-gradient(to_bottom,#0b122005_1px,transparent_1px)] bg-[size:44px_44px]" />
+      <div className="mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-28">
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:items-center">
+          <div className="lg:col-span-6">
+            <div className="inline-flex items-center gap-2 rounded-full border border-[#1d3658]/20 bg-[#1d3658]/5 px-5 py-2.5 shadow-sm backdrop-blur">
+              <Shield className="h-4 w-4 text-[#1d3658]" />
+              <span className="text-sm font-bold uppercase tracking-wide text-[#1d3658]">
+                Free self-assessment
+              </span>
             </div>
 
-            <div className="mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-28">
-                <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:items-center">
-                    <div className="lg:col-span-6">
-                        <div className="inline-flex items-center gap-2 rounded-full border border-[#1d3658]/20 bg-[#1d3658]/5 px-5 py-2.5 shadow-sm backdrop-blur">
-                            <Shield className="h-4 w-4 text-[#1d3658]" />
-                            <span className="text-sm font-bold uppercase tracking-wide text-[#1d3658]">
-                                Free resource
-                            </span>
-                        </div>
+            <h2
+              id="readiness-score-title"
+              className="mt-6 text-2xl font-bold tracking-tight leading-tight text-[#001030] sm:text-3xl lg:text-5xl"
+            >
+              Fraud Readiness Score
+              <span className="ml-2 text-[#1d3658]/70">(Free snapshot)</span>
+            </h2>
 
-                        <h2
-                            id="lead-magnet-title"
-                            className="mt-6 text-2xl font-bold tracking-tight leading-tight text-[#001030] sm:text-3xl lg:text-5xl"
-                        >
-                            Fraud Readiness Checklist
-                            <span className="ml-2 text-[#1d3658]/70">(Free)</span>
-                        </h2>
+            <p className="mt-4 max-w-xl leading-relaxed text-slate-600">
+              Replace the static checklist with a live assessment. The score gives organisations an immediate view of readiness, exposure, and the control areas that need attention first.
+            </p>
 
-                        <p className="mt-4 max-w-xl leading-relaxed text-slate-600">
-                            A practical checklist to help organisations identify common fraud
-                            gaps across people, process, and controls.
-                        </p>
-
-                        <div className="mt-7 grid grid-cols-1 gap-3 sm:grid-cols-2">
-                            {["People gaps", "Process weaknesses", "Control blind spots", "Quick wins"].map(
-                                (t) => (
-                                    <div
-                                        key={t}
-                                        className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-white/70 p-4 shadow-sm"
-                                    >
-                                        <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#1d3658]/10">
-                                            <CheckCircle2 className="h-5 w-5 text-[#1d3658]" />
-                                        </div>
-                                        <p className="text-sm font-semibold text-slate-700">{t}</p>
-                                    </div>
-                                )
-                            )}
-                        </div>
-
-                        <p className="mt-6 text-sm text-slate-500">
-                            We’ll email you the checklist. No spam.
-                        </p>
-                    </div>
-
-                    <div className="lg:col-span-6">
-                        <div className="overflow-hidden rounded-3xl border-2 border-slate-200 bg-white shadow-2xl">
-                            <div className="border-b border-slate-200 bg-slate-50/60 px-7 py-6">
-                                <h3 className="text-xl font-bold leading-tight tracking-tight text-[#001030]">
-                                    Send me the checklist
-                                </h3>
-                                <p className="mt-1 text-sm text-slate-600">
-                                    Enter your details and we’ll deliver it via email.
-                                </p>
-                            </div>
-
-                            <form onSubmit={onSubmit} className="space-y-5 px-7 py-7">
-                                <input
-                                    type="checkbox"
-                                    name="botcheck"
-                                    tabIndex={-1}
-                                    autoComplete="off"
-                                    className="hidden"
-                                    aria-hidden="true"
-                                />
-
-                                <div className="space-y-2">
-                                    <label
-                                        htmlFor="lead-name"
-                                        className="text-sm font-semibold text-[#001030]"
-                                    >
-                                        Name
-                                    </label>
-                                    <div className="relative">
-                                        <User className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" />
-                                        <input
-                                            id="lead-name"
-                                            value={name}
-                                            onChange={(e) => setName(e.target.value)}
-                                            placeholder="Your name"
-                                            required
-                                            className="h-12 w-full rounded-lg mt-1 border-2 border-slate-200 bg-white pl-12 pr-4 text-sm text-slate-900 outline-none transition focus:border-[#1d3658]/35 focus:ring-4 focus:ring-[#1d3658]/10"
-                                        />
-                                    </div>
-                                </div>
-
-                                <div className="space-y-2">
-                                    <label
-                                        htmlFor="lead-email"
-                                        className="text-sm font-semibold text-[#001030]"
-                                    >
-                                        Email
-                                    </label>
-                                    <div className="relative">
-                                        <Mail className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" />
-                                        <input
-                                            id="lead-email"
-                                            type="email"
-                                            value={email}
-                                            onChange={(e) => setEmail(e.target.value)}
-                                            placeholder="name@company.com"
-                                            required
-                                            autoComplete="email"
-                                            className="h-12 w-full rounded-lg mt-1 border-2 border-slate-200 bg-white pl-12 pr-4 text-sm text-slate-900 outline-none transition focus:border-[#1d3658]/35 focus:ring-4 focus:ring-[#1d3658]/10"
-                                        />
-                                    </div>
-                                </div>
-
-                                {(status === "success" || status === "error") && (
-                                    <div
-                                        className={`rounded-2xl border p-4 text-sm ${status === "success"
-                                            ? "border-emerald-200 bg-emerald-50 text-emerald-900"
-                                            : "border-rose-200 bg-rose-50 text-rose-900"
-                                            }`}
-                                        role="status"
-                                        aria-live="polite"
-                                    >
-                                        {message}
-                                    </div>
-                                )}
-
-                                <Button
-                                    type="submit"
-                                    disabled={status === "loading"}
-                                    className="h-12 w-full rounded-lg bg-[#001030] text-base font-bold text-white shadow-lg transition-all duration-300 hover:scale-[1.01] hover:bg-[#001030]/95 disabled:opacity-70"
-                                >
-                                    {status === "loading" ? (
-                                        <span className="flex items-center justify-center gap-2">
-                                            <Loader2 className="h-5 w-5 animate-spin" />
-                                            Sending…
-                                        </span>
-                                    ) : (
-                                        "Send me the checklist"
-                                    )}
-                                </Button>
-
-                                <p className="text-xs leading-relaxed text-slate-500">
-                                    By submitting, you agree to receive the checklist by email. You
-                                    can opt out anytime.
-                                </p>
-                            </form>
-
-                            <div className="border-t border-slate-200 bg-white px-7 py-5">
-                                <div className="flex items-center justify-between gap-3">
-                                    <p className="text-xs text-slate-500">
-                                        Powered by MK Fraud Insights
-                                    </p>
-                                    <div className="h-2 w-24 rounded-full bg-[#1d3658]/15" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            <div className="mt-7 grid grid-cols-1 gap-3 sm:grid-cols-2">
+              {[
+                "Immediate readiness score",
+                "Exposure profile",
+                "Priority control gaps",
+                "Detailed report option",
+              ].map((t) => (
+                <div
+                  key={t}
+                  className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-white/70 p-4 shadow-sm"
+                >
+                  <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#1d3658]/10">
+                    <CheckCircle2 className="h-5 w-5 text-[#1d3658]" />
+                  </div>
+                  <p className="text-sm font-semibold text-slate-700">{t}</p>
                 </div>
+              ))}
             </div>
-            <div className="absolute bottom-0 left-0 h-px w-full bg-[#1d3658]/15" />
-        </section>
-    );
+
+            <p className="mt-6 text-sm text-slate-500">
+              The self-assessment is the entry point. A full MK report can be requested after the score is generated.
+            </p>
+          </div>
+
+          <div className="lg:col-span-6">
+            <div className="overflow-hidden rounded-3xl border-2 border-slate-200 bg-white shadow-2xl">
+              <div className="border-b border-slate-200 bg-slate-50/60 px-7 py-6">
+                <h3 className="text-xl font-bold leading-tight tracking-tight text-[#001030]">
+                  Start with the score
+                </h3>
+                <p className="mt-1 text-sm text-slate-600">
+                  Complete the self-assessment and see the free snapshot immediately after submission.
+                </p>
+              </div>
+
+              <div className="space-y-5 px-7 py-7">
+                <div className="rounded-2xl border border-slate-200 bg-white p-5">
+                  <div className="flex items-start gap-4">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#001030] text-white">
+                      <BarChart3 className="h-6 w-6" />
+                    </div>
+                    <div>
+                      <p className="font-bold text-[#001030]">Self-check first. Advisory after.</p>
+                      <p className="mt-2 text-sm leading-relaxed text-slate-600">
+                        This is designed to help prospects understand their position before they ask for a full health check, remediation plan, or detailed report.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <Link href="/fraud-readiness-score" className="block">
+                  <Button className="h-12 w-full rounded-lg bg-[#001030] text-base font-bold text-white shadow-lg transition-all duration-300 hover:scale-[1.01] hover:bg-[#001030]/95">
+                    Start the Fraud Readiness Score
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </Button>
+                </Link>
+
+                <p className="text-xs leading-relaxed text-slate-500">
+                  No account is required. The free snapshot is generated from the submitted self-assessment. Detailed reports are handled by MK Fraud Insights after request confirmation.
+                </p>
+              </div>
+
+              <div className="border-t border-slate-200 bg-white px-7 py-5">
+                <div className="flex items-center justify-between gap-3">
+                  <p className="text-xs text-slate-500">Powered by MK Fraud Insights</p>
+                  <div className="h-2 w-24 rounded-full bg-[#1d3658]/15" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="absolute bottom-0 left-0 h-px w-full bg-[#1d3658]/15" />
+    </section>
+  );
 }
