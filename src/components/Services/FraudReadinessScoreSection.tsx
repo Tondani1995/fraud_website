@@ -42,7 +42,7 @@ export default function FraudReadinessScoreSection() {
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Link href="/fraud-readiness-score" className="w-full sm:w-auto">
                 <Button className="w-full rounded-xl bg-white px-8 py-6 text-base font-bold text-[#001030] shadow-lg transition hover:bg-white/90">
-                  Start the Score
+                  Start the Readiness Assessment
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
