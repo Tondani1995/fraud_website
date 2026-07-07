@@ -55,7 +55,7 @@ export default function HeroSection() {
             <div className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/5 px-5 py-2 backdrop-blur-sm">
               <span className="flex h-2 w-2 rounded-full bg-white/90" />
               <span className="text-sm font-semibold text-white/90">
-                {"Fraud Strategy \u2022 Threat Intelligence \u2022 Awareness"}
+                {"Fraud Strategy \u2022 Threat Intelligence \u2022 Readiness Score"}
               </span>
               <Sparkles className="h-4 w-4 text-white/90" />
             </div>
@@ -71,41 +71,40 @@ export default function HeroSection() {
               </h1>
 
               <p className="max-w-xl leading-relaxed text-white/75">
-                We help non-financial organisations identify, understand, and reduce fraud risk
-                across operations, digital channels, and frontline environments.
+                We help non-financial organisations see where fraud risk already lives, measure how ready they are, and decide what to fix first.
               </p>
             </div>
 
-            <div className="flex flex-col gap-4">
-              <Link href="/contact" className="w-full sm:w-auto">
+            <div className="flex flex-col gap-4 sm:flex-row">
+              <Link href="/fraud-readiness-score" className="w-full sm:w-auto">
                 <Button
                   size="lg"
                   className="group w-full rounded-xl bg-white px-8 py-6 text-base font-semibold text-[#001030] shadow-lg transition-all duration-300 hover:scale-[1.03] hover:bg-white/90"
                 >
                   <span className="flex items-center gap-2">
-                    Book a Fraud Readiness Call
+                    Start the Fraud Readiness Score
                     <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
                   </span>
                 </Button>
               </Link>
 
-              <Link href="/insights" className="w-full sm:w-auto">
+              <Link href="/services#health-check" className="w-full sm:w-auto">
                 <Button
                   size="lg"
                   variant="outline"
                   className="w-full rounded-xl border-2 border-white/20 bg-transparent px-8 py-6 text-base font-semibold text-white transition-all duration-300 hover:border-white/35 hover:bg-white/5"
                 >
                   <TrendingDown className="mr-2 h-5 w-5 text-white/90" />
-                  Download Readiness Checklist
+                  Explore the full Health Check
                 </Button>
               </Link>
             </div>
 
             <div className="flex flex-wrap gap-3 pt-2">
               {[
-                "Threat Intelligence",
-                "Strategy",
+                "Fraud Readiness Score",
                 "Fraud Health Checks",
+                "Threat Intelligence",
                 "Awareness & Resilience",
                 "Internal Controls",
               ].map((tag) => (
@@ -180,8 +179,7 @@ export default function HeroSection() {
                     <Sparkles className="h-4 w-4" />
                   </div>
                   <p className="text-sm font-medium leading-relaxed text-white/85">
-                    Designed for non-financial sectors where fraud risk lives inside everyday
-                    operations.
+                    Start with the self-assessment, then use the score to decide whether you need a full MK Fraud Health Check.
                   </p>
                 </div>
               </div>
