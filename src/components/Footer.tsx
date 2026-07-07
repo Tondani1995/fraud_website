@@ -170,7 +170,7 @@ export default function Footer() {
             <div className="relative flex flex-col items-center gap-6 text-center lg:flex-row lg:justify-between lg:text-left">
               <div className="max-w-xl">
                 <h3 className="mb-2 text-2xl font-bold leading-tight text-white lg:text-3xl">
-                  Start with your Fraud Readiness Score.
+                  Start with your Fraud Readiness Assessment.
                 </h3>
                 <p className="text-white/75">
                   Complete the self-assessment, see your free snapshot, then decide whether to request the detailed report.
@@ -179,11 +179,11 @@ export default function Footer() {
 
               <Link
                 href="/fraud-readiness-score"
-                onClick={() => trackEvent("cta_click", { cta_name: "footer_start_readiness_score", placement: "footer_cta" })}
+                onClick={() => trackEvent("cta_click", { cta_name: "footer_start_readiness_assessment", placement: "footer_cta" })}
               >
                 <Button className="group rounded-xl bg-white px-8 py-6 text-[#001030] shadow-2xl transition-all duration-300 hover:scale-105 hover:bg-white/90">
                   <span className="flex items-center gap-2">
-                    Start the Score
+                    Start the Assessment
                     <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
                   </span>
                 </Button>
