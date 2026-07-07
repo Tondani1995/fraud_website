@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowRight, CheckCircle2, Clock, Shield, BarChart3 } from "lucide-react";
+import { ArrowRight, CheckCircle2, Shield, BarChart3 } from "lucide-react";
 import { useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -51,7 +51,7 @@ export default function CTASection() {
               <div className="inline-flex items-center gap-2 rounded-full border border-[#1d3658]/15 bg-white px-5 py-2.5 shadow-sm">
                 <span className="flex h-2 w-2 rounded-full bg-[#1d3658]" />
                 <span className="text-sm font-bold uppercase tracking-wide text-[#001030]">
-                  Start with the score
+                  Start with the assessment
                 </span>
               </div>
 
@@ -60,7 +60,7 @@ export default function CTASection() {
               </h2>
 
               <p className="mt-5 max-w-2xl leading-relaxed text-slate-600">
-                Complete the Fraud Readiness Score first. It gives a structured self-check, then shows whether a detailed report, health check, or advisory engagement should come next.
+                Complete the Fraud Readiness Assessment first. It gives a structured self-check, then shows whether a detailed report, health check, or advisory engagement should come next.
               </p>
 
               <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
@@ -91,7 +91,7 @@ export default function CTASection() {
                   >
                     <span className="flex items-center gap-3">
                       <BarChart3 className="h-5 w-5" />
-                      Start the Fraud Readiness Score
+                      Start the Fraud Readiness Assessment
                       <ArrowRight
                         className={`h-5 w-5 transition-transform duration-300 ${isHovered ? "translate-x-1" : ""}`}
                       />
