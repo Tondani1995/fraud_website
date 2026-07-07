@@ -2,7 +2,7 @@ import Wrapper from "@/app/Wrapper";
 import { ArrowRight, BarChart3, CheckCircle2, FileText, Shield } from "lucide-react";
 import Link from "next/link";
 
-const scoreAppUrl = "https://mk-fraud-readiness-score.vercel.app/start?embed=1";
+const scoreAppUrl = "/score/start?embed=1";
 
 export default function FraudReadinessScorePage() {
   return (
