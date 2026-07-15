@@ -83,7 +83,7 @@ export default function FraudReadinessScorePage() {
           </div>
         </section>
 
-        <section id="start-score" className="bg-slate-50">
+        <section id="start-score" className="scroll-mt-24 bg-slate-50 md:scroll-mt-28">
           <div className="mx-auto max-w-7xl px-6 py-14 lg:px-8 lg:py-20">
             <div className="mb-8 max-w-3xl">
               <p className="text-sm font-bold uppercase tracking-wide text-[#1d3658]">Assessment</p>
