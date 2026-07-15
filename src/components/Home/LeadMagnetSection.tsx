@@ -89,7 +89,7 @@ export default function LeadMagnetSection() {
                   </div>
                 </div>
 
-                <Link href="/fraud-readiness-score" className="block">
+                <Link href="/fraud-readiness-score#start-score" className="block">
                   <Button className="h-12 w-full rounded-lg bg-[#001030] text-base font-bold text-white shadow-lg transition-all duration-300 hover:scale-[1.01] hover:bg-[#001030]/95">
                     Start the Fraud Readiness Assessment
                     <ArrowRight className="ml-2 h-5 w-5" />
